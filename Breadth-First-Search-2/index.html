@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html  lang="en" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>Breadth First Search | Yiming</title>
+    <meta name="description" content="LC675 Cut Off Trees for Golf Event Problem  You are asked to cut off trees in a forest for a golf event. The forest is represented as a non-negative 2D map, in this map:  0 represents the obstacle can">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Breadth First Search">
+<meta property="og:url" content="http://yoursite.com/Breadth-First-Search-2/">
+<meta property="og:site_name" content="Yiming">
+<meta property="og:description" content="LC675 Cut Off Trees for Golf Event Problem  You are asked to cut off trees in a forest for a golf event. The forest is represented as a non-negative 2D map, in this map:  0 represents the obstacle can">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-04T07:02:17.000Z">
+<meta property="article:modified_time" content="2020-07-14T00:50:21.037Z">
+<meta property="article:author" content="Yiming">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="BFS">
+<meta name="twitter:card" content="summary">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://null-2333.github.io" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_self" rel="noopener" rel="noreferrer" >
+                <img src="/images/head1.jpeg" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block" style="font-size: 24px; font-weight: 600; padding-bottom: 10px">Yiming</h2>
+            <h3 id="title" class="hidden xl:block">Coding for fun ~</h3>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" style="padding-left: 5px" placeholder="Search" class="inline-block w-full bg-gray-100 lg:bg-white">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="Search" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-5 pb-3 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            <hr />
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">Home</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">Archives</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">Tags</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">Repository</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">Links</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-12 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            Breadth First Search
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/Breadth-First-Search-2/" class="article-date">
+	  <time datetime="2020-07-04T07:02:17.000Z" itemprop="datePublished">Jul 4</time>
+	</a>
+</span>
+
+                
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-link" href="/tags/BFS/" rel="tag">BFS</a>, <a class="article-tag-link" href="/tags/LeetCode/" rel="tag">LeetCode</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/Breadth-First-Search-2/#comments" class="article-comment-link">
+                        Comments
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 2.2k(words)</span>
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <h3 id="LC675-Cut-Off-Trees-for-Golf-Event">LC675 Cut Off Trees for Golf Event</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>You are asked to cut off trees in a forest for a golf event. The forest is represented as a non-negative 2D map, in this map:</p>
+<ol>
+<li><code>0</code> represents the <code>obstacle</code> can’t be reached.</li>
+<li><code>1</code> represents the <code>ground</code> can be walked through.</li>
+<li><code>The place with number bigger than 1</code> represents a <code>tree</code> can be walked through, and this positive number represents the tree’s height.</li>
+</ol>
+<p>In one step you can walk in any of the four directions <code>top</code>, <code>bottom</code>, <code>left</code> and <code>right</code> also when standing in a point which is a tree you can decide whether or not to cut off the tree.</p>
+<p>You are asked to cut off <strong>all</strong> the trees in this forest in the order of tree’s height - always cut off the tree with lowest height first. And after cutting, the original place has the tree will become a grass (value 1).</p>
+<p>You will start from the point (0, 0) and you should output the minimum steps <strong>you need to walk</strong> to cut off all the trees. If you can’t cut off all the trees, output -1 in that situation.</p>
+<p>You are guaranteed that no two <code>trees</code> have the same height and there is at least one tree needs to be cut off.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: </span><br><span class="line">[</span><br><span class="line"> [1,2,3],</span><br><span class="line"> [0,0,4],</span><br><span class="line"> [7,6,5]</span><br><span class="line">]</span><br><span class="line">Output: 6</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: </span><br><span class="line">[</span><br><span class="line"> [1,2,3],</span><br><span class="line"> [0,0,0],</span><br><span class="line"> [7,6,5]</span><br><span class="line">]</span><br><span class="line">Output: -1</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input: </span><br><span class="line">[</span><br><span class="line"> [2,3,4],</span><br><span class="line"> [0,0,5],</span><br><span class="line"> [8,7,6]</span><br><span class="line">]</span><br><span class="line">Output: 6</span><br><span class="line">Explanation: You started from the point (0,0) and you can cut off the tree in (0,0) directly without walking.</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= forest.length &lt;= 50</code></li>
+<li><code>1 &lt;= forest[i].length &lt;= 50</code></li>
+<li><code>0 &lt;= forest[i][j] &lt;= 10^9</code></li>
+</ul>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>首先获得所有的树，然后排序，从最矮的开始，每次从当前树的位置bfs到后一棵树。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cutOffTree</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; forest)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = forest.<span class="built_in">size</span>(), n = forest[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>, row = <span class="number">0</span>, col = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; trees;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; ++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span> (forest[i][j] &gt; <span class="number">1</span>) trees.push_back(&#123;forest[i][j], i, j&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(trees.<span class="built_in">begin</span>(), trees.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; trees.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> cnt = helper(forest, row, col, trees[i][<span class="number">1</span>], trees[i][<span class="number">2</span>]);</span><br><span class="line">        <span class="keyword">if</span>(cnt == <span class="number">-1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        res += cnt;</span><br><span class="line">        row = trees[i][<span class="number">1</span>];</span><br><span class="line">        col = trees[i][<span class="number">2</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">helper</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; forest, <span class="keyword">int</span> row, <span class="keyword">int</span> col, <span class="keyword">int</span> treeRow, <span class="keyword">int</span> treeCol)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(row == treeRow &amp;&amp; col == treeCol) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> m = forest.<span class="built_in">size</span>(), n = forest[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">    q.push(row * n + col);</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">visited</span><span class="params">(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n))</span></span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dir&#123;<span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        cnt++;</span><br><span class="line">        <span class="keyword">int</span> len = q.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> r = q.front() / n, c = q.front() % n;</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">4</span>; j++)&#123;</span><br><span class="line">                <span class="keyword">int</span> x = r + dir[j], y = c + dir[j + <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span>(x &lt; <span class="number">0</span> || x &gt;= m || y &lt; <span class="number">0</span> || y &gt;= n || visited[x][y] == <span class="number">1</span> || forest[x][y] == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">if</span>(x == treeRow &amp;&amp; y == treeCol) <span class="keyword">return</span> cnt;</span><br><span class="line">                visited[x][y] = <span class="number">1</span>;</span><br><span class="line">                q.push(x * n + y);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC690-Employee-Importance">LC690 Employee Importance</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>You are given a data structure of employee information, which includes the employee’s <strong>unique id</strong>, their <strong>importance value</strong> and their <strong>direct</strong> subordinates’ id.</p>
+<p>For example, employee 1 is the leader of employee 2, and employee 2 is the leader of employee 3. They have importance value 15, 10 and 5, respectively. Then employee 1 has a data structure like [1, 15, [2]], and employee 2 has [2, 10, [3]], and employee 3 has [3, 5, []]. Note that although employee 3 is also a subordinate of employee 1, the relationship is <strong>not direct</strong>.</p>
+<p>Now given the employee information of a company, and an employee id, you need to return the total importance value of this employee and all their subordinates.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1, 5, [2, 3]], [2, 3, []], [3, 3, []]], 1</span><br><span class="line">Output: 11</span><br><span class="line">Explanation:</span><br><span class="line">Employee 1 has importance value 5, and he has two direct subordinates: employee 2 and employee 3. They both have importance value 3. So the total importance value of employee 1 is 5 + 3 + 3 &#x3D; 11.</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ol>
+<li>One employee has at most one <strong>direct</strong> leader and may have several subordinates.</li>
+<li>The maximum number of employees won’t exceed 2000.</li>
+</ol>
+<hr>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>BFS, p.s. 可以不使用visited数组，因为一个人只有一个领导。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getImportance</span><span class="params">(<span class="built_in">vector</span>&lt;Employee*&gt; employees, <span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, Employee*&gt; <span class="built_in">map</span>;</span><br><span class="line">        <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; visited;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> e: employees) <span class="built_in">map</span>[e-&gt;id] = e;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">        q.push(id);</span><br><span class="line">        visited.insert(id);</span><br><span class="line">        <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">            <span class="keyword">int</span> len = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">                Employee *cur = <span class="built_in">map</span>[q.front()];</span><br><span class="line">                q.pop();</span><br><span class="line">                res += cur-&gt;importance;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> next: cur-&gt;subordinates)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(!visited.count(next))&#123;</span><br><span class="line">                        q.push(next);</span><br><span class="line">                        visited.insert(next);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC744-Find-Smallest-Letter-Greater-Than-Target">LC744 Find Smallest Letter Greater Than Target</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a list of sorted characters <code>letters</code> containing only lowercase letters, and given a target letter <code>target</code>, find the smallest element in the list that is larger than the given target.</p>
+<p>Letters also wrap around. For example, if the target is <code>target = 'z'</code> and <code>letters = ['a', 'b']</code>, the answer is <code>'a'</code>.</p>
+<p><strong>Examples:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">letters &#x3D; [&quot;c&quot;, &quot;f&quot;, &quot;j&quot;]</span><br><span class="line">target &#x3D; &quot;a&quot;</span><br><span class="line">Output: &quot;c&quot;</span><br><span class="line"></span><br><span class="line">Input:</span><br><span class="line">letters &#x3D; [&quot;c&quot;, &quot;f&quot;, &quot;j&quot;]</span><br><span class="line">target &#x3D; &quot;c&quot;</span><br><span class="line">Output: &quot;f&quot;</span><br><span class="line"></span><br><span class="line">Input:</span><br><span class="line">letters &#x3D; [&quot;c&quot;, &quot;f&quot;, &quot;j&quot;]</span><br><span class="line">target &#x3D; &quot;d&quot;</span><br><span class="line">Output: &quot;f&quot;</span><br><span class="line"></span><br><span class="line">Input:</span><br><span class="line">letters &#x3D; [&quot;c&quot;, &quot;f&quot;, &quot;j&quot;]</span><br><span class="line">target &#x3D; &quot;g&quot;</span><br><span class="line">Output: &quot;j&quot;</span><br><span class="line"></span><br><span class="line">Input:</span><br><span class="line">letters &#x3D; [&quot;c&quot;, &quot;f&quot;, &quot;j&quot;]</span><br><span class="line">target &#x3D; &quot;j&quot;</span><br><span class="line">Output: &quot;c&quot;</span><br><span class="line"></span><br><span class="line">Input:</span><br><span class="line">letters &#x3D; [&quot;c&quot;, &quot;f&quot;, &quot;j&quot;]</span><br><span class="line">target &#x3D; &quot;k&quot;</span><br><span class="line">Output: &quot;c&quot;</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ol>
+<li><code>letters</code> has a length in range <code>[2, 10000]</code>.</li>
+<li><code>letters</code> consists of lowercase letters, and contains at least 2 unique letters.</li>
+<li><code>target</code> is a lowercase letter.</li>
+</ol>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>Upper_bound</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> <span class="title">nextGreatestLetter</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&amp; letters, <span class="keyword">char</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> it = upper_bound(letters.<span class="built_in">begin</span>(), letters.<span class="built_in">end</span>(), target);</span><br><span class="line">    <span class="keyword">if</span>(it == letters.<span class="built_in">end</span>()) <span class="keyword">return</span> letters[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">return</span> *it;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC753-Cracking-the-Safe">LC753 Cracking the Safe</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>There is a box protected by a password. The password is a sequence of <code>n</code> digits where each digit can be one of the first <code>k</code> digits <code>0, 1, ..., k-1</code>.</p>
+<p>While entering a password, the last <code>n</code> digits entered will automatically be matched against the correct password.</p>
+<p>For example, assuming the correct password is <code>&quot;345&quot;</code>, if you type <code>&quot;012345&quot;</code>, the box will open because the correct password matches the suffix of the entered password.</p>
+<p>Return any password of <strong>minimum length</strong> that is guaranteed to open the box at some point of entering it.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 1, k &#x3D; 2</span><br><span class="line">Output: &quot;01&quot;</span><br><span class="line">Note: &quot;10&quot; will be accepted too.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 2, k &#x3D; 2</span><br><span class="line">Output: &quot;00110&quot;</span><br><span class="line">Note: &quot;01100&quot;, &quot;10011&quot;, &quot;11001&quot; will be accepted too.</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ol>
+<li><code>n</code> will be in the range <code>[1, 4]</code>.</li>
+<li><code>k</code> will be in the range <code>[1, 10]</code>.</li>
+<li><code>k^n</code> will be at most <code>4096</code>.</li>
+</ol>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>贪心算法，每次修改最后一位数字，注意内层要反向遍历</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">crackSafe</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> res = <span class="built_in">string</span>(n, <span class="string">'0'</span>);</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; visited;</span><br><span class="line">    visited.insert(res);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">pow</span>(k, n); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> pre = res.substr(res.<span class="built_in">size</span>() - n + <span class="number">1</span>, n - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = k - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--)&#123;</span><br><span class="line">            <span class="built_in">string</span> cur = pre + to_string(j);</span><br><span class="line">            <span class="keyword">if</span>(!visited.count(cur))&#123;</span><br><span class="line">                visited.insert(cur);</span><br><span class="line">                res += to_string(j);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC764-Largest-Plus-Sign">LC764 Largest Plus Sign</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>In a 2D <code>grid</code> from (0, 0) to (N-1, N-1), every cell contains a <code>1</code>, except those cells in the given list <code>mines</code> which are <code>0</code>. What is the largest axis-aligned plus sign of <code>1</code>s contained in the grid? Return the order of the plus sign. If there is none, return 0.</p>
+<p>An “<em>axis-aligned plus sign of <code>1</code>s</em> of order <strong>k</strong>” has some center <code>grid[x][y] = 1</code> along with 4 arms of length <code>k-1</code> going up, down, left, and right, and made of <code>1</code>s. This is demonstrated in the diagrams below. Note that there could be <code>0</code>s or <code>1</code>s beyond the arms of the plus sign, only the relevant area of the plus sign is checked for 1s.</p>
+<p><strong>Examples of Axis-Aligned Plus Signs of Order k:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Order 1:</span><br><span class="line">000</span><br><span class="line">010</span><br><span class="line">000</span><br><span class="line"></span><br><span class="line">Order 2:</span><br><span class="line">00000</span><br><span class="line">00100</span><br><span class="line">01110</span><br><span class="line">00100</span><br><span class="line">00000</span><br><span class="line"></span><br><span class="line">Order 3:</span><br><span class="line">0000000</span><br><span class="line">0001000</span><br><span class="line">0001000</span><br><span class="line">0111110</span><br><span class="line">0001000</span><br><span class="line">0001000</span><br><span class="line">0000000</span><br></pre></td></tr></table></figure>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input: N &#x3D; 5, mines &#x3D; [[4, 2]]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation:</span><br><span class="line">11111</span><br><span class="line">11111</span><br><span class="line">11111</span><br><span class="line">11111</span><br><span class="line">11011</span><br><span class="line">In the above grid, the largest plus sign can only be order 2.  One of them is marked in bold.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: N &#x3D; 2, mines &#x3D; []</span><br><span class="line">Output: 1</span><br><span class="line">Explanation:</span><br><span class="line">There is no plus sign of order 2, but there is of order 1.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: N &#x3D; 1, mines &#x3D; [[0, 0]]</span><br><span class="line">Output: 0</span><br><span class="line">Explanation:</span><br><span class="line">There is no plus sign, so return 0.</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ol>
+<li><code>N</code> will be an integer in the range <code>[1, 500]</code>.</li>
+<li><code>mines</code> will have length at most <code>5000</code>.</li>
+<li><code>mines[i]</code> will be length 2 and consist of integers in the range <code>[0, N-1]</code>.</li>
+<li><em>(Additionally, programs submitted in C, C++, or C# will be judged with a slightly smaller time limit.)</em></li>
+</ol>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>分别建立上下左右四个方向上的dp数组，然后取四个当中的最小值即可。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">orderOfLargestPlusSign</span><span class="params">(<span class="keyword">int</span> N, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; mines)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">dp</span><span class="params">(N, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(N, N))</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> mine: mines) dp[mine[<span class="number">0</span>]][mine[<span class="number">1</span>]] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>, u = <span class="number">0</span>, d = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>, k = N - <span class="number">1</span>; j &lt; N; j++, k--)&#123;</span><br><span class="line">            l = dp[i][j] ? l + <span class="number">1</span>: <span class="number">0</span>;</span><br><span class="line">            r = dp[j][i] ? r + <span class="number">1</span>: <span class="number">0</span>;</span><br><span class="line">            u = dp[i][k] ? u + <span class="number">1</span>: <span class="number">0</span>;</span><br><span class="line">            d = dp[k][i] ? d + <span class="number">1</span>: <span class="number">0</span>;</span><br><span class="line">            dp[i][j] = <span class="built_in">min</span>(dp[i][j], l);</span><br><span class="line">            dp[j][i] = <span class="built_in">min</span>(dp[j][i], r);</span><br><span class="line">            dp[i][k] = <span class="built_in">min</span>(dp[i][k], u);</span><br><span class="line">            dp[k][i] = <span class="built_in">min</span>(dp[k][i], d);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; N * N; ++k) res = <span class="built_in">max</span>(res, dp[k / N][k % N]);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC787-Cheapest-Flights-Within-K-Stops">LC787 Cheapest Flights Within K Stops</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>There are <code>n</code> cities connected by <code>m</code> flights. Each flight starts from city <code>u</code> and arrives at <code>v</code> with a price <code>w</code>.</p>
+<p>Now given all the cities and flights, together with starting city <code>src</code> and the destination <code>dst</code>, your task is to find the cheapest price from <code>src</code> to <code>dst</code> with up to <code>k</code> stops. If there is no such route, output <code>-1</code>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line">Input: </span><br><span class="line">n &#x3D; 3, edges &#x3D; [[0,1,100],[1,2,100],[0,2,500]]</span><br><span class="line">src &#x3D; 0, dst &#x3D; 2, k &#x3D; 1</span><br><span class="line">Output: 200</span><br><span class="line">Explanation: </span><br><span class="line">The graph looks like this:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">The cheapest price from city 0 to city 2 with at most 1 stop costs 200, as marked red in the picture.</span><br><span class="line">Example 2:</span><br><span class="line">Input: </span><br><span class="line">n &#x3D; 3, edges &#x3D; [[0,1,100],[1,2,100],[0,2,500]]</span><br><span class="line">src &#x3D; 0, dst &#x3D; 2, k &#x3D; 0</span><br><span class="line">Output: 500</span><br><span class="line">Explanation: </span><br><span class="line">The graph looks like this:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">The cheapest price from city 0 to city 2 with at most 0 stop costs 500, as marked blue in the picture.</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>The number of nodes <code>n</code> will be in range <code>[1, 100]</code>, with nodes labeled from <code>0</code> to <code>n`` - 1</code>.</li>
+<li>The size of <code>flights</code> will be in range <code>[0, n * (n - 1) / 2]</code>.</li>
+<li>The format of each flight will be <code>(src, ``dst``, price)</code>.</li>
+<li>The price of each flight will be in the range <code>[1, 10000]</code>.</li>
+<li><code>k</code> is in the range of <code>[0, n - 1]</code>.</li>
+<li>There will not be any duplicated flights or self cycles.</li>
+</ul>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-2">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-3">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-4">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-5">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-6">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-7">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-8">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-9">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+
+        </div>
+        
+
+    </article>
+    
+    <section id="comments">
+        
+            <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+            </div>
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">Catalogue</h3>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC675-Cut-Off-Trees-for-Golf-Event"><span class="toc-number">1.</span> <span class="toc-text">LC675 Cut Off Trees for Golf Event</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC690-Employee-Importance"><span class="toc-number">2.</span> <span class="toc-text">LC690 Employee Importance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC744-Find-Smallest-Letter-Greater-Than-Target"><span class="toc-number">3.</span> <span class="toc-text">LC744 Find Smallest Letter Greater Than Target</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC753-Cracking-the-Safe"><span class="toc-number">4.</span> <span class="toc-text">LC753 Cracking the Safe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC764-Largest-Plus-Sign"><span class="toc-number">5.</span> <span class="toc-text">LC764 Largest Plus Sign</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC787-Cheapest-Flights-Within-K-Stops"><span class="toc-number">6.</span> <span class="toc-text">LC787 Cheapest Flights Within K Stops</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC"><span class="toc-number">7.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-2"><span class="toc-number">8.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-3"><span class="toc-number">9.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-4"><span class="toc-number">10.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-5"><span class="toc-number">11.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-6"><span class="toc-number">12.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-7"><span class="toc-number">13.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-8"><span class="toc-number">14.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-9"><span class="toc-number">15.</span> <span class="toc-text">LC</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/yox@1.0.0-alpha.121/dist/standard/prod/yox.min.js"></script>
+
+
+<script src="/js/search.min.js"></script>
+
+
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://yoursite.com/Breadth-First-Search-2/';
+        
+        this.page.identifier = 'Breadth-First-Search-2';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + '' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+    </body>
+</html>

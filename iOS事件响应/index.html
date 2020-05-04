@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html  lang="en" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>iOS事件响应 | Yiming</title>
+    <meta name="description" content="当对某一个View或者VC进行一次操作时候，其实际的传递和响应过程如下：   传递链 a. 从UIWindows开始向下传递，每次都对当前响应者调用hitTest函数，当hitTest函数返回nil的时候则会继续向subView层调用，否则传递链结束，传递到hitTest返回的控件； b. hitTest函数内部会调用pointInside函数，判断当前点击的point是否在当前正在判断的subV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS事件响应">
+<meta property="og:url" content="http://yoursite.com/iOS%E4%BA%8B%E4%BB%B6%E5%93%8D%E5%BA%94/">
+<meta property="og:site_name" content="Yiming">
+<meta property="og:description" content="当对某一个View或者VC进行一次操作时候，其实际的传递和响应过程如下：   传递链 a. 从UIWindows开始向下传递，每次都对当前响应者调用hitTest函数，当hitTest函数返回nil的时候则会继续向subView层调用，否则传递链结束，传递到hitTest返回的控件； b. hitTest函数内部会调用pointInside函数，判断当前点击的point是否在当前正在判断的subV">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/responseline-20200921005213772.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/clickresponseline.PNG">
+<meta property="article:published_time" content="2020-07-22T06:42:48.000Z">
+<meta property="article:modified_time" content="2020-09-20T16:52:22.089Z">
+<meta property="article:author" content="Yiming">
+<meta property="article:tag" content="Objective-C">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/responseline-20200921005213772.PNG">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://null-2333.github.io" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_self" rel="noopener" rel="noreferrer" >
+                <img src="/images/head1.jpeg" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block" style="font-size: 24px; font-weight: 600; padding-bottom: 10px">Yiming</h2>
+            <h3 id="title" class="hidden xl:block">Coding for fun ~</h3>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" style="padding-left: 5px" placeholder="Search" class="inline-block w-full bg-gray-100 lg:bg-white">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="Search" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-5 pb-3 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            <hr />
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">Home</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">Archives</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">Tags</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">Repository</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">Links</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-12 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            iOS事件响应
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/iOS%E4%BA%8B%E4%BB%B6%E5%93%8D%E5%BA%94/" class="article-date">
+	  <time datetime="2020-07-22T06:42:48.000Z" itemprop="datePublished">Jul 22</time>
+	</a>
+</span>
+
+                
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Objective-C/" rel="tag">Objective-C</a>, <a class="article-tag-link" href="/tags/iOS/" rel="tag">iOS</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/iOS%E4%BA%8B%E4%BB%B6%E5%93%8D%E5%BA%94/#comments" class="article-comment-link">
+                        Comments
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 615(words)</span>
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <p>当对某一个View或者VC进行一次操作时候，其实际的传递和响应过程如下：</p>
+<ol>
+<li>
+<p>传递链</p>
+<p>a. 从UIWindows开始向下传递，每次都对当前响应者调用hitTest函数，当hitTest函数返回nil的时候则会继续向subView层调用，否则传递链结束，传递到hitTest返回的控件；</p>
+<p>b. hitTest函数内部会调用pointInside函数，判断当前点击的point是否在当前正在判断的subView内，如果不在（或者该subView的alpha过小，被隐藏等等）则直接返回nil，否则继续调用该控件的所有subView的hitTest，直至没有subView；</p>
+<p>c. 此时即可确定当前传递到的控件是哪一个，即由该控件来对该操作进行响应。</p>
+</li>
+<li>
+<p>响应链</p>
+<p>a. 设传递链获取到的控件为A，那么则由A开始向A的父对象进行响应，如果当前对象可以响应这个操作（即实现了touchesBegin等四个函数或者motionBegan等三个函数或者远程控制器函数），则响应链结束，并由该对象响应这个操作，否则递归判断当前对象的父对象是否可以响应该操作，此递归一直调用到UIApplicationDelegate为止，如果UIApplicationDelegate也不能响应，则丢弃该操作；</p>
+</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/responseline-20200921005213772.PNG" alt="responseline.PNG"></p>
+<p>​		b. 如果传递链获取到的控件A为UIControl对象，则会跳过路上的父节点直接交由UIApplication进行响应。</p>
+<ol start="3">
+<li>
+<p>手势操作链</p>
+<p>a. 确定了由哪一个对象响应该操作之后，设该对象为B</p>
+<p>b. 首先会调用touchesBegin方法，然后判断此时的操作是否满足B上定义的自定义手势（如果没有自定义手势则视为不满足），如果满足则响应该手势，并调用touchesCancel，否则调用touchhesEnded结束touch；</p>
+</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/clickresponseline.PNG" alt="clickresponseline"></p>
+<p>​		c. 在响应手势操作前，如果当前对象遵循了UIGestureRecognizerDelegate，则调用如下函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch;</span><br></pre></td></tr></table></figure>
+<p>​		判断是否需要响应该手势，如果不需要返回NO（可以通过判断touch.view来判断当前点击的对象），需要则返回YES。</p>
+<ol start="4">
+<li>要在touchesBegin等函数中判断当前是几根指头的操作，需要调用event.allTouches.count并对event.allTouches内的所有UITouch对象调用tapCount属性判断当前UITouch对象点击了几次。此外还可以用timeStamp获得当前操作的时间戳（系统开始时间到操作时间）</li>
+</ol>
+
+        </div>
+        
+
+    </article>
+    
+    <section id="comments">
+        
+            <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+            </div>
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">Catalogue</h3>
+            
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/yox@1.0.0-alpha.121/dist/standard/prod/yox.min.js"></script>
+
+
+<script src="/js/search.min.js"></script>
+
+
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://yoursite.com/iOS%E4%BA%8B%E4%BB%B6%E5%93%8D%E5%BA%94/';
+        
+        this.page.identifier = 'iOS事件响应';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + '' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html  lang="en" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>Greedy(1) | Yiming</title>
+    <meta name="description" content="LC376 Wiggle Subsequence Problem  A sequence of numbers is called a wiggle sequence if the differences between successive numbers strictly alternate between positive and negative. The first difference">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Greedy(1)">
+<meta property="og:url" content="http://yoursite.com/Greedy-1/">
+<meta property="og:site_name" content="Yiming">
+<meta property="og:description" content="LC376 Wiggle Subsequence Problem  A sequence of numbers is called a wiggle sequence if the differences between successive numbers strictly alternate between positive and negative. The first difference">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-05T12:50:46.000Z">
+<meta property="article:modified_time" content="2020-05-06T23:11:48.031Z">
+<meta property="article:author" content="Yiming">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="Greedy">
+<meta name="twitter:card" content="summary">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://null-2333.github.io" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_self" rel="noopener" rel="noreferrer" >
+                <img src="/images/head1.jpeg" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block" style="font-size: 24px; font-weight: 600; padding-bottom: 10px">Yiming</h2>
+            <h3 id="title" class="hidden xl:block">Coding for fun ~</h3>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" style="padding-left: 5px" placeholder="Search" class="inline-block w-full bg-gray-100 lg:bg-white">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="Search" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-5 pb-3 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            <hr />
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">Home</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">Archives</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">Tags</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">Repository</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">Links</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-12 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            Greedy(1)
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/Greedy-1/" class="article-date">
+	  <time datetime="2020-05-05T12:50:46.000Z" itemprop="datePublished">May 5</time>
+	</a>
+</span>
+
+                
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Greedy/" rel="tag">Greedy</a>, <a class="article-tag-link" href="/tags/LeetCode/" rel="tag">LeetCode</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/Greedy-1/#comments" class="article-comment-link">
+                        Comments
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 2.9k(words)</span>
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <h3 id="LC376-Wiggle-Subsequence">LC376 Wiggle Subsequence</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>A sequence of numbers is called a <strong>wiggle sequence</strong> if the differences between successive numbers strictly alternate between positive and negative. The first difference (if one exists) may be either positive or negative. A sequence with fewer than two elements is trivially a wiggle sequence.</p>
+<p>For example, <code>[1,7,4,9,2,5]</code> is a wiggle sequence because the differences <code>(6,-3,5,-7,3)</code> are alternately positive and negative. In contrast, <code>[1,4,7,2,5]</code> and <code>[1,7,4,5,5]</code> are not wiggle sequences, the first because its first two differences are positive and the second because its last difference is zero.</p>
+<p>Given a sequence of integers, return the length of the longest subsequence that is a wiggle sequence. A subsequence is obtained by deleting some number of elements (eventually, also zero) from the original sequence, leaving the remaining elements in their original order.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,7,4,9,2,5]</span><br><span class="line">Output: 6</span><br><span class="line">Explanation: The entire sequence is a wiggle sequence.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,17,5,10,13,15,10,5,16,8]</span><br><span class="line">Output: 7</span><br><span class="line">Explanation: There are several subsequences that achieve this length. One is [1,17,10,13,10,16,8].</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,2,3,4,5,6,7,8,9]</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure>
+<p><strong>Follow up:</strong><br>
+Can you do it in O(<em>n</em>) time?</p>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<p>DP</p>
+<p>up[i]表示以第i个元素作为结尾的最长摇摆数组，且结尾处为上扬；</p>
+<p>down[i]表示以第i个元素作为结尾的最长摇摆数组，且结尾处为下降；</p>
+<p>若nums[j] &lt; nums[i]，则up[i] = max(down[j] + 1)；</p>
+<p>若nums[j] &gt; nums[i]，则down[i] = max(up[j] + 1)；</p>
+<p>最终返回max(up.back(), down.back()) + 1</p>
+<ul>
+<li>Approach 2</li>
+</ul>
+<p>DP改进版</p>
+<p>up[i]表示前i个元素的最长摇摆数组，且结尾处为上扬；</p>
+<p>down[i]表示前i个元素的最长摇摆数组，且结尾处为下降；</p>
+<p>若nums[i - 1] &lt; nums[i]，则up[i] = down[i - 1] + 1, down[i] = down[i - 1]；</p>
+<p>若nums[i - 1] &gt; nums[i]，则up[i] = up[i - 1], down[i] = up[i - 1] + 1；</p>
+<p>否则up[i] = up[i - 1]，down[i] = down[i - 1]；</p>
+<p>最后返回max(up.back(), down.back())</p>
+<ul>
+<li>Approach 3</li>
+</ul>
+<p>Greedy</p>
+<p>设置preDiff记录上一次的相邻两个数字的差值，如果preDiff &gt;= 0则需要找下一组diff &lt; 0的相邻数字，如果preDiff &lt;= 0则需要找下一组diff &gt; 0的相邻数字；找到距离最近的一组，然后置preDiff = diff，直至运行到数组尾端。</p>
+</details>
+<details><summary>Code</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">wiggleMaxLength</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">if</span>(n &lt; <span class="number">2</span>) <span class="keyword">return</span> n;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">up</span><span class="params">(n, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">down</span><span class="params">(n, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i] &gt; nums[j])&#123;</span><br><span class="line">                up[i] = <span class="built_in">max</span>(up[i], down[j] + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(nums[i] &lt; nums[j])&#123;</span><br><span class="line">                down[i] = <span class="built_in">max</span>(down[i], up[j] + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">max</span>(up.back(), down.back()) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Approach 2</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">wiggleMaxLength</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">if</span>(n &lt; <span class="number">2</span>) <span class="keyword">return</span> n;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">up</span><span class="params">(n, <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">down</span><span class="params">(n, <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i - <span class="number">1</span>] &lt; nums[i])&#123;</span><br><span class="line">            up[i] = down[i - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">            down[i] = down[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(nums[i - <span class="number">1</span>] &gt; nums[i])&#123;</span><br><span class="line">            up[i] = up[i - <span class="number">1</span>];</span><br><span class="line">            down[i] = up[i - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            up[i] = up[i - <span class="number">1</span>];</span><br><span class="line">            down[i] = down[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">max</span>(up.back(), down.back());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Approach 3</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">wiggleMaxLength</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">if</span>(n &lt; <span class="number">2</span>) <span class="keyword">return</span> n;</span><br><span class="line">    <span class="keyword">int</span> prevDiff = nums[<span class="number">1</span>] - nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">int</span> count = prevDiff ? <span class="number">2</span> : <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> diff = nums[i] - nums[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>((diff &gt; <span class="number">0</span> &amp;&amp; prevDiff &lt;= <span class="number">0</span>) || (diff &lt; <span class="number">0</span> &amp;&amp; prevDiff &gt;= <span class="number">0</span>))&#123;</span><br><span class="line">            count += <span class="number">1</span>;</span><br><span class="line">            prevDiff = diff;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC55-Jump-Game">LC55 Jump Game</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given an array of non-negative integers, you are initially positioned at the first index of the array.</p>
+<p>Each element in the array represents your maximum jump length at that position.</p>
+<p>Determine if you are able to reach the last index.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: nums &#x3D; [2,3,1,1,4]</span><br><span class="line">Output: true</span><br><span class="line">Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: nums &#x3D; [3,2,1,0,4]</span><br><span class="line">Output: false</span><br><span class="line">Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index.</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 3 * 10^4</code></li>
+<li><code>0 &lt;= nums[i][j] &lt;= 10^5</code></li>
+</ul>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<p>DP，dp[i]表示从第i个元素开始能否跳到最后一个位置处</p>
+<p>从i处所能跳到的位置范围为[i + 1, min(i + nums[i], n - 1)]，因此遍历这个范围内的每一个数字j，如果存在dp[j] = true，则dp[i] = true。</p>
+<ul>
+<li>Approach 2</li>
+</ul>
+<p>Greedy</p>
+<p>设置最后可以跳到的位置为lastPos，初始化为n - 1。从后向前遍历数组的每一个元素nums[i]，如果nums[i] + i &gt;= lastPos，说明在i这个位置可以跳到lastPos，因此将lastPos设置为i。最后判断lastPos是否等于0即可。</p>
+</details>
+<details><summary>Code</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">canJump</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; <span class="title">dp</span><span class="params">(n, <span class="literal">false</span>)</span></span>;</span><br><span class="line">    dp[n - <span class="number">1</span>] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = n - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="keyword">int</span> maxStep = <span class="built_in">min</span>(n - <span class="number">1</span>, nums[i] + i);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt;= maxStep; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(dp[j])&#123;</span><br><span class="line">                dp[i] = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Approach 2</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">canJump</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> lastPos = n - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i + nums[i] &gt;= lastPos)&#123;</span><br><span class="line">            lastPos = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> lastPos == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC45-Jump-Game-II">LC45 Jump Game II</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given an array of non-negative integers, you are initially positioned at the first index of the array.</p>
+<p>Each element in the array represents your maximum jump length at that position.</p>
+<p>Your goal is to reach the last index in the minimum number of jumps.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: [2,3,1,1,4]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: The minimum number of jumps to reach the last index is 2.</span><br><span class="line">    Jump 1 step from index 0 to 1, then 3 steps to the last index.</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<p>You can assume that you can always reach the last index.</p>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+Greedy
+<p>设置两个变量maxPos和maxSteps，maxPos表示当前可以到达的最远的位置，maxSteps表示使用当前步数res可以达到的最远的位置。遍历数组，当发现maxSteps &lt; i，即使用当前步数res到不了i的时候，就需要新的步数，也就是res++，并将maxSteps设为maxPos；同时更新maxPos为当前可以到达的最远位置max(maxPos, i + nums[i])。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">jump</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">if</span>(n &lt; <span class="number">2</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> maxPos = nums[<span class="number">0</span>], maxSteps = nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(maxSteps &lt; i)&#123;</span><br><span class="line">            res++;</span><br><span class="line">            maxSteps = maxPos;</span><br><span class="line">        &#125;</span><br><span class="line">        maxPos = <span class="built_in">max</span>(maxPos, i + nums[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC134-Gas-Station">LC134 Gas Station</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>There are <em>N</em> gas stations along a circular route, where the amount of gas at station <em>i</em> is <code>gas[i]</code>.</p>
+<p>You have a car with an unlimited gas tank and it costs <code>cost[i]</code> of gas to travel from station <em>i</em> to its next station (<em>i</em>+1). You begin the journey with an empty tank at one of the gas stations.</p>
+<p>Return the starting gas station’s index if you can travel around the circuit once in the clockwise direction, otherwise return -1.</p>
+<p><strong>Note:</strong></p>
+<ul>
+<li>If there exists a solution, it is guaranteed to be unique.</li>
+<li>Both input arrays are non-empty and have the same length.</li>
+<li>Each element in the input arrays is a non-negative integer.</li>
+</ul>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Input: </span><br><span class="line">gas  &#x3D; [1,2,3,4,5]</span><br><span class="line">cost &#x3D; [3,4,5,1,2]</span><br><span class="line"></span><br><span class="line">Output: 3</span><br><span class="line"></span><br><span class="line">Explanation:</span><br><span class="line">Start at station 3 (index 3) and fill up with 4 unit of gas. Your tank &#x3D; 0 + 4 &#x3D; 4</span><br><span class="line">Travel to station 4. Your tank &#x3D; 4 - 1 + 5 &#x3D; 8</span><br><span class="line">Travel to station 0. Your tank &#x3D; 8 - 2 + 1 &#x3D; 7</span><br><span class="line">Travel to station 1. Your tank &#x3D; 7 - 3 + 2 &#x3D; 6</span><br><span class="line">Travel to station 2. Your tank &#x3D; 6 - 4 + 3 &#x3D; 5</span><br><span class="line">Travel to station 3. The cost is 5. Your gas is just enough to travel back to station 3.</span><br><span class="line">Therefore, return 3 as the starting index.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Input: </span><br><span class="line">gas  &#x3D; [2,3,4]</span><br><span class="line">cost &#x3D; [3,4,3]</span><br><span class="line"></span><br><span class="line">Output: -1</span><br><span class="line"></span><br><span class="line">Explanation:</span><br><span class="line">You can&#39;t start at station 0 or 1, as there is not enough gas to travel to the next station.</span><br><span class="line">Let&#39;s start at station 2 and fill up with 4 unit of gas. Your tank &#x3D; 0 + 4 &#x3D; 4</span><br><span class="line">Travel to station 0. Your tank &#x3D; 4 - 3 + 2 &#x3D; 3</span><br><span class="line">Travel to station 1. Your tank &#x3D; 3 - 3 + 3 &#x3D; 3</span><br><span class="line">You cannot travel back to station 2, as it requires 4 unit of gas but you only have 3.</span><br><span class="line">Therefore, you can&#39;t travel around the circuit once no matter where you start.</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>Greedy</p>
+<p>设total_tank为总的gas[i] - cost[i]的和，curr_tank为从start_station到当前station的gas[i] - cost[i]的和，若curr_station &lt; 0，则说明从start_station到当前位置是不可以实现的，因此将start_station置为i + 1，curr_tank重置为0。</p>
+<p>最后若总的total_tank &lt; 0，则说明整个环是不可能实现的，因此返回-1，否则返回start_station。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">canCompleteCircuit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; gas, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; cost)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = gas.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> total_tank = <span class="number">0</span>, curr_tank = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> start_station = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        total_tank += gas[i] - cost[i];</span><br><span class="line">        curr_tank += gas[i] - cost[i];</span><br><span class="line">        <span class="keyword">if</span>(curr_tank &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            start_station = i + <span class="number">1</span>;</span><br><span class="line">            curr_tank = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> total_tank &gt;= <span class="number">0</span> ? start_station : <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC135-Candy">LC135 Candy</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>There are <em>N</em> children standing in a line. Each child is assigned a rating value.</p>
+<p>You are giving candies to these children subjected to the following requirements:</p>
+<ul>
+<li>Each child must have at least one candy.</li>
+<li>Children with a higher rating get more candies than their neighbors.</li>
+</ul>
+<p>What is the minimum candies you must give?</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,0,2]</span><br><span class="line">Output: 5</span><br><span class="line">Explanation: You can allocate to the first, second and third child with 2, 1, 2 candies respectively.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,2,2]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: You can allocate to the first, second and third child with 1, 2, 1 candies respectively.</span><br><span class="line">             The third child gets 1 candy because it satisfies the above two conditions.</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<p>双数组法，left2right表示只关注每一个人左边的那个人的rating所求得的每个人的糖果数目的数组，right2left表示只关注每一个人右边的那个人的rating所求得的每个人的糖果数目的数组。</p>
+<p>如果ratings[i] &gt; ratings[i - 1]，则left2right[i] = left2right[i - 1] + 1，否则重置为1；</p>
+<p>如果ratings[i] &gt; ratings[i + 1]，则right2left[i] = right2left[i - 1] + 1，否则重置为1；</p>
+<p>由于最终既要满足左边的rating的要求又要满足右边rating的要求，我们设置的糖果的数目只能多不能少，因此最终每个人的糖果的数目应当为max(left2right[i], right2left[i])。</p>
+<ul>
+<li>Approach 2</li>
+</ul>
+<p>Greedy</p>
+<p>设置candies表示总共需要的糖果数目，up表示连续上升的rating的数目，down表示连续下降的rating的数目。</p>
+<p>遍历数组，首先求得rating数组中当前元素与前一个元素的大小关系，设为new_slope。</p>
+<p>如果old_slope &gt; 0且new_slope = 0，或者old_slope &lt; 0且new_slope &gt;= 0，即表示如下两种情况：</p>
+<p>1）之前的数组是上升的，而当前元素与前置元素相等</p>
+<p>2）之前的数组是下降的，而当前元素大于等于前置元素</p>
+<p>则可以计算这一部分的总糖果数目为(up * (up + 1)) / 2 + (down * (down + 1)) / 2 + max(up, down)，即计算1）中的前面的所有连续上升元素的总和，或是2）中前面先连续上升再连续下降的元素的总和</p>
+<p>再根据new_slope的大小确定up++或者down++或者candies++；</p>
+<p>最后加上最后一次的糖果数目，即(up * (up + 1)) / 2 + (down * (down + 1)) / 2 + max(up, down) + 1；</p>
+</details>
+<details><summary>Code</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">candy</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; ratings)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> n = ratings.<span class="built_in">size</span>();</span><br><span class="line">    vector&lt;int&gt; left2right(n, 1), right2left(n, 1);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(ratings[i] &gt; ratings[i - <span class="number">1</span>])&#123;</span><br><span class="line">            left2right[i] = left2right[i - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            left2right[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = n - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="keyword">if</span>(ratings[i] &gt; ratings[i + <span class="number">1</span>])&#123;</span><br><span class="line">            right2left[i] = right2left[i + <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            right2left[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        res += <span class="built_in">max</span>(left2right[i], right2left[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Approach 2</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">candy</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; ratings)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ratings.<span class="built_in">size</span>() &lt;= <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> ratings.<span class="built_in">size</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> candies = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> up = <span class="number">0</span>, down = <span class="number">0</span>, old_slope = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; ratings.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> new_slope = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(ratings[i] &lt; ratings[i - <span class="number">1</span>]) new_slope = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(ratings[i] &gt; ratings[i - <span class="number">1</span>]) new_slope = <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>((old_slope &gt; <span class="number">0</span> &amp;&amp; new_slope == <span class="number">0</span>) || (old_slope &lt; <span class="number">0</span> &amp;&amp; new_slope &gt;= <span class="number">0</span>))&#123;</span><br><span class="line">            candies += (up * (up + <span class="number">1</span>)) / <span class="number">2</span> + (down * (down + <span class="number">1</span>)) / <span class="number">2</span> + <span class="built_in">max</span>(up, down);</span><br><span class="line">            up = <span class="number">0</span>;</span><br><span class="line">            down = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(new_slope &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            up++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(new_slope &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            down++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            candies++;</span><br><span class="line">        &#125;</span><br><span class="line">        old_slope = new_slope;</span><br><span class="line">    &#125;</span><br><span class="line">    candies += (up * (up + <span class="number">1</span>)) / <span class="number">2</span> + (down * (down + <span class="number">1</span>)) / <span class="number">2</span> + <span class="built_in">max</span>(up, down) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> candies;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="Review">Review</h3>
+<ul>
+<li>
+<p>对于可以用贪心算法解决的问题，主要有两种方式：</p>
+<p>1）当前元素和前一个元素的大小关系可以引申出不同的处理方式；</p>
+<p>2）当前元素和前面某一个元素的大小关系可以引申出不同的处理方式；</p>
+<p>一般情况下只需要遍历一遍数组就可以解决（前向或者后向）。</p>
+</li>
+<li>
+<p>不能用贪心算法的情况：</p>
+<p>1）中间结果会影响到最终的结果，而且不能通过跳过的方式解决；</p>
+<p>2）无法使用中间某一次的结果去计算后面的结果。</p>
+</li>
+</ul>
+
+        </div>
+        
+
+    </article>
+    
+    <section id="comments">
+        
+            <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+            </div>
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">Catalogue</h3>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC376-Wiggle-Subsequence"><span class="toc-number">1.</span> <span class="toc-text">LC376 Wiggle Subsequence</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC55-Jump-Game"><span class="toc-number">2.</span> <span class="toc-text">LC55 Jump Game</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC45-Jump-Game-II"><span class="toc-number">3.</span> <span class="toc-text">LC45 Jump Game II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC134-Gas-Station"><span class="toc-number">4.</span> <span class="toc-text">LC134 Gas Station</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC135-Candy"><span class="toc-number">5.</span> <span class="toc-text">LC135 Candy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Review"><span class="toc-number">6.</span> <span class="toc-text">Review</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/yox@1.0.0-alpha.121/dist/standard/prod/yox.min.js"></script>
+
+
+<script src="/js/search.min.js"></script>
+
+
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://yoursite.com/Greedy-1/';
+        
+        this.page.identifier = 'Greedy-1';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + '' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html  lang="en" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>Podfile的使用 | Yiming</title>
+    <meta name="description" content="Podfile用途 用于指定一个或多个XCode工程的依赖 Root Options Podfile文件的整体配置 install! 语法如下： 123install! &#39;cocoapods&#39;,    [option] &#x3D;&gt; value,    [option] &#x3D;&gt; value 支持的option-value以及默认值如下：    option default value meani">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Podfile的使用">
+<meta property="og:url" content="http://yoursite.com/Podfile%E7%9A%84%E4%BD%BF%E7%94%A8/">
+<meta property="og:site_name" content="Yiming">
+<meta property="og:description" content="Podfile用途 用于指定一个或多个XCode工程的依赖 Root Options Podfile文件的整体配置 install! 语法如下： 123install! &#39;cocoapods&#39;,    [option] &#x3D;&gt; value,    [option] &#x3D;&gt; value 支持的option-value以及默认值如下：    option default value meani">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-27T03:24:33.000Z">
+<meta property="article:modified_time" content="2020-08-25T16:22:16.618Z">
+<meta property="article:author" content="Yiming">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Xcode">
+<meta name="twitter:card" content="summary">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://null-2333.github.io" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_self" rel="noopener" rel="noreferrer" >
+                <img src="/images/head1.jpeg" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block" style="font-size: 24px; font-weight: 600; padding-bottom: 10px">Yiming</h2>
+            <h3 id="title" class="hidden xl:block">Coding for fun ~</h3>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" style="padding-left: 5px" placeholder="Search" class="inline-block w-full bg-gray-100 lg:bg-white">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="Search" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-5 pb-3 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            <hr />
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">Home</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">Archives</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">Tags</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">Repository</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">Links</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-12 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            Podfile的使用
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/Podfile%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
+	  <time datetime="2020-07-27T03:24:33.000Z" itemprop="datePublished">Jul 27</time>
+	</a>
+</span>
+
+                
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Xcode/" rel="tag">Xcode</a>, <a class="article-tag-link" href="/tags/iOS/" rel="tag">iOS</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/Podfile%E7%9A%84%E4%BD%BF%E7%94%A8/#comments" class="article-comment-link">
+                        Comments
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 1.3k(words)</span>
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <h2 id="Podfile用途">Podfile用途</h2>
+<p>用于指定一个或多个XCode工程的依赖</p>
+<h2 id="Root-Options">Root Options</h2>
+<p>Podfile文件的整体配置</p>
+<h3 id="install">install!</h3>
+<p>语法如下：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">install! <span class="string">'cocoapods'</span>,</span><br><span class="line">    [option] =&gt; value,</span><br><span class="line">    [option] =&gt; value</span><br></pre></td></tr></table></figure>
+<p>支持的option-value以及默认值如下：</p>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>default value</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:clean</td>
+<td>true</td>
+<td>是否清除Pods文件夹内的无关文件</td>
+</tr>
+<tr>
+<td>:deduplicate_targets</td>
+<td>true</td>
+<td>是否针对有不同subspec的同一pods库生成不同的pods targets</td>
+</tr>
+<tr>
+<td>:deterministic_uuids</td>
+<td>true</td>
+<td>是否生成确定的uuid</td>
+</tr>
+<tr>
+<td>:integrate_targets</td>
+<td>true</td>
+<td>是否将pods自动集成到项目中，即是否生成那个白色的.xcworkspace文件</td>
+</tr>
+<tr>
+<td>:lock_pod_sources</td>
+<td>true</td>
+<td>在下载pods库的时候是否锁定Podfile文件</td>
+</tr>
+<tr>
+<td>:warn_for_multiple_pod_sources</td>
+<td>true</td>
+<td>对于名字与版本号均相同的pods库是否需要warning</td>
+</tr>
+<tr>
+<td>:share_schemes_for_development_pods</td>
+<td>false</td>
+<td>是否共享开发pods的xcode工程</td>
+</tr>
+<tr>
+<td>:disable_input_output_paths</td>
+<td>false</td>
+<td>是否禁用Cocoapods脚本的输入输出路径</td>
+</tr>
+<tr>
+<td>:preserve_pod_file_structure</td>
+<td>false</td>
+<td>是否需要保持pods库的原有结构</td>
+</tr>
+<tr>
+<td>:generate_multiple_pod_projects</td>
+<td>false</td>
+<td>是否需要生成多个Pods.xcodeproj文件</td>
+</tr>
+<tr>
+<td>:incremental_installation</td>
+<td>false</td>
+<td>是否仅重新生成在上次安装之后有改动的target和相关工程</td>
+</tr>
+<tr>
+<td>:skip_pods_project_generation</td>
+<td>false</td>
+<td>是否跳过生成Pods.xcodeproj文件</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Dependencies">Dependencies</h2>
+<h3 id="pod">pod</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pod &#39;podName&#39;     &#x2F;&#x2F;安装最新版本</span><br><span class="line">pod &#39;podName&#39;, &#39;&#x3D;1.0&#39;&#x2F;&#x2F;安装1.0版本</span><br><span class="line">pod &#39;podName&#39;, &#39;&gt;1.0&#39;&#x2F;&#x2F;安装大于1.0的最新版本</span><br><span class="line">pod &#39;podName&#39;, &#39;&gt;&#x3D;1.0&#39;&#x2F;&#x2F;安装大于等于1.0的最新版本</span><br><span class="line">pod &#39;podName&#39;, &#39;&lt;1.0&#39;&#x2F;&#x2F;安装小于1.0的最新版本</span><br><span class="line">pod &#39;podName&#39;, &#39;&lt;&#x3D;1.0&#39;&#x2F;&#x2F;安装小于等于1.0的最新版本</span><br><span class="line">pod &#39;podName&#39;, &#39;~&gt;1.0&#39;&#x2F;&#x2F;安装满足[1.0, 2.0)之间的最新版本</span><br><span class="line">pod &#39;podName&#39;, &#39;~&gt;0.1.2&#39;&#x2F;&#x2F;安装满足[0.1.2, 0.2.0)之间的最新版本</span><br></pre></td></tr></table></figure>
+<h4 id="configuration">:configuration</h4>
+<p>指定在哪些模式下安装，主要是Debug和Release</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pod &#39;podName&#39;, :configuration &#x3D;&gt; &#39;Release&#39;</span><br><span class="line">pod &#39;podName&#39;, :configuration &#x3D;&gt; [&#39;Debug&#39;, &#39;Release&#39;]</span><br></pre></td></tr></table></figure>
+<h4 id="modular-headers">:modular_headers</h4>
+<p>表示是否使用模块化的header</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod &#39;podName&#39;, :modular_headers &#x3D;&gt; true</span><br></pre></td></tr></table></figure>
+<h4 id="source">:source</h4>
+<p>指定搜索的位置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod &#39;podName&#39;, :source &#x3D;&gt; &#39;xxxxxx&#39;</span><br></pre></td></tr></table></figure>
+<h4 id="subspecs">:subspecs</h4>
+<p>指定要安装的子部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pod &#39;podName&#39;, :subspecs &#x3D;&gt; &#39;xxxxxx&#39;</span><br><span class="line">pod &#39;podName&#39;, :subspecs &#x3D;&gt; [&#39;xxxxxx&#39;, &#39;xxxxx&#39;]</span><br></pre></td></tr></table></figure>
+<h4 id="path">:path</h4>
+<p>指定本地地址作为当前pods库的地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod &#39;podName&#39;, :path &#x3D;&gt; &#39;xxxxxx&#39;</span><br></pre></td></tr></table></figure>
+<h4 id="git">:git</h4>
+<p>指定git仓库以及相应的分支，或者tag，或者commit</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod &#39;podName&#39;, :git &#x3D;&gt; &#39;xxx&#39;, :branch &#x3D;&gt; &#39;xxx&#39;, :tag &#x3D;&gt; &#39;xxx&#39;, commit &#x3D;&gt; &#39;xxx&#39;</span><br></pre></td></tr></table></figure>
+<p>p.s. branch默认为master</p>
+<h3 id="target">target</h3>
+<p>用于指定不同target的具体的pods库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">target &#39;targetName&#39; do</span><br><span class="line">  pod &#39;podName1&#39;</span><br><span class="line">  pod &#39;podName2&#39;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h4 id="target的pods库的继承">target的pods库的继承</h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">target &#39;ShowsApp&#39; do</span><br><span class="line"> pod &#39;ShowsKit&#39;</span><br><span class="line"> target &#39;ShowsTV&#39; do # 会复制一份ShowKit</span><br><span class="line">  pod &#39;ShowTVAuth&#39;</span><br><span class="line"> end</span><br><span class="line"> target &#39;ShowsTest&#39; do # 不会复制一份ShowKit库，而是和ShowAPP这个target共享ShowKit库</span><br><span class="line">  **inherit!** **:search_paths**</span><br><span class="line">  pod &#39;Specta&#39;</span><br><span class="line">  pod &#39;Expecta&#39;</span><br><span class="line"> end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h3 id="script-phrase">script_phrase</h3>
+<p>会在运行工程的时候运行这个script</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">script_phase :name &#x3D;&gt; &#39;HelloWorldScript&#39;, :script &#x3D;&gt; &#39;echo &quot;wwww&quot; &gt; test.txt&#39;</span><br></pre></td></tr></table></figure>
+<h3 id="abstract-target">abstract_target</h3>
+<p>和target的不同点在于abstract_target所指定的target实际上不存在，继承关系类似。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">abstract_target &#39;Shows&#39; do</span><br><span class="line"> pod &#39;ShowsKit&#39;</span><br><span class="line"> target &#39;ShowsiOS&#39; do</span><br><span class="line">  pod &#39;ShowWebAuth&#39;</span><br><span class="line"> end</span><br><span class="line"> target &#39;ShowsTV&#39; do</span><br><span class="line">  pod &#39;ShowTVAuth&#39;</span><br><span class="line"> end</span><br><span class="line"> target &#39;ShowsTests&#39; do</span><br><span class="line">  inherit! :search_paths</span><br><span class="line">  pod &#39;Specta&#39;</span><br><span class="line">  pod &#39;Expecta&#39;</span><br><span class="line"> end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h4 id="inherit">inherit!</h4>
+<p>主要有三种选项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">inherit! :search_paths &#x2F;&#x2F; 只继承搜索路径</span><br><span class="line">inherit! :none     &#x2F;&#x2F; 什么都不继承</span><br><span class="line">inherit! :complete   &#x2F;&#x2F; 什么都继承</span><br></pre></td></tr></table></figure>
+<h2 id="Target-Configuration">Target Configuration</h2>
+<h3 id="platform">platform</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">platform [平台名称], [目标版本]</span><br></pre></td></tr></table></figure>
+<p>平台名称有，:ios, :osx, :tvos, :watchos</p>
+<h3 id="project">project</h3>
+<p>指定这个podfile对应的project，如果没有显式指定，并且当前目录下只有一个project则使用这个project</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">project [工程名称], [build_configuration]</span><br></pre></td></tr></table></figure>
+<p>其中build_configuration用于指定构建项目方式的参数，值有:debug和:release两个</p>
+<p>举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">project &#39;Aweme&#39;, &#39;TikTokDebug&#39; &#x3D;&gt; :debug, &#39;TikTokInhouseDebug&#39; &#x3D;&gt; :debug, &#39;MusicallyInhouseDebug&#39; &#x3D;&gt; :debug, &#39;MusicallyDebug&#39; &#x3D;&gt; :debug</span><br></pre></td></tr></table></figure>
+<p>如果未指定值，则默认值为:release</p>
+<h3 id="inhibit-all-warnings">inhibit_all_warnings!</h3>
+<p>添加这一行可以省略所有pods中的warning，也可以对单独的pod进行设置，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod &#39;podName&#39;, :inhibit_warnings &#x3D;&gt; false &#x2F;&#x2F; 可以用于exclude from inhibit_all_warnings!</span><br></pre></td></tr></table></figure>
+<h3 id="use-frameworks">use_frameworks!</h3>
+<p>添加这一行表明应当使用Static Library而不是Frameworks（去掉感叹号则表示相反的意思），有参数用于指定使用静态链接还是动态链接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use_frameworks! :linkage &#x3D;&gt; :dynamic</span><br><span class="line">use_frameworks! :linkage &#x3D;&gt; :static</span><br></pre></td></tr></table></figure>
+<h2 id="Workspace-Configuration">Workspace Configuration</h2>
+<h3 id="workspace">workspace</h3>
+<p>指定这个podfile对应的workspace，如果没有显式指定，并且当前目录下只有一个workspace则使用这个workspace</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">workspace &#39;workspaceName&#39;</span><br></pre></td></tr></table></figure>
+<h2 id="Source">Source</h2>
+<p>指定来源，如果指定了新的来源，则必须显式加上Cocoapods的来源，即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source &#39;https:&#x2F;&#x2F;github.com&#x2F;artsy&#x2F;Specs.git&#39;</span><br><span class="line">source &#39;https:&#x2F;&#x2F;github.com&#x2F;CocoaPods&#x2F;Specs.git&#39;</span><br></pre></td></tr></table></figure>
+<p>##Hooks</p>
+<h3 id="plugins">plugins</h3>
+<p>语法为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugin &#39;pluginName&#39;, [参数对]</span><br></pre></td></tr></table></figure>
+<p>举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plugin &#39;cocoapods-keys&#39;, :keyring &#x3D;&gt; &#39;Eidolon&#39;</span><br><span class="line">plugin &#39;slather&#39;</span><br></pre></td></tr></table></figure>
+<h3 id="pre-install和post-install">pre_install和post_install</h3>
+<p>用于指定安装前后的hook操作，传入的参数为Pod::Installer</p>
+<p>举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">post_install do |installer|</span><br><span class="line"> installer.pods_project.targets.each do |target|</span><br><span class="line">  target.build_configurations.each do |config|</span><br><span class="line">   config.build_settings[&#39;GCC_ENABLE_OBJC_GC&#39;] &#x3D; &#39;supported&#39;</span><br><span class="line">  end</span><br><span class="line"> end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h2 id="pod-install和pod-update的区别">pod install和pod update的区别</h2>
+<p>pod install是只会安装新的pods库和卸载旧的pods库，pod update如果不指定对象，则会在pod install的基础上再进行所有库的更新检查（包括降级检查），如果指定库名，则只会对该库进行该操作。</p>
+
+        </div>
+        
+
+    </article>
+    
+    <section id="comments">
+        
+            <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+            </div>
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">Catalogue</h3>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Podfile用途"><span class="toc-number">1.</span> <span class="toc-text">Podfile用途</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Root-Options"><span class="toc-number">2.</span> <span class="toc-text">Root Options</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#install"><span class="toc-number">2.1.</span> <span class="toc-text">install!</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dependencies"><span class="toc-number">3.</span> <span class="toc-text">Dependencies</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pod"><span class="toc-number">3.1.</span> <span class="toc-text">pod</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#configuration"><span class="toc-number">3.1.1.</span> <span class="toc-text">:configuration</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#modular-headers"><span class="toc-number">3.1.2.</span> <span class="toc-text">:modular_headers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#source"><span class="toc-number">3.1.3.</span> <span class="toc-text">:source</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#subspecs"><span class="toc-number">3.1.4.</span> <span class="toc-text">:subspecs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#path"><span class="toc-number">3.1.5.</span> <span class="toc-text">:path</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git"><span class="toc-number">3.1.6.</span> <span class="toc-text">:git</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#target"><span class="toc-number">3.2.</span> <span class="toc-text">target</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#target的pods库的继承"><span class="toc-number">3.2.1.</span> <span class="toc-text">target的pods库的继承</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#script-phrase"><span class="toc-number">3.3.</span> <span class="toc-text">script_phrase</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#abstract-target"><span class="toc-number">3.4.</span> <span class="toc-text">abstract_target</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#inherit"><span class="toc-number">3.4.1.</span> <span class="toc-text">inherit!</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Target-Configuration"><span class="toc-number">4.</span> <span class="toc-text">Target Configuration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#platform"><span class="toc-number">4.1.</span> <span class="toc-text">platform</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#project"><span class="toc-number">4.2.</span> <span class="toc-text">project</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#inhibit-all-warnings"><span class="toc-number">4.3.</span> <span class="toc-text">inhibit_all_warnings!</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#use-frameworks"><span class="toc-number">4.4.</span> <span class="toc-text">use_frameworks!</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Workspace-Configuration"><span class="toc-number">5.</span> <span class="toc-text">Workspace Configuration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#workspace"><span class="toc-number">5.1.</span> <span class="toc-text">workspace</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Source"><span class="toc-number">6.</span> <span class="toc-text">Source</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#plugins"><span class="toc-number">6.1.</span> <span class="toc-text">plugins</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pre-install和post-install"><span class="toc-number">6.2.</span> <span class="toc-text">pre_install和post_install</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pod-install和pod-update的区别"><span class="toc-number">7.</span> <span class="toc-text">pod install和pod update的区别</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/yox@1.0.0-alpha.121/dist/standard/prod/yox.min.js"></script>
+
+
+<script src="/js/search.min.js"></script>
+
+
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://yoursite.com/Podfile%E7%9A%84%E4%BD%BF%E7%94%A8/';
+        
+        this.page.identifier = 'Podfile的使用';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + '' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+    </body>
+</html>

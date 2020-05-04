@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html  lang="en" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>Objective-C与Block | Yiming</title>
+    <meta name="description" content="Block的定义与声明 定义 1^returnType (args) &amp;#123; functionBody; &amp;#125;; 如果returnType为void则可以省略： 1^(args) &amp;#123; functionBody; &amp;#125;; 如果无参数列表args，可以写成void，可以省略，也可以连括号一起省略： 123^returnType (void) &amp;#123; functio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Objective-C与Block">
+<meta property="og:url" content="http://yoursite.com/Objective-C%E4%B8%8EBlock/">
+<meta property="og:site_name" content="Yiming">
+<meta property="og:description" content="Block的定义与声明 定义 1^returnType (args) &amp;#123; functionBody; &amp;#125;; 如果returnType为void则可以省略： 1^(args) &amp;#123; functionBody; &amp;#125;; 如果无参数列表args，可以写成void，可以省略，也可以连括号一起省略： 123^returnType (void) &amp;#123; functio">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-23T02:31:53.000Z">
+<meta property="article:modified_time" content="2020-08-25T16:36:23.150Z">
+<meta property="article:author" content="Yiming">
+<meta property="article:tag" content="Objective-C">
+<meta property="article:tag" content="Block">
+<meta name="twitter:card" content="summary">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://null-2333.github.io" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_self" rel="noopener" rel="noreferrer" >
+                <img src="/images/head1.jpeg" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block" style="font-size: 24px; font-weight: 600; padding-bottom: 10px">Yiming</h2>
+            <h3 id="title" class="hidden xl:block">Coding for fun ~</h3>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" style="padding-left: 5px" placeholder="Search" class="inline-block w-full bg-gray-100 lg:bg-white">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="Search" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-5 pb-3 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            <hr />
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">Home</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">Archives</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">Tags</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">Repository</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">Links</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-12 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            Objective-C与Block
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/Objective-C%E4%B8%8EBlock/" class="article-date">
+	  <time datetime="2020-07-23T02:31:53.000Z" itemprop="datePublished">Jul 23</time>
+	</a>
+</span>
+
+                
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Block/" rel="tag">Block</a>, <a class="article-tag-link" href="/tags/Objective-C/" rel="tag">Objective-C</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/Objective-C%E4%B8%8EBlock/#comments" class="article-comment-link">
+                        Comments
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 676(words)</span>
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <h2 id="Block的定义与声明">Block的定义与声明</h2>
+<h3 id="定义">定义</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^returnType (args) &#123; functionBody; &#125;;</span><br></pre></td></tr></table></figure>
+<p>如果returnType为void则可以省略：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^(args) &#123; functionBody; &#125;;</span><br></pre></td></tr></table></figure>
+<p>如果无参数列表args，可以写成void，可以省略，也可以连括号一起省略：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">^returnType (void) &#123; functionmBody; &#125;</span><br><span class="line">^returnType () &#123; functionmBody; &#125;</span><br><span class="line">^returnType &#123; functionmBody; &#125;</span><br></pre></td></tr></table></figure>
+<p>如果返回类型为void且没有参数，则可以省略成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">^ &#123; functionmBody; &#125;</span><br><span class="line">^void (void) &#123; functionmBody; &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="声明">声明</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">returnType (^blockName) ( argTypes );</span><br></pre></td></tr></table></figure>
+<p>如果argTypes为空（即没有参数），只能用(void)代替，不能进一步省略。</p>
+<p>如果作为函数参数，则声明略有不同，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(returnType (^) ( argTypes )) blockName</span><br></pre></td></tr></table></figure>
+<p>举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void) callback: (int (^)(void))blk;</span><br></pre></td></tr></table></figure>
+<h2 id="Block的用法">Block的用法</h2>
+<h3 id="Typedef别名">Typedef别名</h3>
+<p>即使用typedef 声明即可，声明中的blockName即为这个block的别名，举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">typedef int (^blk) (void);</span><br><span class="line">blk b &#x3D; ^int ()&#123; return 1; &#125;; &#x2F;&#x2F; 此处b才是这个block的真实名字</span><br></pre></td></tr></table></figure>
+<h3 id="赋值操作">赋值操作</h3>
+<p>赋值操作即为声明=定义;</p>
+<h3 id="调用">调用</h3>
+<p>类似函数的调用即可，举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">typedef int (^blk) (void);</span><br><span class="line">blk b &#x3D; ^int ()&#123; return 1; &#125;;</span><br><span class="line">b();</span><br></pre></td></tr></table></figure>
+<h3 id="变量的两种引用形式">变量的两种引用形式</h3>
+<h4 id="不需要改变值">不需要改变值</h4>
+<p>不需要改变值的变量直接使用即可，进行的是值传递，即在定义block之前的值会被传进去。</p>
+<h4 id="需要改变值">需要改变值</h4>
+<p>需要用__block修饰该变量，如果涉及到self，则需要将self转换成weakSelf避免循环引用，即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__weak __typeof(self)weakSelf &#x3D; self;</span><br></pre></td></tr></table></figure>
+<p>之后对self的操作都使用weakSelf来操作，如果持有该block的对象被释放，则该weakSelf也会置nil。</p>
+<p>p.s. 只有会产生循环引用的情况才需要转换成weakSelf。</p>
+<p>而在一个block中，weakSelf随时都可能因为引用它的对象的销毁而置空，因此可以使用再次转为strongSelf的方式，即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__strong __typeof(self) strongSelf &#x3D; weakSelf;</span><br></pre></td></tr></table></figure>
+<p>这样就可以防止在block的运行过程中的weakSelf的意外置nil。</p>
+<h2 id="Block的用途">Block的用途</h2>
+<h3 id="枚举">枚举</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (void)enumerateObjectsUsingBlock:(void (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx, BOOL *stop))block;</span><br><span class="line">- (void)enumerateObjectsWithOptions:(NSEnumerationOptions)opts usingBlock:(void (NS_NOESCAPE ^)(ObjectType obj, NSUInteger idx, BOOL *stop))block;</span><br></pre></td></tr></table></figure>
+<p>具体对NSArray中的每一个对象的操作均在block中进行。注意这里的(NSEnumerationOptions)opts 有两个选项：</p>
+<ul>
+<li>
+<p>NSEnumerationReverse，逆序访问</p>
+</li>
+<li>
+<p>NSEnumerationConcurrent，同步访问，不保证顺序，但速度较快</p>
+</li>
+</ul>
+<h3 id="UIView动画">UIView动画</h3>
+<p>参见<a href="https://null-2333.github.io/iOS%E5%8A%A8%E7%94%BB%E6%80%BB%E7%BB%93/#Block%E5%8A%A8%E7%94%BB" target="_blank" rel="noopener">iOS动画总结-Block动画</a> 中的第一部分，UIView的两种Block动画实现方式。</p>
+<h3 id="排序">排序</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (void)sortUsingComparator:(NSComparator NS_NOESCAPE)cmptr;</span><br><span class="line">[arrs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) &#123;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>这个比较函数的Block，返回类型NSComparisonResult有三个枚举：</p>
+<ul>
+<li>
+<p>NSOrderedAscending - obj1 &lt; obj2</p>
+</li>
+<li>
+<p>NSOrderedSame - obj1 = obj2</p>
+</li>
+<li>
+<p>NSOrderedDescending - obj1 &gt; obj2</p>
+</li>
+</ul>
+<h3 id="Completion-handler与错误处理">Completion handler与错误处理</h3>
+<p>主要是在某些方法中含有Block类型的参数，可以用作completion handler和错误处理。</p>
+<h3 id="GCD多线程控制">GCD多线程控制</h3>
+<p>参见<a href="https://null-2333.github.io/iOS%E5%A4%9A%E7%BA%BF%E7%A8%8B/#GCD-Grand-Central-Dispatch" target="_blank" rel="noopener">iOS多线程-GCD</a> 中的GCD相关部分</p>
+
+        </div>
+        
+
+    </article>
+    
+    <section id="comments">
+        
+            <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+            </div>
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">Catalogue</h3>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Block的定义与声明"><span class="toc-number">1.</span> <span class="toc-text">Block的定义与声明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-number">1.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#声明"><span class="toc-number">1.2.</span> <span class="toc-text">声明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Block的用法"><span class="toc-number">2.</span> <span class="toc-text">Block的用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Typedef别名"><span class="toc-number">2.1.</span> <span class="toc-text">Typedef别名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#赋值操作"><span class="toc-number">2.2.</span> <span class="toc-text">赋值操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调用"><span class="toc-number">2.3.</span> <span class="toc-text">调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量的两种引用形式"><span class="toc-number">2.4.</span> <span class="toc-text">变量的两种引用形式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#不需要改变值"><span class="toc-number">2.4.1.</span> <span class="toc-text">不需要改变值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#需要改变值"><span class="toc-number">2.4.2.</span> <span class="toc-text">需要改变值</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Block的用途"><span class="toc-number">3.</span> <span class="toc-text">Block的用途</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#枚举"><span class="toc-number">3.1.</span> <span class="toc-text">枚举</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UIView动画"><span class="toc-number">3.2.</span> <span class="toc-text">UIView动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#排序"><span class="toc-number">3.3.</span> <span class="toc-text">排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Completion-handler与错误处理"><span class="toc-number">3.4.</span> <span class="toc-text">Completion handler与错误处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GCD多线程控制"><span class="toc-number">3.5.</span> <span class="toc-text">GCD多线程控制</span></a></li></ol></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/yox@1.0.0-alpha.121/dist/standard/prod/yox.min.js"></script>
+
+
+<script src="/js/search.min.js"></script>
+
+
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://yoursite.com/Objective-C%E4%B8%8EBlock/';
+        
+        this.page.identifier = 'Objective-C与Block';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + '' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+    </body>
+</html>

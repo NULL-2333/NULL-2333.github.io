@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html  lang="en" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>Divide and Conquer | Yiming</title>
+    <meta name="description" content="LC23 Merge k Sorted Lists Problem  Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity. Example: 1234567Input:[  1-&gt;4-&gt;5,  1-&gt;3-&gt;4,  2-&gt;6]O">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Divide and Conquer">
+<meta property="og:url" content="http://yoursite.com/Divide-and-Conquer/">
+<meta property="og:site_name" content="Yiming">
+<meta property="og:description" content="LC23 Merge k Sorted Lists Problem  Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity. Example: 1234567Input:[  1-&gt;4-&gt;5,  1-&gt;3-&gt;4,  2-&gt;6]O">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2018/10/22/skyline1.png">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2018/10/22/skyline2.png">
+<meta property="article:published_time" content="2020-06-10T00:30:32.000Z">
+<meta property="article:modified_time" content="2020-06-11T15:34:45.936Z">
+<meta property="article:author" content="Yiming">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="Divide and Conquer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://assets.leetcode.com/uploads/2018/10/22/skyline1.png">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://null-2333.github.io" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_self" rel="noopener" rel="noreferrer" >
+                <img src="/images/head1.jpeg" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block" style="font-size: 24px; font-weight: 600; padding-bottom: 10px">Yiming</h2>
+            <h3 id="title" class="hidden xl:block">Coding for fun ~</h3>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" style="padding-left: 5px" placeholder="Search" class="inline-block w-full bg-gray-100 lg:bg-white">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="Search" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-5 pb-3 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            <hr />
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">Home</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">Archives</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">Tags</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">Repository</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">Links</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-12 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            Divide and Conquer
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/Divide-and-Conquer/" class="article-date">
+	  <time datetime="2020-06-10T00:30:32.000Z" itemprop="datePublished">Jun 10</time>
+	</a>
+</span>
+
+                
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Divide-and-Conquer/" rel="tag">Divide and Conquer</a>, <a class="article-tag-link" href="/tags/LeetCode/" rel="tag">LeetCode</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/Divide-and-Conquer/#comments" class="article-comment-link">
+                        Comments
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 3.6k(words)</span>
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <h3 id="LC23-Merge-k-Sorted-Lists">LC23 Merge k Sorted Lists</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Merge <em>k</em> sorted linked lists and return it as one sorted list. Analyze and describe its complexity.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">[</span><br><span class="line">  1-&gt;4-&gt;5,</span><br><span class="line">  1-&gt;3-&gt;4,</span><br><span class="line">  2-&gt;6</span><br><span class="line">]</span><br><span class="line">Output: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<ul>
+<li>两个有序链表的合并</li>
+<li>二分归并，链表两两合并即可</li>
+</ul>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">merge2Lists</span><span class="params">(ListNode* cur1, ListNode* cur2)</span></span>&#123;</span><br><span class="line">    ListNode* cur = <span class="keyword">new</span> ListNode();</span><br><span class="line">    ListNode* node = cur;</span><br><span class="line">    <span class="keyword">while</span>(cur1 &amp;&amp; cur2)&#123;</span><br><span class="line">        <span class="keyword">if</span>(cur1-&gt;val &lt; cur2-&gt;val)&#123;</span><br><span class="line">            cur-&gt;next = <span class="keyword">new</span> ListNode(cur1-&gt;val);</span><br><span class="line">            cur1 = cur1-&gt;next;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            cur-&gt;next = <span class="keyword">new</span> ListNode(cur2-&gt;val);</span><br><span class="line">            cur2 = cur2-&gt;next;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(cur1)&#123;</span><br><span class="line">        cur-&gt;next = cur1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(cur2)&#123;</span><br><span class="line">        cur-&gt;next = cur2;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> node-&gt;next;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ListNode* <span class="title">mergeKLists</span><span class="params">(<span class="built_in">vector</span>&lt;ListNode*&gt;&amp; lists)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(lists.empty()) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">int</span> n = lists.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> interval = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (interval &lt; n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n - interval; i += interval * <span class="number">2</span>)&#123;</span><br><span class="line">            lists[i] = merge2Lists(lists[i], lists[i + interval]);</span><br><span class="line">        &#125;</span><br><span class="line">        interval *= <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> lists[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC169-Majority-Element">LC169 Majority Element</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given an array of size <em>n</em>, find the majority element. The majority element is the element that appears <strong>more than</strong> <code>⌊ n/2 ⌋</code> times.</p>
+<p>You may assume that the array is non-empty and the majority element always exist in the array.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [3,2,3]</span><br><span class="line">Output: 3</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [2,2,1,1,1,2,2]</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>投票法</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">majorityElement</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i] != res) cnt--;</span><br><span class="line">        <span class="keyword">else</span> cnt++;</span><br><span class="line">        <span class="keyword">if</span>(cnt == <span class="number">0</span>)&#123;</span><br><span class="line">            res = nums[i];</span><br><span class="line">            cnt = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC215-Kth-Largest-Element-in-an-Array">LC215 Kth Largest Element in an Array</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Find the <strong>k</strong>th largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [3,2,1,5,6,4] and k &#x3D; 2</span><br><span class="line">Output: 5</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [3,2,3,1,2,4,5,5,6] and k &#x3D; 4</span><br><span class="line">Output: 4</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong><br>
+You may assume k is always valid, 1 ≤ k ≤ array’s length.</p>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>最大堆</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findKthLargest</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="function">priority_queue&lt;<span class="keyword">int</span>&gt; <span class="title">q</span><span class="params">(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>())</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k - <span class="number">1</span>; i++) q.pop();</span><br><span class="line">    <span class="keyword">return</span> q.top();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC218-The-Skyline-Problem">LC218 The Skyline Problem</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>A city’s skyline is the outer contour of the silhouette formed by all the buildings in that city when viewed from a distance. Now suppose you are <strong>given the locations and height of all the buildings</strong> as shown on a cityscape photo (Figure A), write a program to <strong>output the skyline</strong> formed by these buildings collectively (Figure B).</p>
+<p><a href=""><img src="https://assets.leetcode.com/uploads/2018/10/22/skyline1.png" alt="Buildings"> </a><a href=""><img src="https://assets.leetcode.com/uploads/2018/10/22/skyline2.png" alt="Skyline Contour"></a></p>
+<p>The geometric information of each building is represented by a triplet of integers <code>[Li, Ri, Hi]</code>, where <code>Li</code> and <code>Ri</code> are the x coordinates of the left and right edge of the ith building, respectively, and <code>Hi</code> is its height. It is guaranteed that <code>0 ≤ Li, Ri ≤ INT_MAX</code>, <code>0 &lt; Hi ≤ INT_MAX</code>, and <code>Ri - Li &gt; 0</code>. You may assume all buildings are perfect rectangles grounded on an absolutely flat surface at height 0.</p>
+<p>For instance, the dimensions of all buildings in Figure A are recorded as: <code>[ [2 9 10], [3 7 15], [5 12 12], [15 20 10], [19 24 8] ] </code>.</p>
+<p>The output is a list of “<strong>key points</strong>” (red dots in Figure B) in the format of <code>[ [x1,y1], [x2, y2], [x3, y3], ... ]</code> that uniquely defines a skyline. <strong>A key point is the left endpoint of a horizontal line segment</strong>. Note that the last key point, where the rightmost building ends, is merely used to mark the termination of the skyline, and always has zero height. Also, the ground in between any two adjacent buildings should be considered part of the skyline contour.</p>
+<p>For instance, the skyline in Figure B should be represented as:<code>[ [2 10], [3 15], [7 12], [12 0], [15 10], [20 8], [24, 0] ]</code>.</p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>The number of buildings in any input list is guaranteed to be in the range <code>[0, 10000]</code>.</li>
+<li>The input list is already sorted in ascending order by the left x position <code>Li</code>.</li>
+<li>The output list must be sorted by the x position.</li>
+<li>There must be no consecutive horizontal lines of equal height in the output skyline. For instance, <code>[...[2 3], [4 5], [7 5], [11 5], [12 7]...]</code> is not acceptable; the three lines of height 5 should be merged into one in the final output as such: <code>[...[2 3], [4 5], [12 7], ...]</code></li>
+</ul>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>归并，首先计算左边n/2的部分的skyline，然后计算右边n/2部分的skyline，然后将它们两个合并，合并的主要方法如下：</p>
+<ul>
+<li>取得当前最左的那个节点</li>
+<li>判断当前的最大高度应该为多少，即取此时的leftY和rightY的最大值</li>
+<li>如果最大值发生变化，则需要一个点去表明，需要添加一个点，否则不需要</li>
+<li>添加点的时候需要判断结果数组里是否已经存在当前的横坐标，如果存在则直接更新对应的高度即可，否则需要添加进结果数组</li>
+</ul>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">getSkyline</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; buildings)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(buildings.empty()) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    sort(buildings.<span class="built_in">begin</span>(), buildings.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">return</span> helper(buildings, <span class="number">0</span>, buildings.<span class="built_in">size</span>() - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">helper</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; buildings, <span class="keyword">int</span> start, <span class="keyword">int</span> <span class="built_in">end</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(start == <span class="built_in">end</span>) <span class="keyword">return</span> &#123;&#123;buildings[start][<span class="number">0</span>], buildings[start][<span class="number">2</span>]&#125;, &#123;buildings[start][<span class="number">1</span>], <span class="number">0</span>&#125;&#125;;</span><br><span class="line">    <span class="keyword">int</span> mid = start + (<span class="built_in">end</span> - start) / <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; left = helper(buildings, start, mid);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; right = helper(buildings, mid + <span class="number">1</span>, <span class="built_in">end</span>);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="keyword">int</span> nL = left.<span class="built_in">size</span>(), nR = right.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> leftY = <span class="number">0</span>, rightY = <span class="number">0</span>, curY = <span class="number">0</span>, maxY = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> pL = <span class="number">0</span>, pR = <span class="number">0</span>, x = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(pL &lt; nL &amp;&amp; pR &lt; nR)&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; pointL = left[pL];</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; pointR = right[pR];</span><br><span class="line">        <span class="keyword">if</span>(pointL[<span class="number">0</span>] &lt; pointR[<span class="number">0</span>])&#123;</span><br><span class="line">            x = pointL[<span class="number">0</span>];</span><br><span class="line">            leftY = pointL[<span class="number">1</span>];</span><br><span class="line">            pL++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            x = pointR[<span class="number">0</span>];</span><br><span class="line">            rightY = pointR[<span class="number">1</span>];</span><br><span class="line">            pR++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        maxY = <span class="built_in">max</span>(leftY, rightY);</span><br><span class="line">        <span class="keyword">if</span>(curY != maxY)&#123;</span><br><span class="line">            <span class="keyword">if</span>(res.empty() || res.back()[<span class="number">0</span>] != x) res.push_back(&#123;x, maxY&#125;);</span><br><span class="line">            <span class="keyword">else</span> res.back()[<span class="number">1</span>] = maxY;</span><br><span class="line">            curY = maxY;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(pL &lt; nL)&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">point</span> = left[pL++];</span><br><span class="line">        x = <span class="built_in">point</span>[<span class="number">0</span>];</span><br><span class="line">        leftY = <span class="built_in">point</span>[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>(curY != leftY)&#123;</span><br><span class="line">            <span class="keyword">if</span>(res.empty() || res.back()[<span class="number">0</span>] != x) res.push_back(&#123;x, leftY&#125;);</span><br><span class="line">            <span class="keyword">else</span> res.back()[<span class="number">1</span>] = leftY;</span><br><span class="line">            curY = leftY;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(pR &lt; nR)&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">point</span> = right[pR++];</span><br><span class="line">        x = <span class="built_in">point</span>[<span class="number">0</span>];</span><br><span class="line">        rightY = <span class="built_in">point</span>[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>(curY != rightY)&#123;</span><br><span class="line">            <span class="keyword">if</span>(res.empty() || res.back()[<span class="number">0</span>] != x) res.push_back(&#123;x, rightY&#125;);</span><br><span class="line">            <span class="keyword">else</span> res.back()[<span class="number">1</span>] = rightY;</span><br><span class="line">            curY = rightY;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC240-Search-a-2D-Matrix-II">LC240 Search a 2D Matrix II</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Write an efficient algorithm that searches for a value in an <em>m</em> x <em>n</em> matrix. This matrix has the following properties:</p>
+<ul>
+<li>Integers in each row are sorted in ascending from left to right.</li>
+<li>Integers in each column are sorted in ascending from top to bottom.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<p>Consider the following matrix:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  [1,   4,  7, 11, 15],</span><br><span class="line">  [2,   5,  8, 12, 19],</span><br><span class="line">  [3,   6,  9, 16, 22],</span><br><span class="line">  [10, 13, 14, 17, 24],</span><br><span class="line">  [18, 21, 23, 26, 30]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>Given target = <code>5</code>, return <code>true</code>.</p>
+<p>Given target = <code>20</code>, return <code>false</code>.</p>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>从左下角开始查找，偏小则向右，偏大则向上</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">searchMatrix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(matrix.empty() || matrix[<span class="number">0</span>].empty()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">int</span> m = matrix.<span class="built_in">size</span>(), n = matrix[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> i = m - <span class="number">1</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> cur;</span><br><span class="line">    <span class="keyword">while</span>(i &gt;= <span class="number">0</span> &amp;&amp; j &lt; n)&#123;</span><br><span class="line">        cur = matrix[i][j];</span><br><span class="line">        <span class="keyword">if</span>(cur &lt; target) j++;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(cur &gt; target) i--;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC241-Different-Ways-to-Add-Parentheses">LC241 Different Ways to Add Parentheses</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a string of numbers and operators, return all possible results from computing all the different possible ways to group numbers and operators. The valid operators are <code>+</code>, <code>-</code> and <code>*</code>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;2-1-1&quot;</span><br><span class="line">Output: [0, 2]</span><br><span class="line">Explanation: </span><br><span class="line">((2-1)-1) &#x3D; 0 </span><br><span class="line">(2-(1-1)) &#x3D; 2</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;2*3-4*5&quot;</span><br><span class="line">Output: [-34, -14, -10, -10, 10]</span><br><span class="line">Explanation: </span><br><span class="line">(2*(3-(4*5))) &#x3D; -34 </span><br><span class="line">((2*3)-(4*5)) &#x3D; -14 </span><br><span class="line">((2*(3-4))*5) &#x3D; -10 </span><br><span class="line">(2*((3-4)*5)) &#x3D; -10 </span><br><span class="line">(((2*3)-4)*5) &#x3D; 10</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>遍历input，对每一个符号两端的字符串进行计算，得出所有可能的值</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">diffWaysToCompute</span><span class="params">(<span class="built_in">string</span> input)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">int</span> n = input.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">ispunct</span>(input[i]))&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> first: diffWaysToCompute(input.substr(<span class="number">0</span>, i)))&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">auto</span> second: diffWaysToCompute(input.substr(i + <span class="number">1</span>)))&#123;</span><br><span class="line">                    <span class="keyword">if</span>(input[i] == <span class="string">'+'</span>) res.push_back(first + second);</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span>(input[i] == <span class="string">'-'</span>) res.push_back(first - second);</span><br><span class="line">                    <span class="keyword">else</span> res.push_back(first * second);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res.empty() ? <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&#123;stoi(input)&#125;: res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC282-Expression-Add-Operators">LC282 Expression Add Operators</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a string that contains only digits <code>0-9</code> and a target value, return all possibilities to add <strong>binary</strong> operators (not unary) <code>+</code>, <code>-</code>, or <code>*</code> between the digits so they evaluate to the target value.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: num &#x3D; &quot;123&quot;, target &#x3D; 6</span><br><span class="line">Output: [&quot;1+2+3&quot;, &quot;1*2*3&quot;] </span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: num &#x3D; &quot;232&quot;, target &#x3D; 8</span><br><span class="line">Output: [&quot;2*3+2&quot;, &quot;2+3*2&quot;]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: num &#x3D; &quot;105&quot;, target &#x3D; 5</span><br><span class="line">Output: [&quot;1*0+5&quot;,&quot;10-5&quot;]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 4:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: num &#x3D; &quot;00&quot;, target &#x3D; 0</span><br><span class="line">Output: [&quot;0+0&quot;, &quot;0-0&quot;, &quot;0*0&quot;]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 5:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: num &#x3D; &quot;3456237490&quot;, target &#x3D; 9191</span><br><span class="line">Output: []</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>递归，分三种情况，如果是乘法的话使用prevDiff即可，curNum = curNum - prevDiff + prevDiff * val</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">addOperators</span><span class="params">(<span class="built_in">string</span> num, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; res;</span><br><span class="line">    <span class="built_in">string</span> each = <span class="string">""</span>;</span><br><span class="line">    dfs(num, target, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, each, res);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="built_in">string</span>&amp; num, <span class="keyword">int</span>&amp; target, <span class="keyword">int</span> at, ll total, ll lastop, <span class="built_in">string</span>&amp; each, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; res)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(at &gt;= num.<span class="built_in">size</span>())&#123;</span><br><span class="line">        <span class="keyword">if</span>(total == target)&#123;</span><br><span class="line">            res.push_back(each);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = at; i &lt; num.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        <span class="built_in">string</span> val = num.substr(at, i - at + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(val[<span class="number">0</span>] == <span class="string">'0'</span> &amp;&amp; val.<span class="built_in">size</span>() &gt; <span class="number">1</span>) <span class="keyword">break</span>;  </span><br><span class="line">        <span class="keyword">if</span>(at == <span class="number">0</span>)&#123;</span><br><span class="line">            each = val;</span><br><span class="line">            dfs(num, target, i + <span class="number">1</span>, stol(val), stol(val), each, res);</span><br><span class="line">            each = <span class="string">""</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> len = each.<span class="built_in">size</span>();</span><br><span class="line">            each += <span class="string">"+"</span> + val;</span><br><span class="line">            dfs(num, target, i + <span class="number">1</span>, total + stol(val), stol(val), each, res);</span><br><span class="line">            each.resize(len);</span><br><span class="line">            each += <span class="string">"-"</span> + val;</span><br><span class="line">            dfs(num, target, i + <span class="number">1</span>, total - stol(val), stol(val) * <span class="number">-1</span>, each, res);</span><br><span class="line">            each.resize(len);</span><br><span class="line">            each += <span class="string">"*"</span> + val;</span><br><span class="line">            dfs(num, target, i + <span class="number">1</span>, total - lastop + lastop * stol(val), lastop * stol(val), each, res);</span><br><span class="line">            each.resize(len);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC312-Burst-Balloons">LC312 Burst Balloons</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given <code>n</code> balloons, indexed from <code>0</code> to <code>n-1</code>. Each balloon is painted with a number on it represented by array <code>nums</code>. You are asked to burst all the balloons. If the you burst balloon <code>i</code> you will get <code>nums[left] * nums[i] * nums[right]</code> coins. Here <code>left</code> and <code>right</code> are adjacent indices of <code>i</code>. After the burst, the <code>left</code> and <code>right</code> then becomes adjacent.</p>
+<p>Find the maximum coins you can collect by bursting the balloons wisely.</p>
+<p><strong>Note:</strong></p>
+<ul>
+<li>You may imagine <code>nums[-1] = nums[n] = 1</code>. They are not real therefore you can not burst them.</li>
+<li>0 ≤ <code>n</code> ≤ 500, 0 ≤ <code>nums[i]</code> ≤ 100</li>
+</ul>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: [3,1,5,8]</span><br><span class="line">Output: 167 </span><br><span class="line">Explanation: nums &#x3D; [3,1,5,8] --&gt; [3,5,8] --&gt;   [3,8]   --&gt;  [8]  --&gt; []</span><br><span class="line">             coins &#x3D;  3*1*5      +  3*5*8    +  1*3*8      + 1*8*1   &#x3D; 167</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>DP，设dp[i, j]表示nums[i, j]部分的最大结果，则有</p>
+<p>dp[i, j] = max(dp[i, k - 1] + dp[k + 1, j] + nums[k] * nums[i - 1] * nums[j + 1]), for all k &lt;= j and k &gt;= i</p>
+<p>p.s. 遍历顺序，需要先遍历小区间，再遍历大区间，所以遍历顺序应当是区间j - i + 1的从小到大的顺序。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxCoins</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    nums.insert(nums.<span class="built_in">begin</span>(), <span class="number">1</span>);</span><br><span class="line">    nums.push_back(<span class="number">1</span>);</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">dp</span><span class="params">(n + <span class="number">2</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n + <span class="number">2</span>))</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> len = <span class="number">1</span>; len &lt;= n; len++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n - len + <span class="number">1</span>; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> j = i + len - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = i; k &lt;= j; k++)&#123;</span><br><span class="line">                dp[i][j] = <span class="built_in">max</span>(dp[i][j], dp[i][k - <span class="number">1</span>] + dp[k + <span class="number">1</span>][j] + nums[i - <span class="number">1</span>] * nums[k] * nums[j + <span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">1</span>][n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC315-Count-of-Smaller-Numbers-After-Self">LC315 Count of Smaller Numbers After Self</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>You are given an integer array <em>nums</em> and you have to return a new <em>counts</em> array. The <em>counts</em> array has the property where <code>counts[i]</code> is the number of smaller elements to the right of <code>nums[i]</code>.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: [5,2,6,1]</span><br><span class="line">Output: [2,1,1,0] </span><br><span class="line">Explanation:</span><br><span class="line">To the right of 5 there are 2 smaller elements (2 and 1).</span><br><span class="line">To the right of 2 there is only 1 smaller element (1).</span><br><span class="line">To the right of 6 there is 1 smaller element (1).</span><br><span class="line">To the right of 1 there is 0 smaller element.</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>二分搜索法，从数组最后开始遍历，遍历的时候将当前值插入新数组中，使得新数组有序，则插入的位置就是这一位数字对应的结果，因为此时数组内的所有数字都是在这位数字之后的，只要比这个数字小的都会在新数组中排在这个数组之前。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">countSmaller</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; t, res(n, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = t.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">while</span>(left &lt; right)&#123;</span><br><span class="line">            <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[i] &gt; t[mid]) left = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> right = mid;</span><br><span class="line">        &#125;</span><br><span class="line">        res[i] = left;</span><br><span class="line">        t.insert(t.<span class="built_in">begin</span>() + left, nums[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC327-Count-of-Range-Sum">LC327 Count of Range Sum</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given an integer array <code>nums</code>, return the number of range sums that lie in <code>[lower, upper]</code>inclusive.<br>
+Range sum <code>S(i, j)</code> is defined as the sum of the elements in <code>nums</code> between indices <code>i</code> and <code>j</code>(<code>i</code> ≤ <code>j</code>), inclusive.</p>
+<p><strong>Note:</strong><br>
+A naive algorithm of <em>O</em>(<em>n</em>2) is trivial. You MUST do better than that.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: nums &#x3D; [-2,5,-1], lower &#x3D; -2, upper &#x3D; 2,</span><br><span class="line">Output: 3 </span><br><span class="line">Explanation: The three ranges are : [0,0], [2,2], [0,2] and their respective sums are: -2, -1, 2.</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>首先建立multiset对所有sums[0…i]进行排序，同时查找满足0&lt;=j&lt;i和sums[i] - upper &lt;= sums[j] &lt;= sums[i] - lower的j的所有取值。前者可以用lower_bound查找第一满足条件的j，后者可以用upper_bound查找第一个不满足条件的j，两者相减就是该sums[i]对应的j的个数。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">countRangeSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> lower, <span class="keyword">int</span> upper)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">multiset</span>&lt;<span class="keyword">long</span>&gt; sums;</span><br><span class="line">    <span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    sums.insert(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        sum += nums[i];</span><br><span class="line">        res += distance(sums.lower_bound(sum - upper), sums.upper_bound(sum - lower));</span><br><span class="line">        sums.insert(sum);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC493-Reverse-Pairs">LC493 Reverse Pairs</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given an array <code>nums</code>, we call <code>(i, j)</code> an *<strong>important reverse pair*</strong> if <code>i &lt; j</code> and <code>nums[i] &gt; 2*nums[j]</code>.</p>
+<p>You need to return the number of important reverse pairs in the given array.</p>
+<p><strong>Example1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,3,2,3,1]</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure>
+<p><strong>Example2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [2,4,3,5,1]</span><br><span class="line">Output: 3</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ol>
+<li>The length of the given array will not exceed <code>50,000</code>.</li>
+<li>All the numbers in the input array are in the range of 32-bit integer.</li>
+</ol>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<p>BIT - 树状数组，即将上一题中的multiset改为BIT，然后将求距离变成getSum，插入数组变成update</p>
+<ul>
+<li>Approach 2 - TLE</li>
+</ul>
+<p>D&amp;C，类似merge sort，每次先求左半部分和右半部分的结果，然后求i在左半部分，j在右半部分的结果数目，通过遍历左半部分查找右半部分来实现。</p>
+</details>
+<details><summary>Code</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">reversePairs</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>, n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v = nums, bits(n + <span class="number">1</span>);</span><br><span class="line">    sort(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>());</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) m[v[i]] = i + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        res += getSum(lower_bound(v.<span class="built_in">begin</span>(), v.<span class="built_in">end</span>(), nums[i] / <span class="number">2.0</span>) - v.<span class="built_in">begin</span>(), bits);</span><br><span class="line">        update(m[nums[i]], bits);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="keyword">int</span> i, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;bits)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        sum += bits[i];</span><br><span class="line">        i -= (i &amp; -i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> i, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;bits)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; bits.<span class="built_in">size</span>())&#123;</span><br><span class="line">        bits[i] += <span class="number">1</span>;</span><br><span class="line">        i += (i &amp; -i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Approach 2</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">reversePairs</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> helper(nums, <span class="number">0</span>, nums.<span class="built_in">size</span>() - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">helper</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(left &gt;= right) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> res = helper(nums, left, mid) + helper(nums, mid + <span class="number">1</span>, right);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = left; i &lt;= mid; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> j = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(j &lt;= right &amp;&amp; nums[i] / <span class="number">2.0</span> &gt; nums[j]) j++;</span><br><span class="line">            res += j - mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        sort(nums.<span class="built_in">begin</span>() + left, nums.<span class="built_in">begin</span>() + right + <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="Review">Review</h3>
+<p>分治法主要和递归与二分相结合，对于分治法，主要有三种形式：</p>
+<ul>
+<li>
+<p>Binary Search Tree-based</p>
+</li>
+<li>
+<p>Binary Indexed Tree-based</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从节点i到数组尾端节点的所有节点的和</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="keyword">int</span>[] <span class="built_in">bit</span>, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; <span class="built_in">bit</span>.length) &#123;</span><br><span class="line">        sum += <span class="built_in">bit</span>[i];</span><br><span class="line">        i += i &amp; -i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//在位置i插入一个数字k</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span>[] <span class="built_in">bit</span>, <span class="keyword">int</span> i, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (i &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">bit</span>[i] += k;</span><br><span class="line">        i -= i &amp; -i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>Merge Sort-based</p>
+</li>
+</ul>
+<p>其主要思想就是：分解数组，通过解决子数组上的子问题来解决整个问题</p>
+<p>设数组为nums，nums[i, j]表示nums数组中i到j的部分（包含i和j），T(i, j)表示在子数组nums[i, j]上的子问题的解，则我们最终要解决的问题为T(0, n - 1)。一般有两种可能的情况：</p>
+<ul>
+<li>
+<p>Sequential recurrence relation</p>
+<p>T(i, j) = T(i, j - 1) + C</p>
+</li>
+<li>
+<p>Partition recurrence relation</p>
+<p>T(i, j) = T(i, m) + T(m + 1, j) + C, where m = (i + j) / 2</p>
+</li>
+</ul>
+<p>如果不同的子问题之间存在重叠的话，则需要保存所有子问题的结果，类似于DP。</p>
+
+        </div>
+        
+
+    </article>
+    
+    <section id="comments">
+        
+            <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+            </div>
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">Catalogue</h3>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC23-Merge-k-Sorted-Lists"><span class="toc-number">1.</span> <span class="toc-text">LC23 Merge k Sorted Lists</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC169-Majority-Element"><span class="toc-number">2.</span> <span class="toc-text">LC169 Majority Element</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC215-Kth-Largest-Element-in-an-Array"><span class="toc-number">3.</span> <span class="toc-text">LC215 Kth Largest Element in an Array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC218-The-Skyline-Problem"><span class="toc-number">4.</span> <span class="toc-text">LC218 The Skyline Problem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC240-Search-a-2D-Matrix-II"><span class="toc-number">5.</span> <span class="toc-text">LC240 Search a 2D Matrix II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC241-Different-Ways-to-Add-Parentheses"><span class="toc-number">6.</span> <span class="toc-text">LC241 Different Ways to Add Parentheses</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC282-Expression-Add-Operators"><span class="toc-number">7.</span> <span class="toc-text">LC282 Expression Add Operators</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC312-Burst-Balloons"><span class="toc-number">8.</span> <span class="toc-text">LC312 Burst Balloons</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC315-Count-of-Smaller-Numbers-After-Self"><span class="toc-number">9.</span> <span class="toc-text">LC315 Count of Smaller Numbers After Self</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC327-Count-of-Range-Sum"><span class="toc-number">10.</span> <span class="toc-text">LC327 Count of Range Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC493-Reverse-Pairs"><span class="toc-number">11.</span> <span class="toc-text">LC493 Reverse Pairs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Review"><span class="toc-number">12.</span> <span class="toc-text">Review</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/yox@1.0.0-alpha.121/dist/standard/prod/yox.min.js"></script>
+
+
+<script src="/js/search.min.js"></script>
+
+
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://yoursite.com/Divide-and-Conquer/';
+        
+        this.page.identifier = 'Divide-and-Conquer';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + '' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+    </body>
+</html>

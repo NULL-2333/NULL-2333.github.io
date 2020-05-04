@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html  lang="en" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>Binary Search(2) | Yiming</title>
+    <meta name="description" content="LC209 Minimum Size Subarray Sum Problem  Given an array of n positive integers and a positive integer s, find the minimal length of a contiguous subarray of which the sum ≥ s. If there isn’t one, retu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Binary Search(2)">
+<meta property="og:url" content="http://yoursite.com/Binary-Search-2/">
+<meta property="og:site_name" content="Yiming">
+<meta property="og:description" content="LC209 Minimum Size Subarray Sum Problem  Given an array of n positive integers and a positive integer s, find the minimal length of a contiguous subarray of which the sum ≥ s. If there isn’t one, retu">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-16T08:48:41.000Z">
+<meta property="article:modified_time" content="2020-06-20T00:00:54.478Z">
+<meta property="article:author" content="Yiming">
+<meta property="article:tag" content="Binary Search">
+<meta property="article:tag" content="LeetCode">
+<meta name="twitter:card" content="summary">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://null-2333.github.io" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_self" rel="noopener" rel="noreferrer" >
+                <img src="/images/head1.jpeg" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block" style="font-size: 24px; font-weight: 600; padding-bottom: 10px">Yiming</h2>
+            <h3 id="title" class="hidden xl:block">Coding for fun ~</h3>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" style="padding-left: 5px" placeholder="Search" class="inline-block w-full bg-gray-100 lg:bg-white">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="Search" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-5 pb-3 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            <hr />
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">Home</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">Archives</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">Tags</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">Repository</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">Links</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-12 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            Binary Search(2)
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/Binary-Search-2/" class="article-date">
+	  <time datetime="2020-06-16T08:48:41.000Z" itemprop="datePublished">Jun 16</time>
+	</a>
+</span>
+
+                
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Binary-Search/" rel="tag">Binary Search</a>, <a class="article-tag-link" href="/tags/LeetCode/" rel="tag">LeetCode</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/Binary-Search-2/#comments" class="article-comment-link">
+                        Comments
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 2.8k(words)</span>
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <h3 id="LC209-Minimum-Size-Subarray-Sum">LC209 Minimum Size Subarray Sum</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given an array of <strong>n</strong> positive integers and a positive integer <strong>s</strong>, find the minimal length of a <strong>contiguous</strong> subarray of which the sum ≥ <strong>s</strong>. If there isn’t one, return 0 instead.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; 7, nums &#x3D; [2,3,1,2,4,3]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: the subarray [4,3] has the minimal length under the problem constraint.</span><br></pre></td></tr></table></figure>
+<p><strong>Follow up:</strong></p>
+<p>If you have figured out the <em>O</em>(<em>n</em>) solution, try coding another solution of which the time complexity is <em>O</em>(<em>n</em> log <em>n</em>).</p>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<p>二分法，首先计算前i个元素的和的数组sum，然后对于i在0 - n - 1之间的每一个sum[i]，在sum数组中找第一个大于等于sum[i] + s的数字的下标k，此处对应的即为满足条件的子数组范围[i + 1, k]。</p>
+<ul>
+<li>Approach 2</li>
+</ul>
+<p>双指针法，首先将左指针指向0，然后每次右移一位right，判断此时能把left最多左移多少位，然后取最短的长度即可。</p>
+</details>
+<details><summary>Code</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minSubArrayLen</span><span class="params">(<span class="keyword">int</span> s, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">sum</span><span class="params">(n + <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        sum[i] = sum[i - <span class="number">1</span>] + nums[i - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> ans = INT_MAX;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">auto</span> bound = lower_bound(sum.<span class="built_in">begin</span>(), sum.<span class="built_in">end</span>(), sum[i] + s);</span><br><span class="line">        <span class="keyword">if</span>(bound != sum.<span class="built_in">end</span>())&#123;</span><br><span class="line">            ans = <span class="built_in">min</span>(ans, (<span class="keyword">int</span>)(bound - (sum.<span class="built_in">begin</span>() + i)));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (ans == INT_MAX) ? <span class="number">0</span> : ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Approach 2</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minSubArrayLen</span><span class="params">(<span class="keyword">int</span> s, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> ans = INT_MAX;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        sum += nums[i];</span><br><span class="line">        <span class="keyword">while</span>(sum &gt;= s)&#123;</span><br><span class="line">            ans = <span class="built_in">min</span>(ans, i - left + <span class="number">1</span>);</span><br><span class="line">            sum -= nums[left++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (ans == INT_MAX) ? <span class="number">0</span> : ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC230-Kth-Smallest-Element-in-a-BST">LC230 Kth Smallest Element in a BST</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a binary search tree, write a function <code>kthSmallest</code> to find the <strong>k</strong>th smallest element in it.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: root &#x3D; [3,1,4,null,2], k &#x3D; 1</span><br><span class="line">   3</span><br><span class="line">  &#x2F; \</span><br><span class="line"> 1   4</span><br><span class="line">  \</span><br><span class="line">   2</span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input: root &#x3D; [5,3,6,2,4,null,null,1], k &#x3D; 3</span><br><span class="line">       5</span><br><span class="line">      &#x2F; \</span><br><span class="line">     3   6</span><br><span class="line">    &#x2F; \</span><br><span class="line">   2   4</span><br><span class="line">  &#x2F;</span><br><span class="line"> 1</span><br><span class="line">Output: 3</span><br></pre></td></tr></table></figure>
+<p><strong>Follow up:</strong><br>
+What if the BST is modified (insert/delete operations) often and you need to find the kth smallest frequently? How would you optimize the kthSmallest routine?</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>The number of elements of the BST is between <code>1</code> to <code>10^4</code>.</li>
+<li>You may assume <code>k</code> is always valid, <code>1 ≤ k ≤ BST's total elements</code>.</li>
+</ul>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>二分 + 递归，根据左子树的节点数目决定找左子树还是右子树</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kthSmallest</span><span class="params">(TreeNode* root, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> left = getCount(root-&gt;left);</span><br><span class="line">    <span class="keyword">if</span>(left == k - <span class="number">1</span>) <span class="keyword">return</span> root-&gt;val;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(left &lt; k - <span class="number">1</span>) <span class="keyword">return</span> kthSmallest(root-&gt;right, k - left - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> kthSmallest(root-&gt;left, k);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getCount</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> getCount(root-&gt;left) + getCount(root-&gt;right) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC275-H-Index-II">LC275 H-Index II</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given an array of citations <strong>sorted in ascending order</strong> (each citation is a non-negative integer) of a researcher, write a function to compute the researcher’s h-index.</p>
+<p>According to the <a href="https://en.wikipedia.org/wiki/H-index" target="_blank" rel="noopener">definition of h-index on Wikipedia</a>: “A scientist has index <em>h</em> if <em>h</em> of his/her <em>N</em> papers have <strong>at least</strong> <em>h</em> citations each, and the other <em>N − h</em> papers have <strong>no more than</strong> <em>h</em> citations each.”</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input: citations &#x3D; [0,1,3,5,6]</span><br><span class="line">Output: 3 </span><br><span class="line">Explanation: [0,1,3,5,6] means the researcher has 5 papers in total and each of them had </span><br><span class="line">             received 0, 1, 3, 5, 6 citations respectively. </span><br><span class="line">             Since the researcher has 3 papers with at least 3 citations each and the remaining </span><br><span class="line">             two with no more than 3 citations each, her h-index is 3.</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<p>If there are several possible values for <em>h</em>, the maximum one is taken as the h-index.</p>
+<p><strong>Follow up:</strong></p>
+<ul>
+<li>This is a follow up problem to <a href="">H-Index</a>, where <code>citations</code> is now guaranteed to be sorted in ascending order.</li>
+<li>Could you solve it in logarithmic time complexity?</li>
+</ul>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>二分查找</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hIndex</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; citations)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = citations.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = n - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left &lt;= right)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(citations[mid] == n - mid) <span class="keyword">return</span> n - mid;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(citations[mid] &lt; n - mid) left = mid + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> right = mid - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> n - left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC278-First-Bad-Version">LC278 First Bad Version</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of your product fails the quality check. Since each version is developed based on the previous version, all the versions after a bad version are also bad.</p>
+<p>Suppose you have <code>n</code> versions <code>[1, 2, ..., n]</code> and you want to find out the first bad one, which causes all the following ones to be bad.</p>
+<p>You are given an API <code>bool isBadVersion(version)</code> which will return whether <code>version</code> is bad. Implement a function to find the first bad version. You should minimize the number of calls to the API.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Given n &#x3D; 5, and version &#x3D; 4 is the first bad version.</span><br><span class="line"></span><br><span class="line">call isBadVersion(3) -&gt; false</span><br><span class="line">call isBadVersion(5) -&gt; true</span><br><span class="line">call isBadVersion(4) -&gt; true</span><br><span class="line"></span><br><span class="line">Then 4 is the first bad version. </span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>二分查找</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">firstBadVersion</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">1</span>, right = n;</span><br><span class="line">    <span class="keyword">while</span>(left &lt; right)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(isBadVersion(mid)) right = mid;</span><br><span class="line">        <span class="keyword">else</span> left = mid + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC300-Longest-Increasing-Subsequence">LC300 Longest Increasing Subsequence</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given an unsorted array of integers, find the length of longest increasing subsequence.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [10,9,2,5,3,7,101,18]</span><br><span class="line">Output: 4 </span><br><span class="line">Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4. </span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ul>
+<li>There may be more than one LIS combination, it is only necessary for you to return the length.</li>
+<li>Your algorithm should run in O(<em>n2</em>) complexity.</li>
+</ul>
+<p><strong>Follow up:</strong> Could you improve it to O(<em>n</em> log <em>n</em>) time complexity?</p>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<p>DP，dp[i] = max(dp[j] + 1) 对所有满足nums[j] &lt; nums[i]且j &lt; i的元素</p>
+<ul>
+<li>Approach 2</li>
+</ul>
+<p>二分，首先建立一个数组存放最长递增子序列的结果，对于每一个数字，查找这个数组中第一个大于等于当前数字的数组的下标，并用当前数字去替换（这样替换只会使得可能的最长子序列变长而不可能变短），如果没有这样的下标，则说明需要在数组的最后添加一位，最后返回该数组的总长度即可。</p>
+</details>
+<details><summary>Code</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(n, <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[j] &lt; nums[i])&#123;</span><br><span class="line">                dp[i] = <span class="built_in">max</span>(dp[i], dp[j] + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> cnt: dp) res = <span class="built_in">max</span>(res, cnt);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Approach 2</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dp;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num: nums)&#123;</span><br><span class="line">        <span class="keyword">auto</span> i = lower_bound(dp.<span class="built_in">begin</span>(), dp.<span class="built_in">end</span>(), num);</span><br><span class="line">        <span class="keyword">if</span>(i == dp.<span class="built_in">end</span>()) dp.push_back(num);</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> idx = i - dp.<span class="built_in">begin</span>();</span><br><span class="line">            dp[idx] = num;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp.<span class="built_in">size</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC349-Intersection-of-Two-Arrays">LC349 Intersection of Two Arrays</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given two arrays, write a function to compute their intersection.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums1 &#x3D; [1,2,2,1], nums2 &#x3D; [2,2]</span><br><span class="line">Output: [2]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums1 &#x3D; [4,9,5], nums2 &#x3D; [9,4,9,8,4]</span><br><span class="line">Output: [9,4]</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ul>
+<li>Each element in the result must be unique.</li>
+<li>The result can be in any order.</li>
+</ul>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>hash set</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">intersection</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">map</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num: nums1) <span class="built_in">map</span>.insert(num);</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num: nums2)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">map</span>.count(num)) res.insert(num);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">ans</span><span class="params">(res.<span class="built_in">begin</span>(), res.<span class="built_in">end</span>())</span></span>;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC350-Intersection-of-Two-Arrays-II">LC350 Intersection of Two Arrays II</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given two arrays, write a function to compute their intersection.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums1 &#x3D; [1,2,2,1], nums2 &#x3D; [2,2]</span><br><span class="line">Output: [2,2]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums1 &#x3D; [4,9,5], nums2 &#x3D; [9,4,9,8,4]</span><br><span class="line">Output: [4,9]</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ul>
+<li>Each element in the result should appear as many times as it shows in both arrays.</li>
+<li>The result can be in any order.</li>
+</ul>
+<p><strong>Follow up:</strong></p>
+<ul>
+<li>What if the given array is already sorted? How would you optimize your algorithm?</li>
+<li>What if <em>nums1</em>’s size is small compared to <em>nums2</em>’s size? Which algorithm is better?</li>
+<li>What if elements of <em>nums2</em> are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?</li>
+</ul>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>类似上一题目，用hash map</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">intersect</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; <span class="built_in">map</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num: nums1) <span class="built_in">map</span>[num]++;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num: nums2)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">map</span>.count(num) &amp;&amp; <span class="built_in">map</span>[num] &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            res.push_back(num);</span><br><span class="line">            <span class="built_in">map</span>[num]--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC352-Data-Stream-as-Disjoint-Intervals">LC352 Data Stream as Disjoint Intervals</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a data stream input of non-negative integers a1, a2, …, an, …, summarize the numbers seen so far as a list of disjoint intervals.</p>
+<p>For example, suppose the integers from the data stream are 1, 3, 7, 2, 6, …, then the summary will be:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[1, 1]</span><br><span class="line">[1, 1], [3, 3]</span><br><span class="line">[1, 1], [3, 3], [7, 7]</span><br><span class="line">[1, 3], [7, 7]</span><br><span class="line">[1, 3], [6, 7]</span><br></pre></td></tr></table></figure>
+<p><strong>Follow up:</strong></p>
+<p>What if there are lots of merges and the number of disjoint intervals are small compared to the data stream’s size?</p>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>添加数字的时候首先求出当前数字在intervals数组中的位置，然后判断其是否和查找到的位置的前一个区间有重叠部分，如果有，则取得前一个区间，从这一个区间开始进行合并。每当遇到当前区间和val可合并，则更新start和end（表示合并后的区间），然后将当前区间移除。最后插入这个一个区间即可。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SummaryRanges</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; intervals;</span><br><span class="line">    <span class="comment">/** Initialize your data structure here. */</span></span><br><span class="line">    SummaryRanges() &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">addNum</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> cmp = [](<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; a, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; b) &#123; <span class="keyword">return</span> a[<span class="number">0</span>] &lt; b[<span class="number">0</span>]; &#125;;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cur = &#123;val, val&#125;;</span><br><span class="line">        <span class="keyword">auto</span> it = lower_bound(intervals.<span class="built_in">begin</span>(), intervals.<span class="built_in">end</span>(), cur, cmp);</span><br><span class="line">        <span class="keyword">if</span>(it != intervals.<span class="built_in">begin</span>() &amp;&amp; (*(it - <span class="number">1</span>))[<span class="number">1</span>] + <span class="number">1</span> &gt;= val) it--;</span><br><span class="line">        <span class="keyword">int</span> start = val, <span class="built_in">end</span> = val;</span><br><span class="line">        <span class="keyword">while</span>(it != intervals.<span class="built_in">end</span>() &amp;&amp; val + <span class="number">1</span> &gt;= (*it)[<span class="number">0</span>] &amp;&amp; val - <span class="number">1</span> &lt;= (*it)[<span class="number">1</span>])&#123;</span><br><span class="line">            start = <span class="built_in">min</span>(start, (*it)[<span class="number">0</span>]);</span><br><span class="line">            <span class="built_in">end</span> = <span class="built_in">max</span>(<span class="built_in">end</span>, (*it)[<span class="number">1</span>]);</span><br><span class="line">            it = intervals.erase(it);</span><br><span class="line">        &#125;</span><br><span class="line">        intervals.insert(it, &#123;start, <span class="built_in">end</span>&#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">getIntervals</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> intervals;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC354-Russian-Doll-Envelopes">LC354 Russian Doll Envelopes</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>You have a number of envelopes with widths and heights given as a pair of integers <code>(w, h)</code>. One envelope can fit into another if and only if both the width and height of one envelope is greater than the width and height of the other envelope.</p>
+<p>What is the maximum number of envelopes can you Russian doll? (put one inside other)</p>
+<p><strong>Note:</strong><br>
+Rotation is not allowed.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [[5,4],[6,4],[6,7],[2,3]]</span><br><span class="line">Output: 3 </span><br><span class="line">Explanation: The maximum number of envelopes you can Russian doll is 3 ([2,3] &#x3D;&gt; [5,4] &#x3D;&gt; [6,7]).</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>将envelops数组按照第一位递增第二位递减的顺序排好，然后在所有的第二位组成的序列中查找最长递增子序列即可。因为此时只要在第二位上递增，第一位一定比上一个要小。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; a, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; b)</span> <span class="keyword">const</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(a[<span class="number">0</span>] &lt; b[<span class="number">0</span>]) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(a[<span class="number">0</span>] &gt; b[<span class="number">0</span>]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> a[<span class="number">1</span>] &gt; b[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125; cmp;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxEnvelopes</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; envelopes)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(envelopes.empty()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    sort(envelopes.<span class="built_in">begin</span>(), envelopes.<span class="built_in">end</span>(), cmp);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; lis;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> e: envelopes)&#123;</span><br><span class="line">        <span class="keyword">auto</span> it = lower_bound(lis.<span class="built_in">begin</span>(), lis.<span class="built_in">end</span>(), e[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">if</span>(it == lis.<span class="built_in">end</span>()) lis.push_back(e[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> idx = it - lis.<span class="built_in">begin</span>();</span><br><span class="line">            lis[idx] = e[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> lis.<span class="built_in">size</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC363-Max-Sum-of-Rectangle-No-Larger-Than-K">LC363 Max Sum of Rectangle No Larger Than K</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a non-empty 2D matrix <em>matrix</em> and an integer <em>k</em>, find the max sum of a rectangle in the <em>matrix</em> such that its sum is no larger than <em>k</em>.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: matrix &#x3D; [[1,0,1],[0,-2,3]], k &#x3D; 2</span><br><span class="line">Output: 2 </span><br><span class="line">Explanation: Because the sum of rectangle [[0, 1], [-2, 3]] is 2,</span><br><span class="line">             and 2 is the max number no larger than k (k &#x3D; 2).</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ol>
+<li>The rectangle inside the matrix must have an area &gt; 0.</li>
+<li>What if the number of rows is much larger than the number of columns?</li>
+</ol>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>首先对每一列，求这一列到最后某一列处的每一行的和，即sum数组，然后从上往下进行累加。首先设定一个set s存放累加和，对于每一个累加和curSum，查找第一个大于等于curSum - k的值，即这两个curSum对应的下标之间即为要求的最大的矩阵和的范围，如果存在则更新res，最后将当前累加和插入s中。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxSumSubmatrix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(matrix.empty() || matrix[<span class="number">0</span>].empty()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> m = matrix.<span class="built_in">size</span>(), n = matrix[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> res = INT_MIN;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">sum</span><span class="params">(m)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt; n; j++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> t = <span class="number">0</span>; t &lt; m; t++)&#123;</span><br><span class="line">                sum[t] += matrix[t][j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> curSum = <span class="number">0</span>;</span><br><span class="line">            <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">            s.insert(<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> a: sum)&#123;</span><br><span class="line">                curSum += a;</span><br><span class="line">                <span class="keyword">auto</span> it = s.lower_bound(curSum - k);</span><br><span class="line">                <span class="keyword">if</span>(it != s.<span class="built_in">end</span>()) res = <span class="built_in">max</span>(res, curSum - *it);</span><br><span class="line">                s.insert(curSum);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="Review">Review</h3>
+<p>二分查找的很多题目其实只是用二分查找进行了优化，很多时候是用lower_bound和upper_bound来代替二分查找，因此不需要刻意的往二分上去想，应当先想一个正常的方法，然后思考如何用二分去优化。</p>
+
+        </div>
+        
+
+    </article>
+    
+    <section id="comments">
+        
+            <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+            </div>
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">Catalogue</h3>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC209-Minimum-Size-Subarray-Sum"><span class="toc-number">1.</span> <span class="toc-text">LC209 Minimum Size Subarray Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC230-Kth-Smallest-Element-in-a-BST"><span class="toc-number">2.</span> <span class="toc-text">LC230 Kth Smallest Element in a BST</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC275-H-Index-II"><span class="toc-number">3.</span> <span class="toc-text">LC275 H-Index II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC278-First-Bad-Version"><span class="toc-number">4.</span> <span class="toc-text">LC278 First Bad Version</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC300-Longest-Increasing-Subsequence"><span class="toc-number">5.</span> <span class="toc-text">LC300 Longest Increasing Subsequence</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC349-Intersection-of-Two-Arrays"><span class="toc-number">6.</span> <span class="toc-text">LC349 Intersection of Two Arrays</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC350-Intersection-of-Two-Arrays-II"><span class="toc-number">7.</span> <span class="toc-text">LC350 Intersection of Two Arrays II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC352-Data-Stream-as-Disjoint-Intervals"><span class="toc-number">8.</span> <span class="toc-text">LC352 Data Stream as Disjoint Intervals</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC354-Russian-Doll-Envelopes"><span class="toc-number">9.</span> <span class="toc-text">LC354 Russian Doll Envelopes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC363-Max-Sum-of-Rectangle-No-Larger-Than-K"><span class="toc-number">10.</span> <span class="toc-text">LC363 Max Sum of Rectangle No Larger Than K</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Review"><span class="toc-number">11.</span> <span class="toc-text">Review</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/yox@1.0.0-alpha.121/dist/standard/prod/yox.min.js"></script>
+
+
+<script src="/js/search.min.js"></script>
+
+
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://yoursite.com/Binary-Search-2/';
+        
+        this.page.identifier = 'Binary-Search-2';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + '' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+    </body>
+</html>

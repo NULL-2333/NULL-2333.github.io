@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html  lang="en" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>KVO,KVC与KVV | Yiming</title>
+    <meta name="description" content="KVO - Key Value Observer 在MVC架构中保持Model和View的统一性 定义依赖属性 依赖属性可以用来表明属性之间的依赖关系，从而使得在set被依赖属性的时候，依赖属性也会收到通知。定义依赖属性有以下两种方式：  为单个属性定义依赖属性  1234+ (NSSet&lt;NSString *&gt; *)keyPathsForValuesAffecting&lt;#Dep">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KVO,KVC与KVV">
+<meta property="og:url" content="http://yoursite.com/KVO-KVC%E4%B8%8EKVV/">
+<meta property="og:site_name" content="Yiming">
+<meta property="og:description" content="KVO - Key Value Observer 在MVC架构中保持Model和View的统一性 定义依赖属性 依赖属性可以用来表明属性之间的依赖关系，从而使得在set被依赖属性的时候，依赖属性也会收到通知。定义依赖属性有以下两种方式：  为单个属性定义依赖属性  1234+ (NSSet&lt;NSString *&gt; *)keyPathsForValuesAffecting&lt;#Dep">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/keypath.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/array.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/mutablearray.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/getter.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/setter.PNG">
+<meta property="article:published_time" content="2020-08-25T16:53:03.000Z">
+<meta property="article:modified_time" content="2020-09-19T02:07:30.544Z">
+<meta property="article:author" content="Yiming">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/keypath.PNG">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://null-2333.github.io" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_self" rel="noopener" rel="noreferrer" >
+                <img src="/images/head1.jpeg" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block" style="font-size: 24px; font-weight: 600; padding-bottom: 10px">Yiming</h2>
+            <h3 id="title" class="hidden xl:block">Coding for fun ~</h3>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" style="padding-left: 5px" placeholder="Search" class="inline-block w-full bg-gray-100 lg:bg-white">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="Search" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-5 pb-3 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            <hr />
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">Home</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">Archives</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">Tags</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">Repository</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">Links</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-12 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            KVO,KVC与KVV
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/KVO-KVC%E4%B8%8EKVV/" class="article-date">
+	  <time datetime="2020-08-25T16:53:03.000Z" itemprop="datePublished">Aug 26</time>
+	</a>
+</span>
+
+                
+
+                
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/KVO-KVC%E4%B8%8EKVV/#comments" class="article-comment-link">
+                        Comments
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 1.8k(words)</span>
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <h2 id="KVO-Key-Value-Observer">KVO - Key Value Observer</h2>
+<h3 id="在MVC架构中保持Model和View的统一性">在MVC架构中保持Model和View的统一性</h3>
+<h4 id="定义依赖属性">定义依赖属性</h4>
+<p>依赖属性可以用来表明属性之间的依赖关系，从而使得在set被依赖属性的时候，依赖属性也会收到通知。定义依赖属性有以下两种方式：</p>
+<ul>
+<li>为单个属性定义依赖属性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+ (NSSet&lt;NSString *&gt; *)keyPathsForValuesAffecting&lt;#DependentKey#&gt;</span><br><span class="line">&#123;</span><br><span class="line">  return [NSSet setWithObjects:@&quot;&lt;#keyPath#&gt;&quot;, nil];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>为任意属性定义依赖属性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+ (NSSet&lt;NSString *&gt; *)keyPathsForValuesAffectingValueForKey:(NSString *)key</span><br><span class="line">&#123;</span><br><span class="line">  if ([key isEqualToString:@&quot;key1&quot;]) &#123;</span><br><span class="line">    return [NSSet setWithObjects:@&quot;first&quot;, @&quot;last&quot;, nil];</span><br><span class="line">  &#125;</span><br><span class="line">  else if...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="依赖属性的使用">依赖属性的使用</h4>
+<p>在想要observe的属性上加上observer：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[_labColor addObserver:observer forKeyPath:@&quot;key&quot; options:someOptions context:someContext];</span><br></pre></td></tr></table></figure>
+<p>此处options主要有以下几种选项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">typedef NS_OPTIONS(NSUInteger, NSKeyValueObservingOptions) &#123;</span><br><span class="line">  NSKeyValueObservingOptionNew &#x3D; 0x01,</span><br><span class="line">  NSKeyValueObservingOptionOld &#x3D; 0x02,</span><br><span class="line">  NSKeyValueObservingOptionInitial &#x3D; 0x04,</span><br><span class="line">  NSKeyValueObservingOptionPrior &#x3D; 0x08</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>NSKeyValueObservingOptionNew表示传递新的赋值，NSKeyValueObservingOptionOld表示传递赋值前的值，NSKeyValueObservingOptionInitial表示在addObserve的时候就会调用一次下述函数，相当于进行一次初始化，NSKeyValueObservingOptionPrior则表示在该属性变更前后会各收到一次notifier，这些不同选项所传递的值都在change中。</p>
+<p>注意该observer必须实现如下方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context</span><br><span class="line">&#123;</span><br><span class="line">  if (context &#x3D;&#x3D; &lt;#context#&gt;) &#123;</span><br><span class="line">    &lt;#code to be executed upon observing keypath#&gt;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="手动通知与自动通知">手动通知与自动通知</h4>
+<p>在被observe的对象上实现如下方法可以关闭自动notify：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+ (BOOL)automaticallyNotifiesObserversOfLComponent</span><br><span class="line">&#123;</span><br><span class="line">  return NO;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>想要手动发送notifier，可以通过重写相应的属性的set方法，举例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (void)setLComponent:(double)lComponent</span><br><span class="line">&#123;</span><br><span class="line">  if (_lComponent &#x3D;&#x3D; lComponent) &#123;</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line">  [self willChangeValueForKey:@&quot;lComponent&quot;];</span><br><span class="line">  _lComponent &#x3D; lComponent;</span><br><span class="line">  [self didChangeValueForKey:@&quot;lComponent&quot;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此处我们可以知道，在自动通知的情况下，willChangeValueForKey和didChangeValueForKey会自动调用。</p>
+<p>此外，如果需要更加详细的信息，可以重写如下will方法和对应的did方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)willChangeValueForKey:(NSString *)key;</span><br><span class="line">- (void)willChange:(NSKeyValueChange)changeKind valuesAtIndexes:(NSIndexSet *)indexes forKey:(NSString *)key;</span><br><span class="line">&#x2F;&#x2F; 只对mutable版本有效</span><br><span class="line">- (void)willChangeValueForKey:(NSString *)key withSetMutation:(NSKeyValueSetMutationKind)mutationKind usingObjects:(NSSet *)objects;</span><br></pre></td></tr></table></figure>
+<p>然后手动调用will和did方法即可（记得关闭自动通知，否则会通知两次）。</p>
+<h4 id="对可变集合类的支持">对可变集合类的支持</h4>
+<p>由于在向可变集合类内添加元素的时候，该类对象的地址不一定会发生改变，从而就不一定会产生notifier通知给observer，因此在向可变集合类内添加元素的时候，可以调用如下函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-mutableArrayValueForKey:</span><br><span class="line">-mutableSetValueForKey:</span><br><span class="line">-mutableOrderedSetValueForKey:</span><br></pre></td></tr></table></figure>
+<p>举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">被observe的类中有这个对象：</span><br><span class="line">@property (nonatomic, strong) NSMutableArray *testArray;</span><br><span class="line">如果要观察这个对象，添加observer的方法如下：</span><br><span class="line">self.mutableArrayTest &#x3D; [[MutableArrayTest alloc] init];</span><br><span class="line">[self.mutableArrayTest addObserver:self forKeyPath:@&quot;testArray&quot; options:someOptions context:nil];</span><br><span class="line">在更改testArray中的对象时，调用：</span><br><span class="line">[[self.mutableArrayTest mutableArrayValueForKey:@&quot;testArray&quot;] addObject:@&quot;111&quot;];</span><br></pre></td></tr></table></figure>
+<h2 id="KVC-Key-Value-Coding">KVC - Key Value Coding</h2>
+<h3 id="设置属性，简化UI">设置属性，简化UI</h3>
+<p>可以直接通过如下方法修改对象中的属性值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)setValue:(id)value forKey:(NSString *)key;</span><br></pre></td></tr></table></figure>
+<p>使用这个方法就可以直接通过属性名在MVC中的Model层修改属性直接对应的UI。</p>
+<p>也可以使用如下方法实现批量的设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)setValuesForKeysWithDictionary:(NSDictionary&lt;NSString *,id&gt; *)keyedValues;</span><br></pre></td></tr></table></figure>
+<h3 id="Key-Path">Key Path</h3>
+<p>以下两个函数可以通过类似属性的方式读写对象内部的属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (void)setValue:(id)value forKeyPath:(NSString *)keyPath;</span><br><span class="line">- (id)valueForKeyPath:(NSString *)keyPath;</span><br></pre></td></tr></table></figure>
+<p>举例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 修改当前类下labColor对象下的obj对象的testString属性值为@&quot;WWWWWW&quot;</span><br><span class="line">[self setValue:@&quot;WWWWWW&quot; forKeyPath:@&quot;labColor.obj.testString&quot;];</span><br><span class="line">&#x2F;&#x2F; 获取_labColor对象下obj对象的testString属性的值</span><br><span class="line">NSLog(@&quot;%@&quot;, [_labColor valueForKeyPath:@&quot;obj.testString&quot;]);</span><br></pre></td></tr></table></figure>
+<p>不定义property但是可以设置属性</p>
+<p>可以通过实现-<key>和-set<key>这两个函数来动态定义key属性，然后在访问和修改这个属性的时候则可以使用valueForKey和setValue:forKey方法。</p>
+<p>如果想要使用setValue:forKey方法给key属性设置nil，则会抛出异常，可以通过重写以下方法来处理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)setNilValueForKey:(NSString *)key;</span><br></pre></td></tr></table></figure>
+<p>动态添加属性还有一种方法，就是重写以下方法，所有之前未定义过的key都会走这个方法兜底：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (id)valueForUndefinedKey:(NSString *)key;</span><br><span class="line">- (void)setValue:(id)value forUndefinedKey:(NSString *)key；</span><br></pre></td></tr></table></figure>
+<h3 id="集合操作">集合操作</h3>
+<p>参考https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueCoding/CollectionOperators.html</p>
+<p>对于集合类，可以通过在valueForKeyPath方法中设置不同的key实现，key的一般格式如下：</p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/keypath.PNG" alt="keypath"></p>
+<p>如果对象本来就是集合类，则left key path可以省略。</p>
+<p>举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 返回self.labColor.testArr这个数组内的对象的amount属性的平均值</span><br><span class="line">[self valueForKeyPath:@&quot;labColor.testArr.@avg.amount&quot;])</span><br></pre></td></tr></table></figure>
+<p>一般有三种collection operator</p>
+<h4 id="聚合操作算子-Aggregate-Operator">聚合操作算子 Aggregate Operator</h4>
+<p>@avg, @min, @max, @count, @sum</p>
+<h4 id="数组操作算子-Array-Operator">数组操作算子 Array Operator</h4>
+<p>@distinctUnionOfObjects, @unionOfObjects</p>
+<h4 id="嵌套操作算子-Nesting-Operator">嵌套操作算子 Nesting Operator</h4>
+<p>@distinctUnionOfArrays, @unionOfArrays, @distinctUnionOfSets</p>
+<h3 id="集合代理">集合代理</h3>
+<p>首先举例说明：</p>
+<p>如果我们在类中实现了如下方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (NSUInteger)countOfContacts&#123;</span><br><span class="line">  return 10;</span><br><span class="line">&#125;</span><br><span class="line">- (id)objectInContactsAtIndex:(NSUInteger)idx&#123;</span><br><span class="line">  if (idx &lt; 5) &#123;</span><br><span class="line">    return @&quot;first half&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">  else &#123;</span><br><span class="line">    return @&quot;last half&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么我们就可以通过[_labColor valueForKey:@“contacts”]来得到如下数组：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(</span><br><span class="line">&quot;first half&quot;,</span><br><span class="line">&quot;first half&quot;,</span><br><span class="line">&quot;first half&quot;,</span><br><span class="line">&quot;first half&quot;,</span><br><span class="line">&quot;first half&quot;,</span><br><span class="line">&quot;last half&quot;,</span><br><span class="line">&quot;last half&quot;,</span><br><span class="line">&quot;last half&quot;,</span><br><span class="line">&quot;last half&quot;,</span><br><span class="line">&quot;last half&quot;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>相当于动态的在该类中添加了一个集合对象（实际上这个对象的类型是NSKeyValueArray，其内部包含一个NSArray对象）。</p>
+<p>类似的，我们也可以通过这种方式实现NSSet和NSOrderedSet：</p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/array.PNG" alt="array"></p>
+<p>同时也可以在上面这些方法的基础上再实现额外的添加和删除方法实现对应的mutable版本的集合类：</p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/mutablearray.PNG" alt="mutablearray"></p>
+<h2 id="KVV-Key-Value-Validation">KVV - Key Value Validation</h2>
+<p>可以在调用KVC函数之前判断即将要赋的值是否合法，主要是下面两个函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)validateValue:(inout id _Nullable * _Nonnull)ioValue forKey:(NSString *)inKey error:(out NSError **)outError;</span><br><span class="line">- (BOOL)validateValue:(inout id _Nullable * _Nonnull)ioValue forKeyPath:(NSString *)inKeyPath error:(out NSError **)outError;</span><br></pre></td></tr></table></figure>
+<p>这两个函数会去调用对应的对象中的如下方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)validate&lt;key&gt;:(id *)value error:(out NSError * _Nullable __autoreleasing *)outError;</span><br></pre></td></tr></table></figure>
+<p>如果没有重写这个方法，则默认返回YES，表示所有值都合法，可以通过重写这个函数实现KVV。</p>
+<p>举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; LabColor.m</span><br><span class="line">&#x2F;&#x2F; 对于firstName这个属性，@“Japan”是不合法的值</span><br><span class="line">- (BOOL)validateFirstName:(id *)value error:(out NSError * _Nullable __autoreleasing *)outError</span><br><span class="line">&#123;</span><br><span class="line">  NSString *firstName &#x3D; *value;</span><br><span class="line">  if ([firstName isEqualToString:@&quot;japan&quot;]) &#123;</span><br><span class="line">    return NO;</span><br><span class="line">  &#125;</span><br><span class="line">  return YES;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 使用</span><br><span class="line">_labColor &#x3D; [[LabColor alloc] init];</span><br><span class="line">NSString *value1 &#x3D; @&quot;japan&quot;;</span><br><span class="line">NSString *value2 &#x3D; @&quot;japann&quot;;</span><br><span class="line">NSError *err;</span><br><span class="line">NSLog(@&quot;%d&quot;, [_labColor validateValue:&amp;value1 forKey:@&quot;firstName&quot; error:&amp;err]);</span><br><span class="line">&#x2F;&#x2F; 返回NO</span><br><span class="line">NSLog(@&quot;%d&quot;, [_labColor validateValue:&amp;value2 forKey:@&quot;firstName&quot; error:&amp;err]);</span><br><span class="line">&#x2F;&#x2F; 返回YES</span><br></pre></td></tr></table></figure>
+<p>KVC中的函数调用顺序</p>
+<h3 id="取值-valueForKey-和-valueForKeyPath">取值 valueForKey: 和 valueForKeyPath:</h3>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/getter.PNG" alt="getter"></p>
+<ol>
+<li>直接get的四个函数方法；</li>
+<li>是否实现了NSArray的方法；</li>
+<li>是否实现了NSSet方法；</li>
+<li>accessInstanceVariablesDirectly返回YES并且存在对应的实例变量；</li>
+<li>如果上述四步任意一步取得了值则在这一步进行包装；</li>
+<li>否则调用valueForUndefinedKey方法抛出异常（可以重写该方法不抛出异常）。</li>
+</ol>
+<h3 id="设置值-setValue-forKey-和-setValue-forKeyPath">设置值 setValue:forKey: 和 setValue:forKeyPath:</h3>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/setter.PNG" alt="setter"></p>
+<ol>
+<li>首先查找是否有对应的set方法，如果有则直接调用；</li>
+<li>accessInstanceVariablesDirectly返回YES并且存在对应的实例变量，则直接设置实例变量即可；</li>
+<li>调用setValue:forUndefinedKey:方法，默认是抛出异常，可以重写。</li>
+</ol>
+<h2 id="参考">参考</h2>
+<p><a href="https://objccn.io/issue-7-3/" target="_blank" rel="noopener">KVC 和 KVO</a></p>
+<p><a href="https://www.jianshu.com/p/0dbb429b2654" target="_blank" rel="noopener">iOS开发—图解KVC</a></p>
+
+        </div>
+        
+
+    </article>
+    
+    <section id="comments">
+        
+            <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+            </div>
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">Catalogue</h3>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#KVO-Key-Value-Observer"><span class="toc-number">1.</span> <span class="toc-text">KVO - Key Value Observer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在MVC架构中保持Model和View的统一性"><span class="toc-number">1.1.</span> <span class="toc-text">在MVC架构中保持Model和View的统一性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义依赖属性"><span class="toc-number">1.1.1.</span> <span class="toc-text">定义依赖属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#依赖属性的使用"><span class="toc-number">1.1.2.</span> <span class="toc-text">依赖属性的使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#手动通知与自动通知"><span class="toc-number">1.1.3.</span> <span class="toc-text">手动通知与自动通知</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对可变集合类的支持"><span class="toc-number">1.1.4.</span> <span class="toc-text">对可变集合类的支持</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KVC-Key-Value-Coding"><span class="toc-number">2.</span> <span class="toc-text">KVC - Key Value Coding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设置属性，简化UI"><span class="toc-number">2.1.</span> <span class="toc-text">设置属性，简化UI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Key-Path"><span class="toc-number">2.2.</span> <span class="toc-text">Key Path</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集合操作"><span class="toc-number">2.3.</span> <span class="toc-text">集合操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#聚合操作算子-Aggregate-Operator"><span class="toc-number">2.3.1.</span> <span class="toc-text">聚合操作算子 Aggregate Operator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组操作算子-Array-Operator"><span class="toc-number">2.3.2.</span> <span class="toc-text">数组操作算子 Array Operator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#嵌套操作算子-Nesting-Operator"><span class="toc-number">2.3.3.</span> <span class="toc-text">嵌套操作算子 Nesting Operator</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集合代理"><span class="toc-number">2.4.</span> <span class="toc-text">集合代理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KVV-Key-Value-Validation"><span class="toc-number">3.</span> <span class="toc-text">KVV - Key Value Validation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#取值-valueForKey-和-valueForKeyPath"><span class="toc-number">3.1.</span> <span class="toc-text">取值 valueForKey: 和 valueForKeyPath:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置值-setValue-forKey-和-setValue-forKeyPath"><span class="toc-number">3.2.</span> <span class="toc-text">设置值 setValue:forKey: 和 setValue:forKeyPath:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/yox@1.0.0-alpha.121/dist/standard/prod/yox.min.js"></script>
+
+
+<script src="/js/search.min.js"></script>
+
+
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://yoursite.com/KVO-KVC%E4%B8%8EKVV/';
+        
+        this.page.identifier = 'KVO-KVC与KVV';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + '' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+    </body>
+</html>

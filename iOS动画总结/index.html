@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html  lang="en" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>iOS动画总结 | Yiming</title>
+    <meta name="description" content="UIView层 Block动画 animationWithDuration 一般是通过block的方式来实现，主要有以下几个函数： 1+ (void)animateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations 这个函数是最简单的动画函数，duration定义了动画的时长，animation b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS动画总结">
+<meta property="og:url" content="http://yoursite.com/iOS%E5%8A%A8%E7%94%BB%E6%80%BB%E7%BB%93/">
+<meta property="og:site_name" content="Yiming">
+<meta property="og:description" content="UIView层 Block动画 animationWithDuration 一般是通过block的方式来实现，主要有以下几个函数： 1+ (void)animateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations 这个函数是最简单的动画函数，duration定义了动画的时长，animation b">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-15T03:05:11.000Z">
+<meta property="article:modified_time" content="2020-08-25T16:12:15.245Z">
+<meta property="article:author" content="Yiming">
+<meta property="article:tag" content="Objective-C">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://null-2333.github.io" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_self" rel="noopener" rel="noreferrer" >
+                <img src="/images/head1.jpeg" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block" style="font-size: 24px; font-weight: 600; padding-bottom: 10px">Yiming</h2>
+            <h3 id="title" class="hidden xl:block">Coding for fun ~</h3>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" style="padding-left: 5px" placeholder="Search" class="inline-block w-full bg-gray-100 lg:bg-white">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="Search" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-5 pb-3 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            <hr />
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">Home</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">Archives</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">Tags</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">Repository</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">Links</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-12 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            iOS动画总结
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/iOS%E5%8A%A8%E7%94%BB%E6%80%BB%E7%BB%93/" class="article-date">
+	  <time datetime="2020-07-15T03:05:11.000Z" itemprop="datePublished">Jul 15</time>
+	</a>
+</span>
+
+                
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Objective-C/" rel="tag">Objective-C</a>, <a class="article-tag-link" href="/tags/iOS/" rel="tag">iOS</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/iOS%E5%8A%A8%E7%94%BB%E6%80%BB%E7%BB%93/#comments" class="article-comment-link">
+                        Comments
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 3.2k(words)</span>
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <h2 id="UIView层">UIView层</h2>
+<h3 id="Block动画">Block动画</h3>
+<h4 id="animationWithDuration">animationWithDuration</h4>
+<p>一般是通过block的方式来实现，主要有以下几个函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (void)animateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations</span><br></pre></td></tr></table></figure>
+<p>这个函数是最简单的动画函数，duration定义了动画的时长，animation block定义了动画的内容，一般是设置动画的结束状态的语句，中间的具体动画过程则是又系统自动填充。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (void)animateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations completion:(void (^ __nullable)(BOOL finished))completion</span><br></pre></td></tr></table></figure>
+<p>这个函数是在上一个动画函数的基础上添加了动画结束时候的回调block函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (void)animateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay options:(UIViewAnimationOptions)options animations:(void (^)(void))animations completion:(void (^ __nullable)(BOOL finished))completion</span><br></pre></td></tr></table></figure>
+<p>这个动画函数是在上一个动画函数的基础上添加了延迟时长delay和一些动画选项UIViewAnimationOptions。UIViewAnimationOptions主要包含四大类：</p>
+<ul>
+<li>
+<p>一是基础属性相关，以UIViewAnimationOptions为前缀，如是否重复执行，是否反向执行等等；</p>
+</li>
+<li>
+<p>二是动画的运行平缓度相关，以UIViewAnimationOptionsCurve为前缀，主要是EaseInOut、EaseIn、EaseOut和Layer，用于定义动画如何开始和结束；</p>
+</li>
+<li>
+<p>三是方向相关，用于定义部分带方向动画，以UIViewAnimationOptionTransition为前缀；</p>
+</li>
+<li>
+<p>四是帧数相关，用于定义动画的帧数，以UIViewAnimationOptionPreferredFramesPerSecond为前缀。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (void)animateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay usingSpringWithDamping:(CGFloat)dampingRatio initialSpringVelocity:(CGFloat)velocity options:(UIViewAnimationOptions)options animations:(void (^)(void))animations completion:(void (^ __nullable)(BOOL finished))completion</span><br></pre></td></tr></table></figure>
+<p>这个动画函数是上一个动画函数的另一种情况，弹簧动画，主要的几个参数如下：</p>
+<ul>
+<li>
+<p>(CGFloat)dampingRatio，抑制系数，范围0-1之间，1表示在重点附近完全无摆动，越靠近1则摆动越大；</p>
+</li>
+<li>
+<p>(CGFloat)velocity，相对的初始速度，范围0-1之间，表示属性值在一开始到达终止值的速度，设置为x则表示需要1/x秒可以到达终止值（这并不意味着动画的结束，因为是弹簧动画，物体的属性值还进行往返运动）。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (void)animateKeyframesWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay options:(UIViewKeyframeAnimationOptions)options animations:(void (^)(void))animations completion:(void (^ __nullable)(BOOL finished))completion</span><br></pre></td></tr></table></figure>
+<p>关键帧动画，通过定义动画过程中的关键帧，来实现对动画的控制，其主要的两个参数如下：</p>
+<ul>
+<li>
+<p>(UIViewKeyframeAnimationOptions)options，主要分为两类：</p>
+<ul>
+<li>
+<p>以UIViewKeyframeAnimationOption为前缀，类似UIViewAnimationOptions中的第一类；</p>
+</li>
+<li>
+<p>以UIViewKeyframeAnimationOptionCalculationMode为前缀，主要表示的是不同的插值方式；</p>
+</li>
+</ul>
+</li>
+<li>
+<p>(void (^)(void))animations，用于添加关键帧，有如下函数</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (void)addKeyframeWithRelativeStartTime:(double)frameStartTime relativeDuration:(double)frameDuration animations:(void (^)(void))animations</span><br></pre></td></tr></table></figure>
+<p>其中frameStartTime和frameDuration均为0-1之间的值，即为相对于整个duration的值。</p>
+<h4 id="transitionFromView">transitionFromView</h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (void)transitionFromView:(UIView *)fromView toView:(UIView *)toView duration:(NSTimeInterval)duration options:(UIViewAnimationOptions)options completion:(void (^ __nullable)(BOOL finished))completion;</span><br></pre></td></tr></table></figure>
+<p>此处显式指定了fromView和toView</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (void)transitionWithView:(UIView *)view duration:(NSTimeInterval)duration options:(UIViewAnimationOptions)options animations:(void (^ __nullable)(void))animations completion:(void (^ __nullable)(BOOL finished))completion;</span><br></pre></td></tr></table></figure>
+<p>此处指定的view为containerView，即所做动画均为对这个containerView所做，动画效果都是以整个containerView作为基础进行的。</p>
+<h2 id="Layer层">Layer层</h2>
+<h3 id="CATransaction事务类">CATransaction事务类</h3>
+<p>CATransaction类是Core Animation类中的事务类，在iOS中的图层中，图层的每个改变都是事务的一部分，CATransaction可以对多个layer的属性同时进行修改，同时负责成批的把多个图层树的修改作为一个原子更新到渲染树。</p>
+<p>CATransaction类分为隐式事务和显式事务，对隐式动画的修改只能通过CATransaction，而显式动画可以通过CATransaction也可以通过其他方式修改。</p>
+<h4 id="隐式事务">隐式事务</h4>
+<p>所有对layer的属性的修改都会触发隐式动画，固定时长为0.25s，如果需要关闭隐式动画则需要调用如下函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[CATransaction setDisableActions:YES];</span><br></pre></td></tr></table></figure>
+<h4 id="显式事务">显式事务</h4>
+<p>一般有如下结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 开始动画</span><br><span class="line">[CATransaction begin];  </span><br><span class="line">&#x2F;&#x2F; 设定animation timing function</span><br><span class="line">[CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];</span><br><span class="line">&#x2F;&#x2F; 设定动画的duration</span><br><span class="line">[CATransaction setAnimationDuration:5.f];</span><br><span class="line">&#x2F;&#x2F; 具体要修改的属性值</span><br><span class="line">self.shapeLayer.strokeEnd &#x3D;  1.f - self.shapeLayer.strokeEnd;</span><br><span class="line">&#x2F;&#x2F; 提交动画</span><br><span class="line">[CATransaction commit];</span><br></pre></td></tr></table></figure>
+<p>此处在定义显式动画的同时会覆盖掉隐式动画，因此不需要手动关闭隐式动画。</p>
+<p>⚠️UIView层的动画只能对指定view的rootLayer做动画，即</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">CAShapeLayer *shapeLayer &#x3D; [[CAShapeLayer alloc] init];</span><br><span class="line">shapeLayer.fillColor &#x3D; [UIColor clearColor].CGColor;</span><br><span class="line">shapeLayer.strokeColor &#x3D; [UIColor blueColor].CGColor;</span><br><span class="line">shapeLayer.lineWidth &#x3D; 15.f;</span><br><span class="line">shapeLayer.strokeEnd &#x3D; 0.f;</span><br><span class="line">shapeLayer.path &#x3D; [UIBezierPath bezierPathWithArcCenter:CGPointMake(200, 200) radius:50 startAngle:-M_PI &#x2F; 2 endAngle:M_PI * 1.5f clockwise:YES].CGPath;</span><br><span class="line">[self.view.layer addSublayer:shapeLayer];</span><br><span class="line">[UIView animateWithDuration:5.f animations:^&#123;</span><br><span class="line">  shapeLayer.strokeEnd &#x3D;  1.f;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>该代码是无效的，其实际产生的效果是这个shapeLayer的隐式动画，也就是一个时长为0.25s的动画，而并非是5s。要实现5s长的动画，就需要采用Layer层的动画，即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[CATransaction setDisableActions:YES]; &#x2F;&#x2F; 取消layer的隐式动画</span><br><span class="line">CABasicAnimation *animation &#x3D; [CABasicAnimation animationWithKeyPath:@&quot;strokeEnd&quot;];</span><br><span class="line">animation.fromValue &#x3D; @(self.shapeLayer.strokeEnd);</span><br><span class="line">animation.toValue &#x3D; @(1.f - self.shapeLayer.strokeEnd);</span><br><span class="line">animation.duration &#x3D; 5.f;</span><br><span class="line">animation.removedOnCompletion &#x3D; NO;</span><br><span class="line">animation.fillMode &#x3D; kCAFillModeForwards;</span><br><span class="line">animation.timingFunction &#x3D; [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];</span><br><span class="line">[shapeLayer addAnimation:animation forKey:nil];</span><br><span class="line">shapeLayer.strokeEnd &#x3D; 1.f - self.shapeLayer.strokeEnd; </span><br><span class="line">&#x2F;&#x2F; 由于上面取消了隐式动画，这里的属性值的修改是不会有动画效果的，否则会有动画效果</span><br></pre></td></tr></table></figure>
+<p>或者使用CATransaction来实现，即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[CATransaction begin];</span><br><span class="line">[CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];</span><br><span class="line">[CATransaction setAnimationDuration:5.f];</span><br><span class="line">shapeLayer.strokeEnd &#x3D;  1.f - self.shapeLayer.strokeEnd;</span><br><span class="line">[CATransaction commit];</span><br></pre></td></tr></table></figure>
+<p>这种方式则不需要关闭隐式动画。</p>
+<h3 id="CAAnimation类">CAAnimation类</h3>
+<p>主要实现类是CAAnimation及其子类，以及一个所有动画类都遵循的协议CAMediaTiming。</p>
+<p>Layer层动画的添加方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)addAnimation:(CAAnimation *)anim forKey:(nullable NSString *)key;</span><br></pre></td></tr></table></figure>
+<p>其中key表示了要变化的属性的名字，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[self.curView.layer addAnimation:animation forKey:nil];</span><br></pre></td></tr></table></figure>
+<h4 id="CAMediaTiming">CAMediaTiming</h4>
+<p>所有动画类都需要实现的协议；</p>
+<h4 id="CAAnimation">CAAnimation</h4>
+<p>动画基础类，不可直接使用；</p>
+<h4 id="CAPropertyAnimation">CAPropertyAnimation</h4>
+<p>动画基础类，不可直接使用；</p>
+<h4 id="CABasicAnimation">CABasicAnimation</h4>
+<p>基础属性动画，对keyPath所制定的属性进行变化，主要有以下几个函数和属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@property(nullable, strong) id fromValue; &#x2F;&#x2F; 初始值</span><br><span class="line">@property(nullable, strong) id toValue;     &#x2F;&#x2F; 终止值</span><br><span class="line">@property(nullable, strong) id byValue;  &#x2F;&#x2F; 变化值</span><br><span class="line">@property CFTimeInterval duration;         &#x2F;&#x2F; 动画时间</span><br><span class="line">+ (instancetype)animationWithKeyPath:(nullable NSString *)path;   &#x2F;&#x2F; 构造函数</span><br></pre></td></tr></table></figure>
+<p>有两个属性比较关键，可以用于设置动画结束之后是否需要回到初始态：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 不回到初始状态</span><br><span class="line">animation.removedOnCompletion &#x3D; NO;</span><br><span class="line">animation.fillMode &#x3D; kCAFillModeForwards;</span><br></pre></td></tr></table></figure>
+<p>这里就要涉及到CALayer的两个子layer对象，persentationLayer和modelLayer，前者负责显示出来的位置，后者负责实际的位置。即使我们在这里设置了动画结束之后不会到初始态，我们也只是将presentationLayer的值设置到了终止态，modelLayer的值还是原来的值，也就是此时通过类似layer.backgroundColor这样的get方法获得到的值是不会变的，要改变这个值则还需要显式的调用set方法（或者点调用）。</p>
+<p>例如以下代码，实现了边框的宽度从90变到0的效果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CABasicAnimation *animation &#x3D; [CABasicAnimation animationWithKeyPath:@&quot;borderWidth&quot;];</span><br><span class="line">animation.fromValue &#x3D; @(90);</span><br><span class="line">animation.toValue &#x3D; @(0);</span><br><span class="line">animation.duration &#x3D; 5.f;</span><br><span class="line">[animation setAutoreverses:YES];</span><br><span class="line">animation.timingFunction &#x3D; [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];</span><br><span class="line">animation.removedOnCompletion &#x3D; NO;</span><br><span class="line">animation.fillMode &#x3D; kCAFillModeForwards;</span><br><span class="line">[self.view.layer addAnimation:animation forKey:nil];</span><br></pre></td></tr></table></figure>
+<p>这段动画结束后，虽然显示出来的边框宽度是90，但是实际上self.view.layer.borderWidth获取到的值还是0.f。</p>
+<h4 id="CASpringAnimation">CASpringAnimation</h4>
+<p>弹簧动画，其主要就是在CABasicAnimation的基础上增加了damping和initialVelocity这两个弹簧相关的对象；</p>
+<h4 id="CAKeyframeAnimation">CAKeyframeAnimation</h4>
+<p>关键帧动画，通过定义关键帧或者路径来实现动画的控制</p>
+<h5 id="关键帧">关键帧</h5>
+<p>主要的参数如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@property(nullable, copy) NSArray *values;          &#x2F;&#x2F; 关键帧的值数组 </span><br><span class="line">@property(nullable, copy) NSArray&lt;NSNumber *&gt; *keyTimes;   &#x2F;&#x2F; 关键帧的时间 @property(copy) CAAnimationCalculationMode calculationMode; &#x2F;&#x2F; 计算间隔的方式</span><br></pre></td></tr></table></figure>
+<p>#####路径</p>
+<p>主要的参数如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@property(nullable) CGPathRef path; </span><br><span class="line">&#x2F;&#x2F; 一个UIBezierPath类型的变量，表示动画运行的path</span><br></pre></td></tr></table></figure>
+<p>UIBezierPath主要是通过点来确定路径，同时我们可以定义点和点之间的路径类型，主要的几个函数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(void)moveToPoint:(CGPoint)point;       &#x2F;&#x2F; 设置初始节点的位置</span><br><span class="line">(void)addLineToPoint:(CGPoint)point;</span><br><span class="line">(void)addCurveToPoint:(CGPoint)endPoint controlPoint1:(CGPoint)controlPoint1 controlPoint2:(CGPoint)controlPoint2;</span><br><span class="line">(void)addQuadCurveToPoint:(CGPoint)endPoint controlPoint:(CGPoint)controlPoint;</span><br><span class="line">(void)addArcWithCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise;</span><br><span class="line">(void)closePath;                &#x2F;&#x2F; path结束，会自动将结束节点和初始节点连起来</span><br></pre></td></tr></table></figure>
+<p>例如下面的代码可以实现一个在固定路径上的关键帧动画：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CAKeyframeAnimation *animation &#x3D; [CAKeyframeAnimation animationWithKeyPath:@&quot;position&quot;];</span><br><span class="line">UIBezierPath *path &#x3D; [[UIBezierPath alloc] init];</span><br><span class="line">[path moveToPoint:CGPointMake(self.caKeyframeAnimationView.frame.origin.x + self.caKeyframeAnimationView.frame.size.width &#x2F; 2, self.caKeyframeAnimationView.frame.origin.y + self.caKeyframeAnimationView.frame.size.height &#x2F; 2)];</span><br><span class="line">[path addLineToPoint:CGPointMake(self.caKeyframeAnimationView.frame.origin.x + self.caKeyframeAnimationView.frame.size.width &#x2F; 2 + 30, self.caKeyframeAnimationView.frame.origin.y + self.caKeyframeAnimationView.frame.size.height &#x2F; 2)];</span><br><span class="line">[path addLineToPoint:CGPointMake(self.caKeyframeAnimationView.frame.origin.x + self.caKeyframeAnimationView.frame.size.width &#x2F; 2 - 30, self.caKeyframeAnimationView.frame.origin.y + self.caKeyframeAnimationView.frame.size.height &#x2F; 2)];</span><br><span class="line">[path closePath];</span><br><span class="line">animation.path &#x3D; path.CGPath;</span><br><span class="line">animation.duration &#x3D; 1.f;</span><br><span class="line">animation.removedOnCompletion &#x3D; NO;</span><br><span class="line">animation.fillMode &#x3D; kCAFillModeForwards;</span><br><span class="line">[self.caKeyframeAnimationView.layer addAnimation:animation forKey:nil];</span><br></pre></td></tr></table></figure>
+<h4 id="CAAnimationGroup">CAAnimationGroup</h4>
+<p>组合动画，可以将多个动画组合起来，通过如下设置即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; animationArr是一个由CAAnimation的子类构成的数组  </span><br><span class="line">animationGroup.animations &#x3D; animationArr;</span><br></pre></td></tr></table></figure>
+<p>注意此处该数组内的动画都是并发执行的，所以如果希望串行执行的话就需要通过设置这个动画组内的动画的beginTime和duration来实现。</p>
+<h4 id="CATransition">CATransition</h4>
+<p>转场动画类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CATransition *animation &#x3D; [[CATransition alloc] init];</span><br><span class="line">animation.type &#x3D; kCATransitionFade;             &#x2F;&#x2F; 设置转场效果</span><br><span class="line">animation.subtype &#x3D; kCATransitionFromTop;         &#x2F;&#x2F; 设置转场动画的效果</span><br><span class="line">animation.duration &#x3D; 5.f;</span><br><span class="line">animation.timingFunction &#x3D; [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];</span><br><span class="line">&#x2F;&#x2F; 跳转方式1 - 模态跳转</span><br><span class="line">[self.view.layer addAnimation:animation forKey:nil];</span><br><span class="line">[self presentViewController:VC animated:NO completion:nil]</span><br><span class="line">&#x2F;&#x2F; 跳转方式2 - Nav导航跳转</span><br><span class="line">[self.navigationController.view.layer addAnimation:animation forKey:nil];</span><br><span class="line">[self.navigationController pushViewController:VC animated:NO];</span><br></pre></td></tr></table></figure>
+<h2 id="UIViewController的自定义转场动画">UIViewController的自定义转场动画</h2>
+<p>设两个UIViewController类分别为FirstViewController和SecondViewController，对应的实例分别为firstVC和secondVC，且显示顺序为firstVC-&gt;secondVC，要实现从firstVC到secondVC的显示动画和secondVC到firstVC的取消动画，需要以下几步：</p>
+<ol>
+<li>实现一个遵循UIViewControllerAnimatedTransitioning的动画类AnimationController，并定义当前的TransitionType</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef NS_ENUM(NSUInteger, TransitionType) &#123;</span><br><span class="line">  TransitionTypePresent &#x3D; 0,     &#x2F;&#x2F; present和dismiss为模态弹出</span><br><span class="line">  TransitionTypeDismiss,</span><br><span class="line">  TransitionTypePush,        &#x2F;&#x2F; push和pop为nav弹出</span><br><span class="line">  TransitionTypePop</span><br><span class="line">&#125;;</span><br><span class="line">@interface AnimationController : NSObject &lt;UIViewControllerAnimatedTransitioning&gt;</span><br><span class="line">  @property (nonatomic, assign) TransitionType type;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>在AnimationController类中实现如下两个方法：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 动画的duration</span><br><span class="line">- (NSTimeInterval)transitionDuration:(nullable id &lt;UIViewControllerContextTransitioning&gt;)transitionContext;</span><br><span class="line">  &#x2F;&#x2F; 动画的具体实现</span><br><span class="line">- (void)animateTransition:(id &lt;UIViewControllerContextTransitioning&gt;)transitionContext;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>
+<p>duration的实现很简单，直接返回一个float即可；</p>
+</li>
+<li>
+<p>动画的具体实现的主要流程如下：</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>首先根据type判断当前的操作具体是什么</p>
+</li>
+<li>
+<p>对于push或者present，首先定义fromVC和toVC（注意这里在pop和dismiss的时候会产生fromVC和toVC的互换）</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UIViewController *fromVC &#x3D; [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey]; </span><br><span class="line">UIViewController *toVC &#x3D; [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>获取当前界面的截图视图snapshot，作为后续动画的实际操作view</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UIView *snapshot &#x3D; [fromVC.view snapshotViewAfterScreenUpdates:NO];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>获取containerView作为存放整个过程的容器</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UIView *containerView &#x3D; [transitionContext containerView];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>将fromVC设为hidden，并分别将toVC.view和snapshot加入到containerView中</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[fromVC.view setHidden:YES]; </span><br><span class="line">[containerView addSubview:toVC.view]; </span><br><span class="line">[containerView addSubview:snapshot];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>设定snapshot的初始设置和位置；</p>
+</li>
+<li>
+<p>写动画</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">NSTimeInterval duration &#x3D; [self transitionDuration:transitionContext]; </span><br><span class="line">[UIView animateWithDuration:duration animations:^&#123; </span><br><span class="line">  &#x2F;&#x2F; 这里也可以是keyframeanimation或者其他类型的block animation（见第一部分） </span><br><span class="line">&#125; completion:^(BOOL finished) &#123;  </span><br><span class="line">  &#x2F;&#x2F; 设置transition结果 </span><br><span class="line">  [transitionContext completeTransition:!transitionContext.transitionWasCancelled];  </span><br><span class="line">  &#x2F;&#x2F; 如果transition失败，则将snapshot移除（因为下一次present或者push还会创建snapshot），并将fromVC显示出来 </span><br><span class="line">  if ([transitionContext transitionWasCancelled]) &#123;   </span><br><span class="line">    [snapshot removeFromSuperview];   </span><br><span class="line">    [fromVC.view setHidden:NO]; </span><br><span class="line">  &#125; </span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>对于pop或者dismiss，首先定义fromVC和toVC（注意这里在pop和dismiss的时候会产生fromVC和toVC的互换）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UIViewController *fromVC &#x3D; [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey]; </span><br><span class="line">UIViewController *toVC &#x3D; [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>获取containerView作为存放整个过程的容器</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UIView *containerView &#x3D; [transitionContext containerView];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>获取present和push中的截图视图snapshot，此时snapshot应当为containerView的subviews中的最后一个view</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UIView *snapshot &#x3D; containerView.subviews.lastObject;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在containerView中添加toVC.view</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[containerView addSubview:toVC.view];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>设定snapshot的初始设置和位置；</p>
+</li>
+<li>
+<p>写动画</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">NSTimeInterval duration &#x3D; [self transitionDuration:transitionContext]; </span><br><span class="line">[UIView animateWithDuration:duration animations:^&#123; </span><br><span class="line">  &#x2F;&#x2F; 这里也可以是keyframeanimation或者其他类型的block animation（见第一部分） </span><br><span class="line">&#125; completion:^(BOOL finished) &#123;  </span><br><span class="line">  &#x2F;&#x2F; 设置transition结果 </span><br><span class="line">  [transitionContext completeTransition:!transitionContext.transitionWasCancelled];  </span><br><span class="line">  &#x2F;&#x2F; 如果transition失败，则什么都不做  </span><br><span class="line">  &#x2F;&#x2F; 如果transition成功，则将toVC设为hidden，并移除snapshot </span><br><span class="line">  if (!transitionContext.transitionWasCancelled) &#123;   </span><br><span class="line">    [toVC.view setHidden:NO];   </span><br><span class="line">    [snapshot removeFromSuperview]; </span><br><span class="line">  &#125; </span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>对于present和dismiss，在FirstViewController中遵循UIViewControllerTransitioningDelegate，并实现animationControllerForPresentedController函数和animationControllerForDismissedController函数，返回转场动画的实例</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (id&lt;UIViewControllerAnimatedTransitioning&gt;)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source</span><br><span class="line">&#123;</span><br><span class="line">   &#x2F;&#x2F; 此处可以根据presented和presenting来进行判断需要返回哪一个转场动画类</span><br><span class="line">  return [[AnimationController alloc] initWithType:TransitionTypePresent];</span><br><span class="line">&#125;</span><br><span class="line">- (id&lt;UIViewControllerAnimatedTransitioning&gt;)animationControllerForDismissedController:(UIViewController *)dismissed</span><br><span class="line">&#123;</span><br><span class="line">  SecondViewController *exampleVC &#x3D; (SecondViewController *)dismissed;</span><br><span class="line">  if (exampleVC &#x3D;&#x3D; nil) return nil;</span><br><span class="line">  return [[AnimationController alloc] initWithType:TransitionTypeDismiss];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>对于push和pop，则需要在FirstViewController中遵循UINavigationControllerDelegate，并实现如下函数：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">- (id&lt;UIViewControllerAnimatedTransitioning&gt;)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC</span><br><span class="line">&#123;</span><br><span class="line">  if (operation &#x3D;&#x3D; UINavigationControllerOperationPush) &#123;</span><br><span class="line">    if ([fromVC isKindOfClass:FirstImageViewController.class]) &#123;</span><br><span class="line">      FirstViewController *fiVC &#x3D; (FirstViewController *)fromVC;</span><br><span class="line">      return [[AnimationController alloc] initWithType:TransitionTypePush];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  else if (operation &#x3D;&#x3D; UINavigationControllerOperationPop)&#123;</span><br><span class="line">    if ([fromVC isKindOfClass:SecondImageViewController.class]) &#123;</span><br><span class="line">      SecondViewController *siVC &#x3D; (SecondViewController *)fromVC;</span><br><span class="line">      return [[AnimationController alloc] initWithType:TransitionTypePop];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return nil;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+        
+
+    </article>
+    
+    <section id="comments">
+        
+            <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+            </div>
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">Catalogue</h3>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#UIView层"><span class="toc-number">1.</span> <span class="toc-text">UIView层</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Block动画"><span class="toc-number">1.1.</span> <span class="toc-text">Block动画</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#animationWithDuration"><span class="toc-number">1.1.1.</span> <span class="toc-text">animationWithDuration</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#transitionFromView"><span class="toc-number">1.1.2.</span> <span class="toc-text">transitionFromView</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Layer层"><span class="toc-number">2.</span> <span class="toc-text">Layer层</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CATransaction事务类"><span class="toc-number">2.1.</span> <span class="toc-text">CATransaction事务类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#隐式事务"><span class="toc-number">2.1.1.</span> <span class="toc-text">隐式事务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#显式事务"><span class="toc-number">2.1.2.</span> <span class="toc-text">显式事务</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CAAnimation类"><span class="toc-number">2.2.</span> <span class="toc-text">CAAnimation类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CAMediaTiming"><span class="toc-number">2.2.1.</span> <span class="toc-text">CAMediaTiming</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CAAnimation"><span class="toc-number">2.2.2.</span> <span class="toc-text">CAAnimation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CAPropertyAnimation"><span class="toc-number">2.2.3.</span> <span class="toc-text">CAPropertyAnimation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CABasicAnimation"><span class="toc-number">2.2.4.</span> <span class="toc-text">CABasicAnimation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CASpringAnimation"><span class="toc-number">2.2.5.</span> <span class="toc-text">CASpringAnimation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CAKeyframeAnimation"><span class="toc-number">2.2.6.</span> <span class="toc-text">CAKeyframeAnimation</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#关键帧"><span class="toc-number">2.2.6.1.</span> <span class="toc-text">关键帧</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CAAnimationGroup"><span class="toc-number">2.2.7.</span> <span class="toc-text">CAAnimationGroup</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CATransition"><span class="toc-number">2.2.8.</span> <span class="toc-text">CATransition</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UIViewController的自定义转场动画"><span class="toc-number">3.</span> <span class="toc-text">UIViewController的自定义转场动画</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/yox@1.0.0-alpha.121/dist/standard/prod/yox.min.js"></script>
+
+
+<script src="/js/search.min.js"></script>
+
+
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://yoursite.com/iOS%E5%8A%A8%E7%94%BB%E6%80%BB%E7%BB%93/';
+        
+        this.page.identifier = 'iOS动画总结';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + '' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html  lang="en" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>Union Find | Yiming</title>
+    <meta name="description" content="LC128 Longest Consecutive Sequence Problem  Given an unsorted array of integers, find the length of the longest consecutive elements sequence. Your algorithm should run in O(n) complexity. Example: 12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Union Find">
+<meta property="og:url" content="http://yoursite.com/Union-Find/">
+<meta property="og:site_name" content="Yiming">
+<meta property="og:description" content="LC128 Longest Consecutive Sequence Problem  Given an unsorted array of integers, find the length of the longest consecutive elements sequence. Your algorithm should run in O(n) complexity. Example: 12">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-23T23:43:00.000Z">
+<meta property="article:modified_time" content="2020-06-29T23:57:31.294Z">
+<meta property="article:author" content="Yiming">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="Union Find">
+<meta name="twitter:card" content="summary">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://null-2333.github.io" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_self" rel="noopener" rel="noreferrer" >
+                <img src="/images/head1.jpeg" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block" style="font-size: 24px; font-weight: 600; padding-bottom: 10px">Yiming</h2>
+            <h3 id="title" class="hidden xl:block">Coding for fun ~</h3>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" style="padding-left: 5px" placeholder="Search" class="inline-block w-full bg-gray-100 lg:bg-white">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="Search" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-5 pb-3 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            <hr />
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">Home</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">Archives</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">Tags</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">Repository</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">Links</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-12 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            Union Find
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/Union-Find/" class="article-date">
+	  <time datetime="2020-06-23T23:43:00.000Z" itemprop="datePublished">Jun 24</time>
+	</a>
+</span>
+
+                
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-link" href="/tags/LeetCode/" rel="tag">LeetCode</a>, <a class="article-tag-link" href="/tags/Union-Find/" rel="tag">Union Find</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/Union-Find/#comments" class="article-comment-link">
+                        Comments
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 3.9k(words)</span>
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <h3 id="LC128-Longest-Consecutive-Sequence">LC128 Longest Consecutive Sequence</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given an unsorted array of integers, find the length of the longest consecutive elements sequence.</p>
+<p>Your algorithm should run in O(<em>n</em>) complexity.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [100, 4, 200, 1, 3, 2]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>首先将所有的num存进hash set，然后找到每一个连续序列的开头元素（即num - 1不存在的情况），向后判断每一个num + i是否存在，求得此处的最大长度。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">longestConsecutive</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">map</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num: nums) <span class="built_in">map</span>.insert(num);</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num: nums)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">map</span>.count(num - <span class="number">1</span>))&#123;</span><br><span class="line">            <span class="keyword">int</span> len = <span class="number">1</span>, start = num + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span>(start != INT_MAX &amp;&amp; <span class="built_in">map</span>.count(start++))&#123;</span><br><span class="line">                len++;</span><br><span class="line">            &#125;</span><br><span class="line">            res = <span class="built_in">max</span>(res, len);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC399-Evaluate-Division">LC399 Evaluate Division</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>‘[[“a”,“c”],[“b”,“a”],[“a”,“e”],[“a”,“a”],[“x”,“x”]]’</p>
+<p>Equations are given in the format <code>A / B = k</code>, where <code>A</code> and <code>B</code> are variables represented as strings, and <code>k</code> is a real number (floating point number). Given some queries, return the answers. If the answer does not exist, return <code>-1.0</code>.</p>
+<p><strong>Example:</strong><br>
+Given <code> a / b = 2.0, b / c = 3.0.</code><br>
+queries are: <code> a / c = ?, b / a = ?, a / e = ?, a / a = ?, x / x = ? .</code><br>
+return <code> [6.0, 0.5, -1.0, 1.0, -1.0 ].</code></p>
+<p>The input is: <code>vector&lt;pair&lt;string, string&gt;&gt; equations, vector&lt;double&gt;&amp; values, vector&lt;pair&lt;string, string&gt;&gt; queries</code>, where <code>equations.size() == values.size()</code>, and the values are positive. This represents the equations. Return <code> vector&lt;double&gt;</code>.</p>
+<p>According to the example above:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">equations &#x3D; [ [&quot;a&quot;, &quot;b&quot;], [&quot;b&quot;, &quot;c&quot;] ],</span><br><span class="line">values &#x3D; [2.0, 3.0],</span><br><span class="line">queries &#x3D; [ [&quot;a&quot;, &quot;c&quot;], [&quot;b&quot;, &quot;a&quot;], [&quot;a&quot;, &quot;e&quot;], [&quot;a&quot;, &quot;a&quot;], [&quot;x&quot;, &quot;x&quot;] ]. </span><br></pre></td></tr></table></figure>
+<p>The input is always valid. You may assume that evaluating the queries will result in no division by zero and there is no contradiction.</p>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>并查集，首先实现两个函数，一个是getParent，用来获取某一个节点的最根部的父节点；另一个是unionNodes，用来合并两个节点，也就是将node1以及所有和node1共parent的节点合并到node2的分支上面，用对应的结果val进行连接。</p>
+<p>对于每一个给出的公式，我们首先判断前后两个变量是否出现过：</p>
+<ul>
+<li>如果都没有出现过，则均需要新建，node1作为被除数，设值为val，node2作为除数，设值为1，然后将node1连接到node2上；</li>
+<li>如果被除数没出现过，除数出现过，则新建被除数，设置被除数的值为除数对应节点的值乘val；</li>
+<li>如果被除数出现过，除数没出现过，则新建除数，设置除数的值为被除数除以val；</li>
+<li>如果两者都出现过，则使用unionNodes将两个节点连起来。</li>
+</ul>
+<p>对于每一个query，首先判断除数和被除数是否为已知变量，且具有相同的最根父节点（说明可以除），如果不满足条件返回-1，否则返回被除数的值除以除数的值。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">    <span class="keyword">double</span> value = <span class="number">0.0</span>;</span><br><span class="line">    Node *parent;</span><br><span class="line">    Node() &#123; parent = <span class="keyword">this</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">UnionNodes</span><span class="params">(Node *node1, Node *node2, <span class="keyword">double</span> val, <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, Node*&gt;&amp; <span class="built_in">map</span>)</span></span>&#123;</span><br><span class="line">    Node *parent1 = getParent(node1), *parent2 = getParent(node2);</span><br><span class="line">    <span class="keyword">double</span> ratio = node2-&gt;value * val / node1-&gt;value;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> it = <span class="built_in">map</span>.<span class="built_in">begin</span>(); it != <span class="built_in">map</span>.<span class="built_in">end</span>(); it++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(getParent(it-&gt;second) == parent1)&#123;</span><br><span class="line">            it-&gt;second-&gt;value *= ratio;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    parent1-&gt;parent = parent2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Node* <span class="title">getParent</span><span class="params">(Node* node)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node-&gt;parent == node) <span class="keyword">return</span> node;</span><br><span class="line">    node-&gt;parent = getParent(node-&gt;parent);</span><br><span class="line">    <span class="keyword">return</span> node-&gt;parent;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; <span class="title">calcEquation</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;&amp; equations, <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&amp; values, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;&amp; queries)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, Node*&gt; <span class="built_in">map</span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; equations.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        <span class="built_in">string</span> s1 = equations[i][<span class="number">0</span>], s2 = equations[i][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">double</span> val = values[i];</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">map</span>.count(s1) &amp;&amp; !<span class="built_in">map</span>.count(s2))&#123;</span><br><span class="line">            <span class="built_in">map</span>[s1] = <span class="keyword">new</span> Node();</span><br><span class="line">            <span class="built_in">map</span>[s2] = <span class="keyword">new</span> Node();</span><br><span class="line">            <span class="built_in">map</span>[s1]-&gt;value = val;</span><br><span class="line">            <span class="built_in">map</span>[s2]-&gt;value = <span class="number">1</span>;</span><br><span class="line">            <span class="built_in">map</span>[s1]-&gt;parent = <span class="built_in">map</span>[s2];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(!<span class="built_in">map</span>.count(s2))&#123;</span><br><span class="line">            <span class="built_in">map</span>[s2] = <span class="keyword">new</span> Node();</span><br><span class="line">            <span class="built_in">map</span>[s2]-&gt;value = <span class="built_in">map</span>[s1]-&gt;value / val;</span><br><span class="line">            <span class="built_in">map</span>[s2]-&gt;parent = <span class="built_in">map</span>[s1];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(!<span class="built_in">map</span>.count(s1))&#123;</span><br><span class="line">            <span class="built_in">map</span>[s1] = <span class="keyword">new</span> Node();</span><br><span class="line">            <span class="built_in">map</span>[s1]-&gt;value = <span class="built_in">map</span>[s2]-&gt;value * val;</span><br><span class="line">            <span class="built_in">map</span>[s1]-&gt;parent = <span class="built_in">map</span>[s2];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            UnionNodes(<span class="built_in">map</span>[s1], <span class="built_in">map</span>[s2], val, <span class="built_in">map</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> q: queries)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">map</span>.count(q[<span class="number">0</span>]) || !<span class="built_in">map</span>.count(q[<span class="number">1</span>]) || getParent(<span class="built_in">map</span>[q[<span class="number">0</span>]]) != getParent(<span class="built_in">map</span>[q[<span class="number">1</span>]])) res.push_back(<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">else</span> res.push_back(<span class="built_in">map</span>[q[<span class="number">0</span>]]-&gt;value / <span class="built_in">map</span>[q[<span class="number">1</span>]]-&gt;value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC547-Friend-Circles">LC547 Friend Circles</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>There are <strong>N</strong> students in a class. Some of them are friends, while some are not. Their friendship is transitive in nature. For example, if A is a <strong>direct</strong> friend of B, and B is a <strong>direct</strong>friend of C, then A is an <strong>indirect</strong> friend of C. And we defined a friend circle is a group of students who are direct or indirect friends.</p>
+<p>Given a <strong>N*N</strong> matrix <strong>M</strong> representing the friend relationship between students in the class. If M[i][j] = 1, then the ith and jth students are <strong>direct</strong> friends with each other, otherwise not. And you have to output the total number of friend circles among all the students.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: </span><br><span class="line">[[1,1,0],</span><br><span class="line"> [1,1,0],</span><br><span class="line"> [0,0,1]]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation:The 0th and 1st students are direct friends, so they are in a friend circle. </span><br><span class="line">The 2nd student himself is in a friend circle. So return 2.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: </span><br><span class="line">[[1,1,0],</span><br><span class="line"> [1,1,1],</span><br><span class="line"> [0,1,1]]</span><br><span class="line">Output: 1</span><br><span class="line">Explanation:The 0th and 1st students are direct friends, the 1st and 2nd students are direct friends, </span><br><span class="line">so the 0th and 2nd students are indirect friends. All of them are in the same friend circle, so return 1.</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ol>
+<li>N is in range [1,200].</li>
+<li>M[i][i] = 1 for all students.</li>
+<li>If M[i][j] = 1, then M[j][i] = 1.</li>
+</ol>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>并查集。主要实现两个部分，一是getRoot，二是对于两个节点应当如何合并。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getRoot</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;root, <span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(i != root[i])&#123;</span><br><span class="line">        root[i] = root[root[i]];</span><br><span class="line">        i = root[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findCircleNum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; M)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = M.<span class="built_in">size</span>();</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">root</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">int</span> res = n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) root[i] = i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; n; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(M[i][j] == <span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">int</span> r1 = getRoot(root, i);</span><br><span class="line">                <span class="keyword">int</span> r2 = getRoot(root, j);</span><br><span class="line">                <span class="keyword">if</span>(r1 != r2)&#123;</span><br><span class="line">                    res--;</span><br><span class="line">                    root[r2] = r1;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC684-Redundant-Connection">LC684 Redundant Connection</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>In this problem, a tree is an <strong>undirected</strong> graph that is connected and has no cycles.</p>
+<p>The given input is a graph that started as a tree with N nodes (with distinct values 1, 2, …, N), with one additional edge added. The added edge has two different vertices chosen from 1 to N, and was not an edge that already existed.</p>
+<p>The resulting graph is given as a 2D-array of <code>edges</code>. Each element of <code>edges</code> is a pair <code>[u, v]</code> with <code>u &lt; v</code>, that represents an <strong>undirected</strong> edge connecting nodes <code>u</code> and <code>v</code>.</p>
+<p>Return an edge that can be removed so that the resulting graph is a tree of N nodes. If there are multiple answers, return the answer that occurs last in the given 2D-array. The answer edge <code>[u, v]</code> should be in the same format, with <code>u &lt; v</code>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2], [1,3], [2,3]]</span><br><span class="line">Output: [2,3]</span><br><span class="line">Explanation: The given undirected graph will be like this:</span><br><span class="line">  1</span><br><span class="line"> &#x2F; \</span><br><span class="line">2 - 3</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2], [2,3], [3,4], [1,4], [1,5]]</span><br><span class="line">Output: [1,4]</span><br><span class="line">Explanation: The given undirected graph will be like this:</span><br><span class="line">5 - 1 - 2</span><br><span class="line">    |   |</span><br><span class="line">    4 - 3</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<p>The size of the input 2D-array will be between 3 and 1000.</p>
+<p>Every integer represented in the 2D-array will be between 1 and N, where N is the size of the input array.</p>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>并查集，主要实现的就是并查集的两个函数。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">findRedundantConnection</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; edges)</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">root</span><span class="params">(<span class="number">2001</span>, <span class="number">-1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> edge: edges)&#123;</span><br><span class="line">        <span class="keyword">int</span> x = getRoot(root, edge[<span class="number">0</span>]), y = getRoot(root, edge[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">if</span>(x == y) <span class="keyword">return</span> edge;</span><br><span class="line">        root[x] = y;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getRoot</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; root, <span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(root[i] != <span class="number">-1</span>)&#123;</span><br><span class="line">        i = root[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC685-Redundant-Connection-II">LC685 Redundant Connection II</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>In this problem, a rooted tree is a <strong>directed</strong> graph such that, there is exactly one node (the root) for which all other nodes are descendants of this node, plus every node has exactly one parent, except for the root node which has no parents.</p>
+<p>The given input is a directed graph that started as a rooted tree with N nodes (with distinct values 1, 2, …, N), with one additional directed edge added. The added edge has two different vertices chosen from 1 to N, and was not an edge that already existed.</p>
+<p>The resulting graph is given as a 2D-array of <code>edges</code>. Each element of <code>edges</code> is a pair <code>[u, v]</code> that represents a <strong>directed</strong> edge connecting nodes <code>u</code> and <code>v</code>, where <code>u</code> is a parent of child <code>v</code>.</p>
+<p>Return an edge that can be removed so that the resulting graph is a rooted tree of N nodes. If there are multiple answers, return the answer that occurs last in the given 2D-array.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2], [1,3], [2,3]]</span><br><span class="line">Output: [2,3]</span><br><span class="line">Explanation: The given directed graph will be like this:</span><br><span class="line">  1</span><br><span class="line"> &#x2F; \</span><br><span class="line">v   v</span><br><span class="line">2--&gt;3</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2], [2,3], [3,4], [4,1], [1,5]]</span><br><span class="line">Output: [4,1]</span><br><span class="line">Explanation: The given directed graph will be like this:</span><br><span class="line">5 &lt;- 1 -&gt; 2</span><br><span class="line">     ^    |</span><br><span class="line">     |    v</span><br><span class="line">     4 &lt;- 3</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<p>The size of the input 2D-array will be between 3 and 1000.</p>
+<p>Every integer represented in the 2D-array will be between 1 and N, where N is the size of the input array.</p>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>getRoot函数和上题类似。</p>
+<p>主要分三种情况：</p>
+<ul>
+<li>无环，但是有入度为2的节点，返回的是后加入的那一条边</li>
+<li>有环，且没有入度为2的节点，返回的是最后组成环的那一条边</li>
+<li>有环，且有入度为2的节点，返回的是组成环，且是加入入度为2的边的后一条边</li>
+</ul>
+<p>因此需要用first和second来记录前后遍历到的两条边，如果当前边对应有root，则说明之前已经有入度为1了，所以需要记录first和second，然后将edge的出节点置为-1.</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">findRedundantDirectedConnection</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; edges)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = edges.<span class="built_in">size</span>();</span><br><span class="line">    vector&lt;int&gt; root(n + 1, -1), first, second;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;edge: edges)&#123;</span><br><span class="line">        <span class="keyword">if</span>(root[edge[<span class="number">1</span>]] == <span class="number">-1</span>)&#123;</span><br><span class="line">            root[edge[<span class="number">1</span>]] = edge[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            first = &#123;root[edge[<span class="number">1</span>]], edge[<span class="number">1</span>]&#125;;</span><br><span class="line">            second = edge;</span><br><span class="line">            edge[<span class="number">1</span>] = <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++) root[i] = i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;edge: edges)&#123;</span><br><span class="line">        <span class="keyword">if</span>(edge[<span class="number">1</span>] == <span class="number">-1</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">int</span> x = getRoot(root, edge[<span class="number">0</span>]), y = getRoot(root, edge[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">if</span>(x == y) <span class="keyword">return</span> first.empty() ? edge: first;</span><br><span class="line">        root[x] = y;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> second;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getRoot</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; root, <span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(root[i] != i)&#123;</span><br><span class="line">        root[i] = root[root[i]];</span><br><span class="line">        i = root[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC721-Accounts-Merge">LC721 Accounts Merge</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a list <code>accounts</code>, each element <code>accounts[i]</code> is a list of strings, where the first element <code>accounts[i][0]</code> is a <em>name</em>, and the rest of the elements are <em>emails</em> representing emails of the account.</p>
+<p>Now, we would like to merge these accounts. Two accounts definitely belong to the same person if there is some email that is common to both accounts. Note that even if two accounts have the same name, they may belong to different people as people could have the same name. A person can have any number of accounts initially, but all of their accounts definitely have the same name.</p>
+<p>After merging the accounts, return the accounts in the following format: the first element of each account is the name, and the rest of the elements are emails <strong>in sorted order</strong>. The accounts themselves can be returned in any order.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input: </span><br><span class="line">accounts &#x3D; [[&quot;John&quot;, &quot;johnsmith@mail.com&quot;, &quot;john00@mail.com&quot;], [&quot;John&quot;, &quot;johnnybravo@mail.com&quot;], [&quot;John&quot;, &quot;johnsmith@mail.com&quot;, &quot;john_newyork@mail.com&quot;], [&quot;Mary&quot;, &quot;mary@mail.com&quot;]]</span><br><span class="line">Output: [[&quot;John&quot;, &#39;john00@mail.com&#39;, &#39;john_newyork@mail.com&#39;, &#39;johnsmith@mail.com&#39;],  [&quot;John&quot;, &quot;johnnybravo@mail.com&quot;], [&quot;Mary&quot;, &quot;mary@mail.com&quot;]]</span><br><span class="line">Explanation: </span><br><span class="line">The first and third John&#39;s are the same person as they have the common email &quot;johnsmith@mail.com&quot;.</span><br><span class="line">The second John and Mary are different people as none of their email addresses are used by other accounts.</span><br><span class="line">We could return these lists in any order, for example the answer [[&#39;Mary&#39;, &#39;mary@mail.com&#39;], [&#39;John&#39;, &#39;johnnybravo@mail.com&#39;], </span><br><span class="line">[&#39;John&#39;, &#39;john00@mail.com&#39;, &#39;john_newyork@mail.com&#39;, &#39;johnsmith@mail.com&#39;]] would still be accepted.</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<p>The length of <code>accounts</code> will be in the range <code>[1, 1000]</code>.</p>
+<p>The length of <code>accounts[i]</code> will be in the range <code>[1, 10]</code>.</p>
+<p>The length of <code>accounts[i][j]</code> will be in the range <code>[1, 30]</code>.</p>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>并查集，首先建立hash map存放root，建立hash map存放每个email对应的name，建立hash表存放所有email对应的序列结果。</p>
+<p>首先遍历accounts，构建root和owner数组；</p>
+<p>然后遍历accounts，将每一个email连接到对应的root的根节点上；</p>
+<p>然后遍历account，将相同root的email存在hash map的相同区域的set里面；</p>
+<p>最后将结果的hash map转化成二维数组。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="title">accountsMerge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;&amp; accounts)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; root;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; owner;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt;&gt; m;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> account: accounts)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; account.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            root[account[i]] = account[i];</span><br><span class="line">            owner[account[i]] = account[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> account: accounts)&#123;</span><br><span class="line">        <span class="built_in">string</span> p = getRoot(root, account[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; account.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            root[getRoot(root, account[i])] = p;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> account: accounts)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; account.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            m[getRoot(root, account[i])].insert(account[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> a: m)&#123;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">v</span><span class="params">(a.second.<span class="built_in">begin</span>(), a.second.<span class="built_in">end</span>())</span></span>;</span><br><span class="line">        v.insert(v.<span class="built_in">begin</span>(), owner[a.first]);</span><br><span class="line">        res.push_back(v);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">getRoot</span><span class="params">(<span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; &amp;<span class="built_in">map</span>, <span class="built_in">string</span> email)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">map</span>[email] == email ? email : getRoot(<span class="built_in">map</span>, <span class="built_in">map</span>[email]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC794-Valid-Tic-Tac-Toe-State">LC794 Valid Tic-Tac-Toe State</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>A Tic-Tac-Toe board is given as a string array <code>board</code>. Return True if and only if it is possible to reach this board position during the course of a valid tic-tac-toe game.</p>
+<p>The <code>board</code> is a 3 x 3 array, and consists of characters <code>&quot; &quot;</code>, <code>&quot;X&quot;</code>, and <code>&quot;O&quot;</code>. The &quot; &quot; character represents an empty square.</p>
+<p>Here are the rules of Tic-Tac-Toe:</p>
+<ul>
+<li>Players take turns placing characters into empty squares (&quot; &quot;).</li>
+<li>The first player always places “X” characters, while the second player always places “O” characters.</li>
+<li>“X” and “O” characters are always placed into empty squares, never filled ones.</li>
+<li>The game ends when there are 3 of the same (non-empty) character filling any row, column, or diagonal.</li>
+<li>The game also ends if all squares are non-empty.</li>
+<li>No more moves can be played if the game is over.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line">Input: board &#x3D; [&quot;O  &quot;, &quot;   &quot;, &quot;   &quot;]</span><br><span class="line">Output: false</span><br><span class="line">Explanation: The first player always plays &quot;X&quot;.</span><br><span class="line"></span><br><span class="line">Example 2:</span><br><span class="line">Input: board &#x3D; [&quot;XOX&quot;, &quot; X &quot;, &quot;   &quot;]</span><br><span class="line">Output: false</span><br><span class="line">Explanation: Players take turns making moves.</span><br><span class="line"></span><br><span class="line">Example 3:</span><br><span class="line">Input: board &#x3D; [&quot;XXX&quot;, &quot;   &quot;, &quot;OOO&quot;]</span><br><span class="line">Output: false</span><br><span class="line"></span><br><span class="line">Example 4:</span><br><span class="line">Input: board &#x3D; [&quot;XOX&quot;, &quot;O O&quot;, &quot;XOX&quot;]</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ul>
+<li><code>board</code> is a length-3 array of strings, where each string <code>board[i]</code> has length 3.</li>
+<li>Each <code>board[i][j]</code> is a character in the set <code>{&quot; &quot;, &quot;X&quot;, &quot;O&quot;}</code>.</li>
+</ul>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>直接检查即可。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">validTicTacToe</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; board)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> xCnt = <span class="number">0</span>, oCnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">string</span> s: board)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c: s)&#123;</span><br><span class="line">            <span class="keyword">if</span>(c == <span class="string">'X'</span>) xCnt++;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(c == <span class="string">'O'</span>) oCnt++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!( (xCnt == oCnt) || (xCnt == oCnt + <span class="number">1</span>) ) ) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">bool</span> flag1 = check(board, <span class="string">'X'</span>);</span><br><span class="line">    <span class="keyword">bool</span> flag2 = check(board, <span class="string">'O'</span>);</span><br><span class="line">    <span class="keyword">if</span>(!flag1 &amp;&amp; !flag2) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span>(flag1) <span class="keyword">return</span> xCnt == oCnt + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(flag2) <span class="keyword">return</span> xCnt == oCnt;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; board, <span class="keyword">char</span> c)</span></span>&#123;</span><br><span class="line">    <span class="keyword">bool</span> flag1 = (board[<span class="number">0</span>][<span class="number">0</span>] == c) &amp;&amp; (board[<span class="number">0</span>][<span class="number">1</span>] == c) &amp;&amp; (board[<span class="number">0</span>][<span class="number">2</span>] == c);</span><br><span class="line">    <span class="keyword">bool</span> flag2 = (board[<span class="number">1</span>][<span class="number">0</span>] == c) &amp;&amp; (board[<span class="number">1</span>][<span class="number">1</span>] == c) &amp;&amp; (board[<span class="number">1</span>][<span class="number">2</span>] == c);</span><br><span class="line">    <span class="keyword">bool</span> flag3 = (board[<span class="number">2</span>][<span class="number">0</span>] == c) &amp;&amp; (board[<span class="number">2</span>][<span class="number">1</span>] == c) &amp;&amp; (board[<span class="number">2</span>][<span class="number">2</span>] == c);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">bool</span> flag4 = (board[<span class="number">0</span>][<span class="number">0</span>] == c) &amp;&amp; (board[<span class="number">1</span>][<span class="number">0</span>] == c) &amp;&amp; (board[<span class="number">2</span>][<span class="number">0</span>] == c);</span><br><span class="line">    <span class="keyword">bool</span> flag5 = (board[<span class="number">0</span>][<span class="number">1</span>] == c) &amp;&amp; (board[<span class="number">1</span>][<span class="number">1</span>] == c) &amp;&amp; (board[<span class="number">2</span>][<span class="number">1</span>] == c);</span><br><span class="line">    <span class="keyword">bool</span> flag6 = (board[<span class="number">0</span>][<span class="number">2</span>] == c) &amp;&amp; (board[<span class="number">1</span>][<span class="number">2</span>] == c) &amp;&amp; (board[<span class="number">2</span>][<span class="number">2</span>] == c);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">bool</span> flag7 = (board[<span class="number">0</span>][<span class="number">0</span>] == c) &amp;&amp; (board[<span class="number">1</span>][<span class="number">1</span>] == c) &amp;&amp; (board[<span class="number">2</span>][<span class="number">2</span>] == c);</span><br><span class="line">    <span class="keyword">bool</span> flag8 = (board[<span class="number">2</span>][<span class="number">0</span>] == c) &amp;&amp; (board[<span class="number">1</span>][<span class="number">1</span>] == c) &amp;&amp; (board[<span class="number">0</span>][<span class="number">2</span>] == c);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> flag1 || flag2 || flag3 || flag4 || flag5 || flag6 || flag7 || flag8;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC821-Shortest-Distance-to-a-Character">LC821 Shortest Distance to a Character</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a string <code>S</code> and a character <code>C</code>, return an array of integers representing the shortest distance from the character <code>C</code>in the string.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: S &#x3D; &quot;loveleetcode&quot;, C &#x3D; &#39;e&#39;</span><br><span class="line">Output: [3, 2, 1, 0, 1, 0, 0, 1, 2, 2, 1, 0]</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ol>
+<li><code>S</code> string length is in <code>[1, 10000].</code></li>
+<li><code>C</code> is a single character, and guaranteed to be in string <code>S</code>.</li>
+<li>All letters in <code>S</code> and <code>C</code> are lowercase.</li>
+</ol>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>遍历两次数组，分别从前往后和从后往前，记录字符C的位置，然后取i - pos 或者 pos - i即可。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">shortestToChar</span><span class="params">(<span class="built_in">string</span> S, <span class="keyword">char</span> C)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = S.<span class="built_in">size</span>(), pos = -n;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">res</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(S[i] == C) pos = i;</span><br><span class="line">        res[i] = i - pos;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = pos - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="keyword">if</span>(S[i] == C) pos = i;</span><br><span class="line">        res[i] = <span class="built_in">min</span>(res[i], pos - i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC869-Reordered-Power-of-2">LC869 Reordered Power of 2</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Starting with a positive integer <code>N</code>, we reorder the digits in any order (including the original order) such that the leading digit is not zero.</p>
+<p>Return <code>true</code> if and only if we can do this in a way such that the resulting number is a power of 2.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: 1</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: 10</span><br><span class="line">Output: false</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: 16</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure>
+<p><strong>Example 4:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: 24</span><br><span class="line">Output: false</span><br></pre></td></tr></table></figure>
+<p><strong>Example 5:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: 46</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ol>
+<li><code>1 &lt;= N &lt;= 10^9</code></li>
+</ol>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>遍历所有可能的2的幂次，如果n为2的幂次的重排列，则其每个数字出现的个数应当是相同的。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">reorderedPowerOf2</span><span class="params">(<span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> *cur = getCount(N);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(equalArr(cur, getCount(<span class="number">1</span> &lt;&lt; i))) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span>* <span class="title">getCount</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> *res = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">while</span>(n &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        res[n % <span class="number">10</span>]++;</span><br><span class="line">        n /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">equalArr</span><span class="params">(<span class="keyword">int</span> *a1, <span class="keyword">int</span> *a2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(a1[i] != a2[i]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="Review">Review</h3>
+<p>并查集主要两个函数：getRoot，unionFind</p>
+<ul>
+<li>
+<p>getRoot的写法固定，即：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">getRoot</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;root, <span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> root[i] == i ? i : getRoot(root, root[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>unionFind函数主要负责判断给定的两个节点是否有相同的root，如果没有则需要将其中一个节点的root值设为另一个节点。</p>
+</li>
+</ul>
+
+        </div>
+        
+
+    </article>
+    
+    <section id="comments">
+        
+            <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+            </div>
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">Catalogue</h3>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC128-Longest-Consecutive-Sequence"><span class="toc-number">1.</span> <span class="toc-text">LC128 Longest Consecutive Sequence</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC399-Evaluate-Division"><span class="toc-number">2.</span> <span class="toc-text">LC399 Evaluate Division</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC547-Friend-Circles"><span class="toc-number">3.</span> <span class="toc-text">LC547 Friend Circles</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC684-Redundant-Connection"><span class="toc-number">4.</span> <span class="toc-text">LC684 Redundant Connection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC685-Redundant-Connection-II"><span class="toc-number">5.</span> <span class="toc-text">LC685 Redundant Connection II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC721-Accounts-Merge"><span class="toc-number">6.</span> <span class="toc-text">LC721 Accounts Merge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC794-Valid-Tic-Tac-Toe-State"><span class="toc-number">7.</span> <span class="toc-text">LC794 Valid Tic-Tac-Toe State</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC821-Shortest-Distance-to-a-Character"><span class="toc-number">8.</span> <span class="toc-text">LC821 Shortest Distance to a Character</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC869-Reordered-Power-of-2"><span class="toc-number">9.</span> <span class="toc-text">LC869 Reordered Power of 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Review"><span class="toc-number">10.</span> <span class="toc-text">Review</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/yox@1.0.0-alpha.121/dist/standard/prod/yox.min.js"></script>
+
+
+<script src="/js/search.min.js"></script>
+
+
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://yoursite.com/Union-Find/';
+        
+        this.page.identifier = 'Union-Find';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + '' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+    </body>
+</html>

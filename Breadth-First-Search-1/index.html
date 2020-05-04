@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html  lang="en" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>Breadth First Search(1) | Yiming</title>
+    <meta name="description" content="LC107 Binary Tree Level Order Traversal II Problem  Given a binary tree, return the bottom-up level order traversal of its nodes’ values. (ie, from left to right, level by level from leaf to root). Fo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Breadth First Search(1)">
+<meta property="og:url" content="http://yoursite.com/Breadth-First-Search-1/">
+<meta property="og:site_name" content="Yiming">
+<meta property="og:description" content="LC107 Binary Tree Level Order Traversal II Problem  Given a binary tree, return the bottom-up level order traversal of its nodes’ values. (ie, from left to right, level by level from leaf to root). Fo">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2019/11/04/133_clone_graph_question.png">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2020/01/07/graph.png">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2020/01/07/graph-1.png">
+<meta property="article:published_time" content="2020-05-24T12:28:19.000Z">
+<meta property="article:modified_time" content="2020-05-27T07:06:23.797Z">
+<meta property="article:author" content="Yiming">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="BFS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://assets.leetcode.com/uploads/2019/11/04/133_clone_graph_question.png">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://null-2333.github.io" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_self" rel="noopener" rel="noreferrer" >
+                <img src="/images/head1.jpeg" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block" style="font-size: 24px; font-weight: 600; padding-bottom: 10px">Yiming</h2>
+            <h3 id="title" class="hidden xl:block">Coding for fun ~</h3>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" style="padding-left: 5px" placeholder="Search" class="inline-block w-full bg-gray-100 lg:bg-white">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="Search" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-5 pb-3 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            <hr />
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">Home</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">Archives</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">Tags</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">Repository</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">Links</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-12 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            Breadth First Search(1)
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/Breadth-First-Search-1/" class="article-date">
+	  <time datetime="2020-05-24T12:28:19.000Z" itemprop="datePublished">May 24</time>
+	</a>
+</span>
+
+                
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-link" href="/tags/BFS/" rel="tag">BFS</a>, <a class="article-tag-link" href="/tags/LeetCode/" rel="tag">LeetCode</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/Breadth-First-Search-1/#comments" class="article-comment-link">
+                        Comments
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 6.1k(words)</span>
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <h3 id="LC107-Binary-Tree-Level-Order-Traversal-II">LC107 Binary Tree Level Order Traversal II</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a binary tree, return the <em>bottom-up level order</em> traversal of its nodes’ values. (ie, from left to right, level by level from leaf to root).</p>
+<p>For example:<br>
+Given binary tree <code>[3,9,20,null,null,15,7]</code>,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  3</span><br><span class="line"> &#x2F; \</span><br><span class="line">9  20</span><br><span class="line">  &#x2F;  \</span><br><span class="line"> 15   7</span><br></pre></td></tr></table></figure>
+<p>return its bottom-up level order traversal as:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  [15,7],</span><br><span class="line">  [9,20],</span><br><span class="line">  [3]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>层序遍历，然后翻转数组</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">levelOrderBottom</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    <span class="built_in">queue</span>&lt;TreeNode*&gt; s;</span><br><span class="line">    s.push(root);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="keyword">while</span>(!s.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> len = s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cur;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">            TreeNode* node = s.front();</span><br><span class="line">            cur.push_back(node-&gt;val);</span><br><span class="line">            s.pop();</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left) s.push(node-&gt;left);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;right) s.push(node-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">        res.push_back(cur);</span><br><span class="line">    &#125;</span><br><span class="line">    reverse(res.<span class="built_in">begin</span>(), res.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC111-Minimum-Depth-of-Binary-Tree">LC111 Minimum Depth of Binary Tree</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a binary tree, find its minimum depth.</p>
+<p>The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.</p>
+<p><strong>Note:</strong> A leaf is a node with no children.</p>
+<p><strong>Example:</strong></p>
+<p>Given binary tree <code>[3,9,20,null,null,15,7]</code>,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  3</span><br><span class="line"> &#x2F; \</span><br><span class="line">9  20</span><br><span class="line">  &#x2F;  \</span><br><span class="line"> 15   7</span><br></pre></td></tr></table></figure>
+<p>return its minimum depth = 2.</p>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<p>递归，分别判断无左右子节点，只有左子节点，只有右子节点和有左右子节点</p>
+<ul>
+<li>Approach 2</li>
+</ul>
+<p>层序遍历BFS</p>
+</details>
+<details><summary>Code</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(!root-&gt;left &amp;&amp; !root-&gt;right) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(root-&gt;left &amp;&amp; !root-&gt;right) <span class="keyword">return</span> minDepth(root-&gt;left) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(!root-&gt;left &amp;&amp; root-&gt;right) <span class="keyword">return</span> minDepth(root-&gt;right) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">min</span>(minDepth(root-&gt;left), minDepth(root-&gt;right)) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Approach 2</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">queue</span>&lt;TreeNode*&gt; q;</span><br><span class="line">    q.push(root);</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> len = q.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">            TreeNode* node = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">if</span>(!node-&gt;left &amp;&amp; !node-&gt;right) <span class="keyword">return</span> res;</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left) q.push(node-&gt;left);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;right) q.push(node-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">        res++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC126-Word-Ladder-II">LC126 Word Ladder II</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given two words (<em>beginWord</em> and <em>endWord</em>), and a dictionary’s word list, find all shortest transformation sequence(s) from <em>beginWord</em> to <em>endWord</em>, such that:</p>
+<ol>
+<li>Only one letter can be changed at a time</li>
+<li>Each transformed word must exist in the word list. Note that <em>beginWord</em> is <em>not</em> a transformed word.</li>
+</ol>
+<p><strong>Note:</strong></p>
+<ul>
+<li>Return an empty list if there is no such transformation sequence.</li>
+<li>All words have the same length.</li>
+<li>All words contain only lowercase alphabetic characters.</li>
+<li>You may assume no duplicates in the word list.</li>
+<li>You may assume <em>beginWord</em> and <em>endWord</em> are non-empty and are not the same.</li>
+</ul>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">beginWord &#x3D; &quot;hit&quot;,</span><br><span class="line">endWord &#x3D; &quot;cog&quot;,</span><br><span class="line">wordList &#x3D; [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;,&quot;cog&quot;]</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [&quot;hit&quot;,&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;cog&quot;],</span><br><span class="line">  [&quot;hit&quot;,&quot;hot&quot;,&quot;lot&quot;,&quot;log&quot;,&quot;cog&quot;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">beginWord &#x3D; &quot;hit&quot;</span><br><span class="line">endWord &#x3D; &quot;cog&quot;</span><br><span class="line">wordList &#x3D; [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;]</span><br><span class="line"></span><br><span class="line">Output: []</span><br><span class="line"></span><br><span class="line">Explanation: The endWord &quot;cog&quot; is not in wordList, therefore no possible transformation.</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>使用BFS遍历所有可能的路径path组成的paths队列。</p>
+<p>首先初始化paths队列，将初始word所构成的路径放入；</p>
+<p>当队列paths不为空时：</p>
+<p>取出最前的一个路径；</p>
+<p>如果该路径长度超过当前的level值，也就是当前应当遍历到第几层，则说明wordList中存在一些word已经出现在当前路径中，这些词不能再次出现在接下来的路径中，所以直接在wordList中删除这些词，并将level置为当前路径的长度；如果当前路径长度已经大于minLevel，则说明后面的所有路径都只会更长而不会更短，因此直接break；</p>
+<p>取出当前路径的最后一个word，并以这个word作为起始word向后遍历，修改其中的一个字符，如果修改后的word存在于当前的wordList中，则将它加入当前路径；判断是否已经到达endWord，如果到达的话就直接加入res并更新minLevel值，否则加入paths中进行下一次的循环。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="title">findLadders</span><span class="params">(<span class="built_in">string</span> beginWord, <span class="built_in">string</span> endWord, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordList)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; res;</span><br><span class="line">    <span class="function"><span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; <span class="title">wordDict</span><span class="params">(wordList.<span class="built_in">begin</span>(), wordList.<span class="built_in">end</span>())</span></span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; p = &#123;beginWord&#125;;</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; q;</span><br><span class="line">    q.push(p);</span><br><span class="line">    <span class="keyword">int</span> level = <span class="number">1</span>, minLevel = INT_MAX;</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; words;</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; t = q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        <span class="keyword">if</span>(t.<span class="built_in">size</span>() &gt; level)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> <span class="keyword">word</span>: words) wordDict.erase(<span class="keyword">word</span>);</span><br><span class="line">            words.<span class="built_in">clear</span>();</span><br><span class="line">            level = t.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">if</span>(level &gt; minLevel) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">string</span> cur = t.back();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cur.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            <span class="built_in">string</span> next = cur;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">char</span> c = <span class="string">'a'</span>; c &lt;= <span class="string">'z'</span>; c++)&#123;</span><br><span class="line">                next[i] = c;</span><br><span class="line">                <span class="keyword">if</span>(!wordDict.count(next)) <span class="keyword">continue</span>;</span><br><span class="line">                words.insert(next);</span><br><span class="line">                <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; curPath = t;</span><br><span class="line">                curPath.push_back(next);</span><br><span class="line">                <span class="keyword">if</span>(next == endWord)&#123;</span><br><span class="line">                    res.push_back(curPath);</span><br><span class="line">                    minLevel = level;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    q.push(curPath);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC127-Word-Ladder">LC127 Word Ladder</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given two words (<em>beginWord</em> and <em>endWord</em>), and a dictionary’s word list, find the length of shortest transformation sequence from <em>beginWord</em> to <em>endWord</em>, such that:</p>
+<ol>
+<li>Only one letter can be changed at a time.</li>
+<li>Each transformed word must exist in the word list.</li>
+</ol>
+<p><strong>Note:</strong></p>
+<ul>
+<li>Return 0 if there is no such transformation sequence.</li>
+<li>All words have the same length.</li>
+<li>All words contain only lowercase alphabetic characters.</li>
+<li>You may assume no duplicates in the word list.</li>
+<li>You may assume <em>beginWord</em> and <em>endWord</em> are non-empty and are not the same.</li>
+</ul>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">beginWord &#x3D; &quot;hit&quot;,</span><br><span class="line">endWord &#x3D; &quot;cog&quot;,</span><br><span class="line">wordList &#x3D; [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;,&quot;cog&quot;]</span><br><span class="line"></span><br><span class="line">Output: 5</span><br><span class="line"></span><br><span class="line">Explanation: As one shortest transformation is &quot;hit&quot; -&gt; &quot;hot&quot; -&gt; &quot;dot&quot; -&gt; &quot;dog&quot; -&gt; &quot;cog&quot;,</span><br><span class="line">return its length 5.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">beginWord &#x3D; &quot;hit&quot;</span><br><span class="line">endWord &#x3D; &quot;cog&quot;</span><br><span class="line">wordList &#x3D; [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;]</span><br><span class="line"></span><br><span class="line">Output: 0</span><br><span class="line"></span><br><span class="line">Explanation: The endWord &quot;cog&quot; is not in wordList, therefore no possible transformation.</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>基础的BFS，注意遇到这种题要严格按照BFS的运行方式来思考，比如求最短路径之类的，要注意不要往Back Tracing上靠！！！</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ladderLength</span><span class="params">(<span class="built_in">string</span> beginWord, <span class="built_in">string</span> endWord, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordList)</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; <span class="title">wordDict</span><span class="params">(wordList.<span class="built_in">begin</span>(), wordList.<span class="built_in">end</span>())</span></span>;</span><br><span class="line">    <span class="keyword">if</span>(!wordDict.count(endWord)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="built_in">string</span>&gt; q;</span><br><span class="line">    q.push(beginWord);</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; visited;</span><br><span class="line">    <span class="keyword">int</span> level = <span class="number">1</span>, res = INT_MAX;</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> len = q.<span class="built_in">size</span>();</span><br><span class="line">        level++;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">            <span class="built_in">string</span> <span class="keyword">word</span> = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">word</span>.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">                <span class="built_in">string</span> newWord = <span class="keyword">word</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">char</span> c = <span class="string">'a'</span>; c &lt;= <span class="string">'z'</span>; c++)&#123;</span><br><span class="line">                    newWord[i] = c;</span><br><span class="line">                    <span class="keyword">if</span>(newWord == <span class="keyword">word</span>) <span class="keyword">continue</span>;</span><br><span class="line">                    <span class="keyword">if</span>(!wordDict.count(newWord)) <span class="keyword">continue</span>;</span><br><span class="line">                    <span class="keyword">if</span>(visited.count(newWord)) <span class="keyword">continue</span>;</span><br><span class="line">                    <span class="keyword">if</span>(newWord == endWord)&#123;</span><br><span class="line">                        <span class="keyword">return</span> level;</span><br><span class="line">                    &#125;</span><br><span class="line">                    q.push(newWord);</span><br><span class="line">                    visited.insert(newWord);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC130-Surrounded-Regions">LC130 Surrounded Regions</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a 2D board containing <code>'X'</code> and <code>'O'</code> (<strong>the letter O</strong>), capture all regions surrounded by <code>'X'</code>.</p>
+<p>A region is captured by flipping all <code>'O'</code>s into <code>'X'</code>s in that surrounded region.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">X X X X</span><br><span class="line">X O O X</span><br><span class="line">X X O X</span><br><span class="line">X O X X</span><br></pre></td></tr></table></figure>
+<p>After running your function, the board should be:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">X X X X</span><br><span class="line">X X X X</span><br><span class="line">X X X X</span><br><span class="line">X O X X</span><br></pre></td></tr></table></figure>
+<p><strong>Explanation:</strong></p>
+<p>Surrounded regions shouldn’t be on the border, which means that any <code>'O'</code> on the border of the board are not flipped to <code>'X'</code>. Any <code>'O'</code> that is not on the border and it is not connected to an <code>'O'</code> on the border will be flipped to <code>'X'</code>. Two cells are connected if they are adjacent cells connected horizontally or vertically.</p>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>从每一条边上为O的地点出发，BFS或者DFS找到所有和这个O相连的O，将它们改成E（一方面标识哪些O是符合条件的，一方面作为visited数组使用），最后将所有的O改成X，E改成O。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(board.empty() || board[<span class="number">0</span>].empty()) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> m = board.<span class="built_in">size</span>(), n = board[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">    <span class="comment">// four borders</span></span><br><span class="line">    <span class="comment">// left border</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">        BFS(board, i, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// right border</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">        BFS(board, i, n - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// up border</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n - <span class="number">1</span>; i++)&#123;</span><br><span class="line">        BFS(board, <span class="number">0</span>, i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// bottom border</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n - <span class="number">1</span>; i++)&#123;</span><br><span class="line">        BFS(board, m - <span class="number">1</span>, i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(board[i][j] == <span class="string">'E'</span>)&#123;</span><br><span class="line">                board[i][j] = <span class="string">'O'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(board[i][j] == <span class="string">'O'</span>)&#123;</span><br><span class="line">                board[i][j] = <span class="string">'X'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BFS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board, <span class="keyword">int</span> row, <span class="keyword">int</span> col)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(board[row][col] != <span class="string">'O'</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> m = board.<span class="built_in">size</span>(), n = board[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> left[] = &#123;<span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>&#125;, right[] = &#123;<span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="built_in">queue</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">    q.push(&#123;row, col&#125;);</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; cur = q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        <span class="keyword">if</span>(cur.first &lt; <span class="number">0</span> || cur.first &gt;= m || cur.second &lt; <span class="number">0</span> || cur.second &gt;= n) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(board[cur.first][cur.second] != <span class="string">'O'</span>) <span class="keyword">continue</span>;</span><br><span class="line">        board[cur.first][cur.second] = <span class="string">'E'</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)&#123;</span><br><span class="line">            q.push(&#123;cur.first + left[i], cur.second + right[i]&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC133-Clone-Graph">LC133 Clone Graph</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a reference of a node in a <strong><a href="https://en.wikipedia.org/wiki/Connectivity_(graph_theory)#Connected_graph" target="_blank" rel="noopener">connected</a></strong> undirected graph.</p>
+<p>Return a <a href="https://en.wikipedia.org/wiki/Object_copying#Deep_copy" target="_blank" rel="noopener"><strong>deep copy</strong></a> (clone) of the graph.</p>
+<p>Each node in the graph contains a val (<code>int</code>) and a list (<code>List[Node]</code>) of its neighbors.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class Node &#123;</span><br><span class="line">    public int val;</span><br><span class="line">    public List&lt;Node&gt; neighbors;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Test case format:</strong></p>
+<p>For simplicity sake, each node’s value is the same as the node’s index (1-indexed). For example, the first node with <code>val = 1</code>, the second node with <code>val = 2</code>, and so on. The graph is represented in the test case using an adjacency list.</p>
+<p><strong>Adjacency list</strong> is a collection of unordered <strong>lists</strong> used to represent a finite graph. Each list describes the set of neighbors of a node in the graph.</p>
+<p>The given node will always be the first node with <code>val = 1</code>. You must return the <strong>copy of the given node</strong> as a reference to the cloned graph.</p>
+<p><strong>Example 1:</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2019/11/04/133_clone_graph_question.png" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: adjList &#x3D; [[2,4],[1,3],[2,4],[1,3]]</span><br><span class="line">Output: [[2,4],[1,3],[2,4],[1,3]]</span><br><span class="line">Explanation: There are 4 nodes in the graph.</span><br><span class="line">1st node (val &#x3D; 1)&#39;s neighbors are 2nd node (val &#x3D; 2) and 4th node (val &#x3D; 4).</span><br><span class="line">2nd node (val &#x3D; 2)&#39;s neighbors are 1st node (val &#x3D; 1) and 3rd node (val &#x3D; 3).</span><br><span class="line">3rd node (val &#x3D; 3)&#39;s neighbors are 2nd node (val &#x3D; 2) and 4th node (val &#x3D; 4).</span><br><span class="line">4th node (val &#x3D; 4)&#39;s neighbors are 1st node (val &#x3D; 1) and 3rd node (val &#x3D; 3).</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/01/07/graph.png" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: adjList &#x3D; [[]]</span><br><span class="line">Output: [[]]</span><br><span class="line">Explanation: Note that the input contains one empty list. The graph consists of only one node with val &#x3D; 1 and it does not have any neighbors.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: adjList &#x3D; []</span><br><span class="line">Output: []</span><br><span class="line">Explanation: This an empty graph, it does not have any nodes.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 4:</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/01/07/graph-1.png" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: adjList &#x3D; [[2],[1]]</span><br><span class="line">Output: [[2],[1]]</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= Node.val &lt;= 100</code></li>
+<li><code>Node.val</code> is unique for each node.</li>
+<li>Number of Nodes will not exceed 100.</li>
+<li>There is no repeated edges and no self-loops in the graph.</li>
+<li>The Graph is connected and all nodes can be visited starting from the given node.</li>
+</ul>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>BFS配合unordered_map，存放所有的节点对，最后返回根节点对应的节点即可。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Node* <span class="title">cloneGraph</span><span class="params">(Node* node)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!node) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;Node*, Node*&gt; visited;</span><br><span class="line">    <span class="built_in">queue</span>&lt;Node*&gt; q;</span><br><span class="line">    q.push(node);</span><br><span class="line">    visited[node] = <span class="keyword">new</span> Node(node-&gt;val);</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        Node* tmp = q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        <span class="keyword">for</span>(Node* next: tmp-&gt;neighbors)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!visited.count(next))&#123;</span><br><span class="line">                visited[next] = <span class="keyword">new</span> Node(next-&gt;val);</span><br><span class="line">                q.push(next);</span><br><span class="line">            &#125;</span><br><span class="line">            visited[tmp]-&gt;neighbors.push_back(visited[next]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> visited[node];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC199-Binary-Tree-Right-Side-View">LC199 Binary Tree Right Side View</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a binary tree, imagine yourself standing on the <em>right</em> side of it, return the values of the nodes you can see ordered from top to bottom.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,2,3,null,5,null,4]</span><br><span class="line">Output: [1, 3, 4]</span><br><span class="line">Explanation:</span><br><span class="line"></span><br><span class="line">   1            &lt;---</span><br><span class="line"> &#x2F;   \</span><br><span class="line">2     3         &lt;---</span><br><span class="line"> \     \</span><br><span class="line">  5     4       &lt;---</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>树的BFS&amp;层序，可以不用visited</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">rightSideView</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    <span class="built_in">queue</span>&lt;TreeNode*&gt; q;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    q.push(root);</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> len = q.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">            TreeNode* node = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">if</span>(i == len - <span class="number">1</span>) res.push_back(node-&gt;val);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left) q.push(node-&gt;left);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;right) q.push(node-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC279-Perfect-Squares">LC279 Perfect Squares</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a positive integer <em>n</em>, find the least number of perfect square numbers (for example, <code>1, 4, 9, 16, ...</code>) which sum to <em>n</em>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 12</span><br><span class="line">Output: 3 </span><br><span class="line">Explanation: 12 &#x3D; 4 + 4 + 4.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 13</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: 13 &#x3D; 4 + 9.</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>DP，dp[i] = min(dp[i - j * j] + 1), for all j 满足j * j &lt;= n</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">numSquares</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(n + <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> mx = <span class="built_in">sqrt</span>(i);</span><br><span class="line">        dp[i] = i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= mx; j++)&#123;</span><br><span class="line">            dp[i] = <span class="built_in">min</span>(dp[i], dp[i - j * j] + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC301-Remove-Invalid-Parentheses">LC301 Remove Invalid Parentheses</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Remove the minimum number of invalid parentheses in order to make the input string valid. Return all possible results.</p>
+<p><strong>Note:</strong> The input string may contain letters other than the parentheses <code>(</code> and <code>)</code>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;()())()&quot;</span><br><span class="line">Output: [&quot;()()()&quot;, &quot;(())()&quot;]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;(a)())()&quot;</span><br><span class="line">Output: [&quot;(a)()()&quot;, &quot;(a())()&quot;]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;)(&quot;</span><br><span class="line">Output: [&quot;&quot;]</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>BFS，遍历每一种可能的删减</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">removeInvalidParentheses</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// if(isValid(s)) return &#123;s&#125;;</span></span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="built_in">string</span>&gt; q;</span><br><span class="line">    q.push(s);</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; visited;</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> len = q.<span class="built_in">size</span>();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; res;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">            <span class="built_in">string</span> str = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">isValid</span>(str))&#123;</span><br><span class="line">                res.push_back(str);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; str.<span class="built_in">size</span>(); j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(str[j] != <span class="string">'('</span> &amp;&amp; str[j] != <span class="string">')'</span>) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="built_in">string</span> newString = str.substr(<span class="number">0</span>, j) + str.substr(j + <span class="number">1</span>);</span><br><span class="line">                <span class="keyword">if</span>(!visited.count(newString))&#123;</span><br><span class="line">                    q.push(newString);</span><br><span class="line">                    visited.insert(newString);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!res.empty())&#123;</span><br><span class="line">            <span class="comment">// vector&lt;string&gt; ret(res.begin(), res.end());</span></span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;s&#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isValid</span><span class="params">(<span class="built_in">string</span> s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">char</span> c: s)&#123;</span><br><span class="line">        <span class="keyword">if</span>(c == <span class="string">'('</span>)&#123;</span><br><span class="line">            idx++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(c ==<span class="string">')'</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(idx == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            idx--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> idx == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC310-Minimum-Height-Trees">LC310 Minimum Height Trees</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>For an undirected graph with tree characteristics, we can choose any node as the root. The result graph is then a rooted tree. Among all possible rooted trees, those with minimum height are called minimum height trees (MHTs). Given such a graph, write a function to find all the MHTs and return a list of their root labels.</p>
+<p><strong>Format</strong><br>
+The graph contains <code>n</code> nodes which are labeled from <code>0</code> to <code>n - 1</code>. You will be given the number <code>n</code> and a list of undirected <code>edges</code> (each edge is a pair of labels).</p>
+<p>You can assume that no duplicate edges will appear in <code>edges</code>. Since all edges are undirected, <code>[0, 1]</code> is the same as <code>[1, 0]</code> and thus will not appear together in <code>edges</code>.</p>
+<p><strong>Example 1 :</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 4, edges &#x3D; [[1, 0], [1, 2], [1, 3]]</span><br><span class="line"></span><br><span class="line">        0</span><br><span class="line">        |</span><br><span class="line">        1</span><br><span class="line">       &#x2F; \</span><br><span class="line">      2   3 </span><br><span class="line"></span><br><span class="line">Output: [1]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2 :</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Input: n &#x3D; 6, edges &#x3D; [[0, 3], [1, 3], [2, 3], [4, 3], [5, 4]]</span><br><span class="line"></span><br><span class="line">     0  1  2</span><br><span class="line">      \ | &#x2F;</span><br><span class="line">        3</span><br><span class="line">        |</span><br><span class="line">        4</span><br><span class="line">        |</span><br><span class="line">        5 </span><br><span class="line"></span><br><span class="line">Output: [3, 4]</span><br></pre></td></tr></table></figure>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>According to the <a href="https://en.wikipedia.org/wiki/Tree_(graph_theory)" target="_blank" rel="noopener">definition of tree on Wikipedia</a>: “a tree is an undirected graph in which any two vertices are connected by <em>exactly</em> one path. In other words, any connected graph without simple cycles is a tree.”</li>
+<li>The height of a rooted tree is the number of edges on the longest downward path between the root and a leaf.</li>
+</ul>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>BFS，但是这一题的BFS不是从根节点开始，而是从所有的叶节点开始遍历，然后每次都将这些叶节点从图中删去（也就是将连接到它们的边的另一个端的节点处的记录删去），从而实现从下到上每次都删去一层叶节点的操作，最终剩下的1个或者两个节点就是我们要求解的结果。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">findMinHeightTrees</span><span class="params">(<span class="keyword">int</span> n, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; edges)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">1</span>) <span class="keyword">return</span> &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">adj</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> e: edges)&#123;</span><br><span class="line">        adj[e[<span class="number">0</span>]].insert(e[<span class="number">1</span>]);</span><br><span class="line">        adj[e[<span class="number">1</span>]].insert(e[<span class="number">0</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(adj[i].<span class="built_in">size</span>() == <span class="number">1</span>) q.push(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(n &gt; <span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">int</span> len = q.<span class="built_in">size</span>();</span><br><span class="line">        n -= len;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> cur = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> next: adj[cur])&#123;</span><br><span class="line">                adj[next].erase(cur);</span><br><span class="line">                <span class="keyword">if</span>(adj[next].<span class="built_in">size</span>() == <span class="number">1</span>) q.push(next);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        res.push_back(q.front());</span><br><span class="line">        q.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC417-Pacific-Atlantic-Water-Flow">LC417 Pacific Atlantic Water Flow</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given an <code>m x n</code> matrix of non-negative integers representing the height of each unit cell in a continent, the “Pacific ocean” touches the left and top edges of the matrix and the “Atlantic ocean” touches the right and bottom edges.</p>
+<p>Water can only flow in four directions (up, down, left, or right) from a cell to another one with height equal or lower.</p>
+<p>Find the list of grid coordinates where water can flow to both the Pacific and Atlantic ocean.</p>
+<p><strong>Note:</strong></p>
+<ol>
+<li>The order of returned grid coordinates does not matter.</li>
+<li>Both <em>m</em> and <em>n</em> are less than 150.</li>
+</ol>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Given the following 5x5 matrix:</span><br><span class="line"></span><br><span class="line">  Pacific ~   ~   ~   ~   ~ </span><br><span class="line">       ~  1   2   2   3  (5) *</span><br><span class="line">       ~  3   2   3  (4) (4) *</span><br><span class="line">       ~  2   4  (5)  3   1  *</span><br><span class="line">       ~ (6) (7)  1   4   5  *</span><br><span class="line">       ~ (5)  1   1   2   4  *</span><br><span class="line">          *   *   *   *   * Atlantic</span><br><span class="line"></span><br><span class="line">Return:</span><br><span class="line"></span><br><span class="line">[[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]] (positions with parentheses in above matrix).</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>BFS，首先分别将两个边的节点加入队列中，然后对两个队列进行BFS，只push数值变大的节点即可。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dx&#123;<span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dy&#123;<span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>&#125;;</span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">pacificAtlantic</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(matrix.empty() || matrix[<span class="number">0</span>].empty()) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    <span class="keyword">int</span> m = matrix.<span class="built_in">size</span>(), n = matrix[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">    <span class="comment">// four borders</span></span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; res1;</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; res2;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; q1;</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; q2;</span><br><span class="line">    <span class="comment">// left border</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) q1.push(&#123;i, <span class="number">0</span>&#125;);</span><br><span class="line">    <span class="comment">// up border</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) q1.push(&#123;<span class="number">0</span>, i&#125;);</span><br><span class="line">    <span class="comment">// right border</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m - <span class="number">1</span>; i++) q2.push(&#123;i, n - <span class="number">1</span>&#125;);</span><br><span class="line">    <span class="comment">// bottom border</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) q2.push(&#123;m - <span class="number">1</span>, i&#125;);</span><br><span class="line">    BFS(res1, matrix, q1);</span><br><span class="line">    BFS(res2, matrix, q2);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> r1: res1)&#123;</span><br><span class="line">        <span class="keyword">if</span>(res2.count(r1)) res.push_back(&#123;r1 / n, r1 % n&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BFS</span><span class="params">(<span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt;&amp; res, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="built_in">queue</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; q)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = matrix.<span class="built_in">size</span>(), n = matrix[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; visited;</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> len = q.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">            <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cur = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            res.insert(cur[<span class="number">0</span>] * n + cur[<span class="number">1</span>]);</span><br><span class="line">            <span class="keyword">int</span> curValue = matrix[cur[<span class="number">0</span>]][cur[<span class="number">1</span>]];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">4</span>; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>((cur[<span class="number">0</span>] + dx[j]) &gt;= <span class="number">0</span> &amp;&amp; (cur[<span class="number">0</span>] + dx[j]) &lt; m &amp;&amp; (cur[<span class="number">1</span>] + dy[j]) &gt;= <span class="number">0</span> &amp;&amp; (cur[<span class="number">1</span>] + dy[j]) &lt; n)&#123;</span><br><span class="line">                    <span class="keyword">int</span> next = matrix[cur[<span class="number">0</span>] + dx[j]][cur[<span class="number">1</span>] + dy[j]];</span><br><span class="line">                    <span class="keyword">if</span>(next &gt;= curValue &amp;&amp; !visited.count((cur[<span class="number">0</span>] + dx[j]) * n + cur[<span class="number">1</span>] + dy[j]))&#123;</span><br><span class="line">                        q.push(&#123;cur[<span class="number">0</span>] + dx[j], cur[<span class="number">1</span>] + dy[j]&#125;);</span><br><span class="line">                        visited.insert((cur[<span class="number">0</span>] + dx[j]) * n + cur[<span class="number">1</span>] + dy[j]);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC513-Find-Bottom-Left-Tree-Value">LC513 Find Bottom Left Tree Value</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a binary tree, find the leftmost value in the last row of the tree.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line"></span><br><span class="line">    2</span><br><span class="line">   &#x2F; \</span><br><span class="line">  1   3</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line"></span><br><span class="line">        1</span><br><span class="line">       &#x2F; \</span><br><span class="line">      2   3</span><br><span class="line">     &#x2F;   &#x2F; \</span><br><span class="line">    4   5   6</span><br><span class="line">       &#x2F;</span><br><span class="line">      7</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">7</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong> You may assume the tree (i.e., the given root node) is not <strong>NULL</strong>.</p>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>BFS，但是在每一层上先加入右子节点，再加入左子节点，这样最后一次从queue里pop出来的就是要求的最底下一层的最左边的点。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findBottomLeftValue</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">queue</span>&lt;TreeNode*&gt; q;</span><br><span class="line">    q.push(root);</span><br><span class="line">    TreeNode* node;</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        node = q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        <span class="keyword">if</span>(node-&gt;right) q.push(node-&gt;right);</span><br><span class="line">        <span class="keyword">if</span>(node-&gt;left) q.push(node-&gt;left);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> node-&gt;val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC515-Find-Largest-Value-in-Each-Tree-Row">LC515 Find Largest Value in Each Tree Row</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>You need to find the largest value in each row of a binary tree.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input: </span><br><span class="line"></span><br><span class="line">          1</span><br><span class="line">         &#x2F; \</span><br><span class="line">        3   2</span><br><span class="line">       &#x2F; \   \  </span><br><span class="line">      5   3   9 </span><br><span class="line"></span><br><span class="line">Output: [1, 3, 9]</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>BFS+层序遍历，每层求最大值即可</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">largestValues</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="built_in">queue</span>&lt;TreeNode*&gt; q;</span><br><span class="line">    q.push(root);</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> len = q.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> cur = INT_MIN;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">            TreeNode* node = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            cur = <span class="built_in">max</span>(cur, node-&gt;val);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;right) q.push(node-&gt;right);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left) q.push(node-&gt;left);</span><br><span class="line">        &#125;</span><br><span class="line">        res.push_back(cur);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC529-Minesweeper">LC529 Minesweeper</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Let’s play the minesweeper game (<a href="https://en.wikipedia.org/wiki/Minesweeper_(video_game)" target="_blank" rel="noopener">Wikipedia</a>, <a href="http://minesweeperonline.com/" target="_blank" rel="noopener">online game</a>)!</p>
+<p>You are given a 2D char matrix representing the game board. <strong>‘M’</strong> represents an <strong>unrevealed</strong> mine, <strong>‘E’</strong> represents an <strong>unrevealed</strong> empty square, <strong>‘B’</strong> represents a <strong>revealed</strong> blank square that has no adjacent (above, below, left, right, and all 4 diagonals) mines, <strong>digit</strong> (‘1’ to ‘8’) represents how many mines are adjacent to this <strong>revealed</strong> square, and finally <strong>‘X’</strong> represents a <strong>revealed</strong> mine.</p>
+<p>Now given the next click position (row and column indices) among all the <strong>unrevealed</strong> squares (‘M’ or ‘E’), return the board after revealing this position according to the following rules:</p>
+<ol>
+<li>If a mine (‘M’) is revealed, then the game is over - change it to <strong>‘X’</strong>.</li>
+<li>If an empty square (‘E’) with <strong>no adjacent mines</strong> is revealed, then change it to revealed blank (‘B’) and all of its adjacent <strong>unrevealed</strong> squares should be revealed recursively.</li>
+<li>If an empty square (‘E’) with <strong>at least one adjacent mine</strong> is revealed, then change it to a digit (‘1’ to ‘8’) representing the number of adjacent mines.</li>
+<li>Return the board when no more squares will be revealed.</li>
+</ol>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Input: </span><br><span class="line"></span><br><span class="line">[[&#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;],</span><br><span class="line"> [&#39;E&#39;, &#39;E&#39;, &#39;M&#39;, &#39;E&#39;, &#39;E&#39;],</span><br><span class="line"> [&#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;],</span><br><span class="line"> [&#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;, &#39;E&#39;]]</span><br><span class="line"></span><br><span class="line">Click : [3,0]</span><br><span class="line"></span><br><span class="line">Output: </span><br><span class="line"></span><br><span class="line">[[&#39;B&#39;, &#39;1&#39;, &#39;E&#39;, &#39;1&#39;, &#39;B&#39;],</span><br><span class="line"> [&#39;B&#39;, &#39;1&#39;, &#39;M&#39;, &#39;1&#39;, &#39;B&#39;],</span><br><span class="line"> [&#39;B&#39;, &#39;1&#39;, &#39;1&#39;, &#39;1&#39;, &#39;B&#39;],</span><br><span class="line"> [&#39;B&#39;, &#39;B&#39;, &#39;B&#39;, &#39;B&#39;, &#39;B&#39;]]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Input: </span><br><span class="line"></span><br><span class="line">[[&#39;B&#39;, &#39;1&#39;, &#39;E&#39;, &#39;1&#39;, &#39;B&#39;],</span><br><span class="line"> [&#39;B&#39;, &#39;1&#39;, &#39;M&#39;, &#39;1&#39;, &#39;B&#39;],</span><br><span class="line"> [&#39;B&#39;, &#39;1&#39;, &#39;1&#39;, &#39;1&#39;, &#39;B&#39;],</span><br><span class="line"> [&#39;B&#39;, &#39;B&#39;, &#39;B&#39;, &#39;B&#39;, &#39;B&#39;]]</span><br><span class="line"></span><br><span class="line">Click : [1,2]</span><br><span class="line"></span><br><span class="line">Output: </span><br><span class="line"></span><br><span class="line">[[&#39;B&#39;, &#39;1&#39;, &#39;E&#39;, &#39;1&#39;, &#39;B&#39;],</span><br><span class="line"> [&#39;B&#39;, &#39;1&#39;, &#39;X&#39;, &#39;1&#39;, &#39;B&#39;],</span><br><span class="line"> [&#39;B&#39;, &#39;1&#39;, &#39;1&#39;, &#39;1&#39;, &#39;B&#39;],</span><br><span class="line"> [&#39;B&#39;, &#39;B&#39;, &#39;B&#39;, &#39;B&#39;, &#39;B&#39;]]</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ol>
+<li>The range of the input matrix’s height and width is [1,50].</li>
+<li>The click position will only be an unrevealed square (‘M’ or ‘E’), which also means the input board contains at least one clickable square.</li>
+<li>The input board won’t be a stage when game is over (some mines have been revealed).</li>
+<li>For simplicity, not mentioned rules should be ignored in this problem. For example, you <strong>don’t</strong> need to reveal all the unrevealed mines when the game is over, consider any cases that you will win the game or flag any squares.</li>
+</ol>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>BFS，首先判断click处是否为M，是的话则改为X，然后直接返回</p>
+<p>否则从click处bfs遍历整个图，对于遍历到的点，首先判断改点周围是否有M，有的话改为数字，否则改为B，并将周围八个点加入q</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt; <span class="title">updateBoard</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; board, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; <span class="built_in">click</span>)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt; res = board;</span><br><span class="line">    <span class="keyword">if</span>(board[<span class="built_in">click</span>[<span class="number">0</span>]][<span class="built_in">click</span>[<span class="number">1</span>]] == <span class="string">'M'</span>)&#123;</span><br><span class="line">        res[<span class="built_in">click</span>[<span class="number">0</span>]][<span class="built_in">click</span>[<span class="number">1</span>]] = <span class="string">'X'</span>;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> m = board.<span class="built_in">size</span>(), n = board[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dx = &#123;<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dy = &#123;<span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; visited;</span><br><span class="line">    q.push(<span class="built_in">click</span>);</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cur = q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        <span class="keyword">if</span>(board[cur[<span class="number">0</span>]][cur[<span class="number">1</span>]] == <span class="string">'E'</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(cur[<span class="number">0</span>] + dx[i] &gt;= <span class="number">0</span> &amp;&amp; cur[<span class="number">0</span>] + dx[i] &lt; m &amp;&amp; cur[<span class="number">1</span>] + dy[i] &gt;= <span class="number">0</span> &amp;&amp; cur[<span class="number">1</span>] + dy[i] &lt; n)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(board[cur[<span class="number">0</span>] + dx[i]][cur[<span class="number">1</span>] + dy[i]] == <span class="string">'M'</span>) cnt++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(cnt == <span class="number">0</span>)&#123;</span><br><span class="line">                res[cur[<span class="number">0</span>]][cur[<span class="number">1</span>]] = <span class="string">'B'</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(cur[<span class="number">0</span>] + dx[i] &gt;= <span class="number">0</span> &amp;&amp; cur[<span class="number">0</span>] + dx[i] &lt; m &amp;&amp; cur[<span class="number">1</span>] + dy[i] &gt;= <span class="number">0</span> &amp;&amp; cur[<span class="number">1</span>] + dy[i] &lt; n)&#123;</span><br><span class="line">                        <span class="keyword">if</span>(board[cur[<span class="number">0</span>] + dx[i]][cur[<span class="number">1</span>] + dy[i]] == <span class="string">'E'</span>)&#123;</span><br><span class="line">                            <span class="keyword">if</span>(!visited.count((cur[<span class="number">0</span>] + dx[i]) * n + cur[<span class="number">1</span>] + dy[i]))&#123;</span><br><span class="line">                                visited.insert((cur[<span class="number">0</span>] + dx[i]) * n + cur[<span class="number">1</span>] + dy[i]);</span><br><span class="line">                                q.push(&#123;cur[<span class="number">0</span>] + dx[i], cur[<span class="number">1</span>] + dy[i]&#125;);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> res[cur[<span class="number">0</span>]][cur[<span class="number">1</span>]] = (<span class="keyword">char</span>)(cnt + <span class="string">'0'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC542-01-Matrix">LC542 01 Matrix</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a matrix consists of 0 and 1, find the distance of the nearest 0 for each cell.</p>
+<p>The distance between two adjacent cells is 1.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">[[0,0,0],</span><br><span class="line"> [0,1,0],</span><br><span class="line"> [0,0,0]]</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">[[0,0,0],</span><br><span class="line"> [0,1,0],</span><br><span class="line"> [0,0,0]]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">[[0,0,0],</span><br><span class="line"> [0,1,0],</span><br><span class="line"> [1,1,1]]</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">[[0,0,0],</span><br><span class="line"> [0,1,0],</span><br><span class="line"> [1,2,1]]</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ol>
+<li>The number of elements of the given matrix will not exceed 10,000.</li>
+<li>There are at least one 0 in the given matrix.</li>
+<li>The cells are adjacent in only four directions: up, down, left and right.</li>
+</ol>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<p>BFS，首先将所有的0的位置加入队列，从这些0开始遍历matrix，如果遍历到的1处的值大于当前得到的路径的长度，则更新，并将该点加入队列。</p>
+<ul>
+<li>Approach 2</li>
+</ul>
+<p>两次DP，分别从左上角和右下角出发</p>
+<p>左上角：dp[i, j] = min(dp[i, j - 1] + 1, dp[i - 1, j] + 1)</p>
+<p>右下角：dp[i, j] = min(dp[i, j + 1] + 1, dp[i + 1, j] + 1)</p>
+<p>注意在初始化结果数组的时候，res中的每个值都必须初始化成INT_MAX - 10000，因为在第一次遍历过程中可能存在INT_MAX + 1的操作，而最长路径不可能超过10000（题目中说matrix的边长最大为10000）。</p>
+</details>
+<details><summary>Code</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">updateMatrix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(matrix.empty() || matrix[<span class="number">0</span>].empty()) <span class="keyword">return</span> matrix;</span><br><span class="line">    <span class="keyword">int</span> m = matrix.<span class="built_in">size</span>(), n = matrix[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">res</span><span class="params">(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n, INT_MAX))</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(matrix[i][j] == <span class="number">0</span>)&#123;</span><br><span class="line">                res[i][j] = <span class="number">0</span>;</span><br><span class="line">                q.push(&#123;i, j&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dx = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>&#125;, dy = &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cur = q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(cur[<span class="number">0</span>] + dx[i] &gt;= <span class="number">0</span> &amp;&amp; cur[<span class="number">0</span>] + dx[i] &lt; m &amp;&amp; cur[<span class="number">1</span>] + dy[i] &gt;= <span class="number">0</span> &amp;&amp; cur[<span class="number">1</span>] + dy[i] &lt; n)&#123;</span><br><span class="line">                <span class="keyword">if</span>(res[cur[<span class="number">0</span>] + dx[i]][cur[<span class="number">1</span>] + dy[i]] &gt; res[cur[<span class="number">0</span>]][cur[<span class="number">1</span>]] + <span class="number">1</span>)&#123;</span><br><span class="line">                    res[cur[<span class="number">0</span>] + dx[i]][cur[<span class="number">1</span>] + dy[i]] = res[cur[<span class="number">0</span>]][cur[<span class="number">1</span>]] + <span class="number">1</span>;</span><br><span class="line">                    q.push(&#123;cur[<span class="number">0</span>] + dx[i], cur[<span class="number">1</span>] + dy[i]&#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Approach 2</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">updateMatrix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(matrix.empty() || matrix[<span class="number">0</span>].empty()) <span class="keyword">return</span> matrix;</span><br><span class="line">    <span class="keyword">int</span> m = matrix.<span class="built_in">size</span>(), n = matrix[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; q;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">res</span><span class="params">(m, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(n, INT_MAX - <span class="number">10000</span>))</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(matrix[i][j] == <span class="number">0</span>)&#123;</span><br><span class="line">                res[i][j] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(i &gt; <span class="number">0</span>) res[i][j] = <span class="built_in">min</span>(res[i][j], res[i - <span class="number">1</span>][j] + <span class="number">1</span>);</span><br><span class="line">                <span class="keyword">if</span>(j &gt; <span class="number">0</span>) res[i][j] = <span class="built_in">min</span>(res[i][j], res[i][j - <span class="number">1</span>] + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = m - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = n - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i &lt; m - <span class="number">1</span>) res[i][j] = <span class="built_in">min</span>(res[i][j], res[i + <span class="number">1</span>][j] + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(j &lt; n - <span class="number">1</span>) res[i][j] = <span class="built_in">min</span>(res[i][j], res[i][j + <span class="number">1</span>] + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="Review">Review</h3>
+<p>BFS主要适用于求解最短路径，最短长度等一类最短问题，多和层序遍历配合使用，以达到可以求解路径长度的作用。需要注意如下：</p>
+<ul>
+<li>起始节点不一定只有一个，可能是原数组或者图中的一类节点；</li>
+<li>不一定非要从根节点出发来进行BFS，任意节点都可以作为BFS的出发的节点；</li>
+<li>visited数组：在添加子节点进queue的同时添加进visited数组；</li>
+<li>BFS可以进行层的删除，通过一层一层的删除叶节点来得到最终的中心点；</li>
+<li>！！！！千万不要写成back tracing，回溯一般是用在要求得所有结果的情况下，类似DFS。</li>
+</ul>
+
+        </div>
+        
+
+    </article>
+    
+    <section id="comments">
+        
+            <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+            </div>
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">Catalogue</h3>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC107-Binary-Tree-Level-Order-Traversal-II"><span class="toc-number">1.</span> <span class="toc-text">LC107 Binary Tree Level Order Traversal II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC111-Minimum-Depth-of-Binary-Tree"><span class="toc-number">2.</span> <span class="toc-text">LC111 Minimum Depth of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC126-Word-Ladder-II"><span class="toc-number">3.</span> <span class="toc-text">LC126 Word Ladder II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC127-Word-Ladder"><span class="toc-number">4.</span> <span class="toc-text">LC127 Word Ladder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC130-Surrounded-Regions"><span class="toc-number">5.</span> <span class="toc-text">LC130 Surrounded Regions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC133-Clone-Graph"><span class="toc-number">6.</span> <span class="toc-text">LC133 Clone Graph</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC199-Binary-Tree-Right-Side-View"><span class="toc-number">7.</span> <span class="toc-text">LC199 Binary Tree Right Side View</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC279-Perfect-Squares"><span class="toc-number">8.</span> <span class="toc-text">LC279 Perfect Squares</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC301-Remove-Invalid-Parentheses"><span class="toc-number">9.</span> <span class="toc-text">LC301 Remove Invalid Parentheses</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC310-Minimum-Height-Trees"><span class="toc-number">10.</span> <span class="toc-text">LC310 Minimum Height Trees</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC417-Pacific-Atlantic-Water-Flow"><span class="toc-number">11.</span> <span class="toc-text">LC417 Pacific Atlantic Water Flow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC513-Find-Bottom-Left-Tree-Value"><span class="toc-number">12.</span> <span class="toc-text">LC513 Find Bottom Left Tree Value</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC515-Find-Largest-Value-in-Each-Tree-Row"><span class="toc-number">13.</span> <span class="toc-text">LC515 Find Largest Value in Each Tree Row</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC529-Minesweeper"><span class="toc-number">14.</span> <span class="toc-text">LC529 Minesweeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC542-01-Matrix"><span class="toc-number">15.</span> <span class="toc-text">LC542 01 Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Review"><span class="toc-number">16.</span> <span class="toc-text">Review</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/yox@1.0.0-alpha.121/dist/standard/prod/yox.min.js"></script>
+
+
+<script src="/js/search.min.js"></script>
+
+
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://yoursite.com/Breadth-First-Search-1/';
+        
+        this.page.identifier = 'Breadth-First-Search-1';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + '' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+    </body>
+</html>

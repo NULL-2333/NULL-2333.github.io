@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html  lang="en" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>Greedy(2) | Yiming</title>
+    <meta name="description" content="LC315 Remove Duplicate Letters Problem  Given a string which contains only lowercase letters, remove duplicate letters so that every letter appears once and only once. You must make sure your result i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Greedy(2)">
+<meta property="og:url" content="http://yoursite.com/Greedy-2/">
+<meta property="og:site_name" content="Yiming">
+<meta property="og:description" content="LC315 Remove Duplicate Letters Problem  Given a string which contains only lowercase letters, remove duplicate letters so that every letter appears once and only once. You must make sure your result i">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/621.PNG">
+<meta property="article:published_time" content="2020-05-31T09:05:19.000Z">
+<meta property="article:modified_time" content="2020-09-19T02:19:13.522Z">
+<meta property="article:author" content="Yiming">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="Greedy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/621.PNG">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://null-2333.github.io" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_self" rel="noopener" rel="noreferrer" >
+                <img src="/images/head1.jpeg" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block" style="font-size: 24px; font-weight: 600; padding-bottom: 10px">Yiming</h2>
+            <h3 id="title" class="hidden xl:block">Coding for fun ~</h3>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" style="padding-left: 5px" placeholder="Search" class="inline-block w-full bg-gray-100 lg:bg-white">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="Search" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-5 pb-3 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            <hr />
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">Home</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">Archives</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">Tags</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">Repository</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">Links</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-12 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            Greedy(2)
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/Greedy-2/" class="article-date">
+	  <time datetime="2020-05-31T09:05:19.000Z" itemprop="datePublished">May 31</time>
+	</a>
+</span>
+
+                
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Greedy/" rel="tag">Greedy</a>, <a class="article-tag-link" href="/tags/LeetCode/" rel="tag">LeetCode</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/Greedy-2/#comments" class="article-comment-link">
+                        Comments
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 4.6k(words)</span>
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <h3 id="LC315-Remove-Duplicate-Letters">LC315 Remove Duplicate Letters</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a string which contains only lowercase letters, remove duplicate letters so that every letter appears once and only once. You must make sure your result is the smallest in lexicographical order among all possible results.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;bcabc&quot;</span><br><span class="line">Output: &quot;abc&quot;</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;cbacdcbc&quot;</span><br><span class="line">Output: &quot;acdb&quot;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>首先遍历字符串，求得每个字母的出现次数，然后用一个哈希表来存放当前字母是否已经被访问过。</p>
+<p>再次遍历字符串，首先将当前字母对应的出现次数-1，如果该字母已经访问过，则说明当前字母已经加入了结果，则继续下一次循环；否则，将当前字母不断的和结果字符串的最后一个字符进行比较，如果比结果字符串的最后一个字母小，而且这个最后一个字母对应的cnt数组大于0，说明之后还会出现这个字母，因此可以从res中删去；最后将当前遍历到的字母分别加入结果字符串和哈希表中。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">removeDuplicateLetters</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">cnt</span><span class="params">(<span class="number">26</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">char</span>&gt; <span class="built_in">map</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> c: s) cnt[c - <span class="string">'a'</span>]++;</span><br><span class="line">    <span class="built_in">string</span> res = <span class="string">"0"</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> c: s)&#123;</span><br><span class="line">        cnt[c - <span class="string">'a'</span>]--;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">map</span>.count(c)) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">while</span>(c &lt; res.back() &amp;&amp; cnt[res.back() - <span class="string">'a'</span>] != <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="built_in">map</span>.erase(res.back());</span><br><span class="line">            res.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">        res += c;</span><br><span class="line">        <span class="built_in">map</span>.insert(c);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res.substr(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC321-Create-Maximum-Number">LC321 Create Maximum Number</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given two arrays of length <code>m</code> and <code>n</code> with digits <code>0-9</code> representing two numbers. Create the maximum number of length <code>k &lt;= m + n</code> from digits of the two. The relative order of the digits from the same array must be preserved. Return an array of the <code>k</code> digits.</p>
+<p><strong>Note:</strong> You should try to optimize your time and space complexity.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">nums1 &#x3D; [3, 4, 6, 5]</span><br><span class="line">nums2 &#x3D; [9, 1, 2, 5, 8, 3]</span><br><span class="line">k &#x3D; 5</span><br><span class="line">Output:</span><br><span class="line">[9, 8, 6, 5, 3]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">nums1 &#x3D; [6, 7]</span><br><span class="line">nums2 &#x3D; [6, 0, 4]</span><br><span class="line">k &#x3D; 5</span><br><span class="line">Output:</span><br><span class="line">[6, 7, 6, 0, 4]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">nums1 &#x3D; [3, 9]</span><br><span class="line">nums2 &#x3D; [8, 9]</span><br><span class="line">k &#x3D; 3</span><br><span class="line">Output:</span><br><span class="line">[9, 8, 9]</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>设两个数组长度分别为m和n，设从第一个数组中取i个数字，则从第二个数组中取k-i个数字。</p>
+<p>i的范围的确定：</p>
+<p>当i &gt; n的时候，第一个数组至少要取k - n个数字；当i &lt;= n的时候，第一个数组至少取0个数字，因此i的最小值应该为max(0, k - n)；</p>
+<p>对应的，在nums1数组中最大只能取k个数和m个数字中的较小值，即i的最大值为min(k, m)；</p>
+<p>对于每一种i的情况，判断res和nums1取i个数字，nums2取k-i个数字并merge之后的大小。因此需要解决如下问题：</p>
+<ul>
+<li>
+<p>从一个数组nums中取k个数字所能组成的最大值：</p>
+<p>设nums的长度为n，因此需要删除n - k个数字。采用类似上一题的做法，每次判断是否还有数字要删除(drop &gt; 0)、结果数组不为空(!res.empty())以及当前数字是否大于res数组的尾端的数字(num &gt; res.back())，将所有满足这些条件的数字删除，然后将当前数字push进res数组，最后resize为k(取前k个数)；</p>
+</li>
+<li>
+<p>merge两个数组所能组成的最大值：这里的merge不能单纯比较每个数组的开头的元素的大小，而是需要对数组整体进行大小比较，取较大数组的头元素，然后将这个头元素从数组中删去。</p>
+</li>
+</ul>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">maxNumber</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = nums1.<span class="built_in">size</span>(), n = nums2.<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="built_in">max</span>(<span class="number">0</span>, k - n); i &lt;= <span class="built_in">min</span>(k, m); i++)&#123;</span><br><span class="line">        res = <span class="built_in">max</span>(res, mergeVector(maxNumber(nums1, i), maxNumber(nums2, k - i)));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">maxNumber</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">int</span> drop = (<span class="keyword">int</span>)nums.<span class="built_in">size</span>() - k;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> num: nums)&#123;</span><br><span class="line">        <span class="keyword">while</span>(drop &gt; <span class="number">0</span> &amp;&amp; !res.empty() &amp;&amp; num &gt; res.back())&#123;</span><br><span class="line">            res.pop_back();</span><br><span class="line">            drop--;</span><br><span class="line">        &#125;</span><br><span class="line">        res.push_back(num);</span><br><span class="line">    &#125;</span><br><span class="line">    res.resize(k);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">mergeVector</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nums2)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">while</span> (!nums1.empty() || !nums2.empty()) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;tmp = (nums1 &gt; nums2) ? nums1 : nums2;</span><br><span class="line">        res.push_back(tmp[<span class="number">0</span>]);</span><br><span class="line">        tmp.erase(tmp.<span class="built_in">begin</span>());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC330-Patching-Array">LC330 Patching Array</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a sorted positive integer array <em>nums</em> and an integer <em>n</em>, add/patch elements to the array such that any number in range <code>[1, n]</code> inclusive can be formed by the sum of some elements in the array. Return the minimum number of patches required.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: nums &#x3D; [1,3], n &#x3D; 6</span><br><span class="line">Output: 1 </span><br><span class="line">Explanation:</span><br><span class="line">Combinations of nums are [1], [3], [1,3], which form possible sums of: 1, 3, 4.</span><br><span class="line">Now if we add&#x2F;patch 2 to nums, the combinations are: [1], [2], [3], [1,3], [2,3], [1,2,3].</span><br><span class="line">Possible sums are 1, 2, 3, 4, 5, 6, which now covers the range [1, 6].</span><br><span class="line">So we only need 1 patch.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: nums &#x3D; [1,5,10], n &#x3D; 20</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: The two patches can be [2, 4].</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums &#x3D; [1,2,2], n &#x3D; 5</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>初始化当前可计算范围为[1, 1)，进行下列循环：</p>
+<p>设当前可计算范围为[1, miss)，也就是miss是无法计算的，那么为了计算miss，我们直接将miss添加进数组即可。在添加之前我们要先判断当前数组内是否存在可以计算出miss值的数字，即后一位的num是否小于等于miss，如果满足，则miss = miss + nums[i]，否则需要添加一个数字miss进数组，然后miss = miss * 2。</p>
+<blockquote>
+<ul>
+<li>
+<p>Initialize the range <code>[1, miss)</code> = <code>[1, 1)</code> = empty</p>
+</li>
+<li>
+<p>While n is not covered yet</p>
+<ul>
+<li>
+<p>if the current element <code>nums[i] </code>is less than or equal to<code>miss </code></p>
+<ul>
+<li>extends the range to <code>[1, miss + nums[i])</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>increase <code>i</code> by 1</p>
+</li>
+<li>
+<p>otherwise</p>
+<ul>
+<li>patch the array with <code>miss</code>, extends the range to <code>[1, miss + miss)</code></li>
+</ul>
+</li>
+<li>
+<p>increase the number of patches</p>
+</li>
+<li>
+<p>Return the number of patches</p>
+</li>
+</ul>
+</blockquote>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minPatches</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> right = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(right &lt;= n)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i &lt; nums.<span class="built_in">size</span>() &amp;&amp; nums[i] &lt;= right)&#123;</span><br><span class="line">            right += nums[i];</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            right *= <span class="number">2</span>;</span><br><span class="line">            res++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC392-Is-Subsequence">LC392 Is Subsequence</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a string <strong>s</strong> and a string <strong>t</strong>, check if <strong>s</strong> is subsequence of <strong>t</strong>.</p>
+<p>A subsequence of a string is a new string which is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (ie, <code>&quot;ace&quot;</code> is a subsequence of <code>&quot;abcde&quot;</code> while <code>&quot;aec&quot;</code> is not).</p>
+<p><strong>Follow up:</strong><br>
+If there are lots of incoming S, say S1, S2, … , Sk where k &gt;= 1B, and you want to check one by one to see if T has its subsequence. In this scenario, how would you change your code?</p>
+<p><strong>Credits:</strong><br>
+Special thanks to <a href="https://leetcode.com/pbrother/" target="_blank" rel="noopener">@pbrother</a> for adding this problem and creating all test cases.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;abc&quot;, t &#x3D; &quot;ahbgdc&quot;</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;axc&quot;, t &#x3D; &quot;ahbgdc&quot;</span><br><span class="line">Output: false</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>0 &lt;= s.length &lt;= 100</code></li>
+<li><code>0 &lt;= t.length &lt;= 10^4</code></li>
+<li>Both strings consists only of lowercase characters.</li>
+</ul>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>双指针，分别从两个字符串开头遍历，相同则同时后移，不同则后移t对应的指针，最后判断s是否遍历完即可。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isSubsequence</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> t)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> m = s.<span class="built_in">size</span>(), n = t.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt; m &amp;&amp; j &lt; n)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s[i] == t[j])&#123;</span><br><span class="line">                i++;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> i == m;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC402-Remove-K-Digits">LC402 Remove K Digits</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a non-negative integer <em>num</em> represented as a string, remove <em>k</em> digits from the number so that the new number is the smallest possible.</p>
+<p><strong>Note:</strong></p>
+<ul>
+<li>The length of <em>num</em> is less than 10002 and will be ≥ <em>k</em>.</li>
+<li>The given <em>num</em> does not contain any leading zero.</li>
+</ul>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;Input: num &#x3D; &quot;1432219&quot;, k &#x3D; 3</span><br><span class="line">Output: &quot;1219&quot;</span><br><span class="line">Explanation: Remove the three digits 4, 3, and 2 to form the new number 1219 which is the smallest.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;Input: num &#x3D; &quot;10200&quot;, k &#x3D; 1</span><br><span class="line">Output: &quot;200&quot;</span><br><span class="line">Explanation: Remove the leading 1 and the number is 200. Note that the output must not contain leading zeroes.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;Input: num &#x3D; &quot;10&quot;, k &#x3D; 2</span><br><span class="line">Output: &quot;0&quot;</span><br><span class="line">Explanation: Remove all the digits from the number and it is left with nothing which is 0.</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>Greedy+Stack</p>
+<p>建立一个栈，然后遍历num，如果当前num[i]比栈顶的数值小，而且k&gt;0(说明还可以删数字)，则将栈顶的数字pop出来，将num[i]push进去。然后将栈的前n - k个数字提取出来，形成字符串，并将前缀0去掉。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">removeKdigits</span><span class="params">(<span class="built_in">string</span> num, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">char</span>&gt; s;</span><br><span class="line">    <span class="keyword">int</span> drop = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> n = num.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> digit: num)&#123;</span><br><span class="line">        <span class="keyword">while</span>(!s.empty() &amp;&amp; k &gt; <span class="number">0</span> &amp;&amp; s.top() &gt; digit)&#123;</span><br><span class="line">            k--;</span><br><span class="line">            s.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        s.push(digit);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++)&#123;</span><br><span class="line">        s.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">string</span> res;</span><br><span class="line">    <span class="keyword">while</span>(!s.empty())&#123;</span><br><span class="line">        res = s.top() + res;</span><br><span class="line">        s.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(res[left] == <span class="string">'0'</span>)&#123;</span><br><span class="line">        left++;</span><br><span class="line">    &#125;</span><br><span class="line">    res = res.substr(left);</span><br><span class="line">    <span class="keyword">return</span> res == <span class="string">""</span> ? <span class="string">"0"</span>: res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC406-Queue-Reconstruction-by-Height">LC406 Queue Reconstruction by Height</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Suppose you have a random list of people standing in a queue. Each person is described by a pair of integers <code>(h, k)</code>, where <code>h</code> is the height of the person and <code>k</code> is the number of people in front of this person who have a height greater than or equal to <code>h</code>. Write an algorithm to reconstruct the queue.</p>
+<p><strong>Note:</strong><br>
+The number of people is less than 1,100.</p>
+<p><strong>Example</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">[[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">[[5,0], [7,0], [5,2], [6,1], [4,4], [7,1]]</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>首先对所有的people进行排序，排序规则为，第一位降序，第二位升序，然后按顺序将每一个p插入在res.begin() + p[1]的部分。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; p1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; p2)</span> <span class="keyword">const</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(p1[<span class="number">0</span>] &gt; p2[<span class="number">0</span>])&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(p1[<span class="number">0</span>] &lt; p2[<span class="number">0</span>])&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(p1[<span class="number">1</span>] &gt; p2[<span class="number">1</span>])&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; cmp;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">reconstructQueue</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; people)</span> </span>&#123;</span><br><span class="line">        sort(people.<span class="built_in">begin</span>(), people.<span class="built_in">end</span>(), cmp);</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> p: people)&#123;</span><br><span class="line">            res.insert(res.<span class="built_in">begin</span>() + p[<span class="number">1</span>], p);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC435-Non-overlapping-Intervals">LC435 Non-overlapping Intervals</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a collection of intervals, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2],[2,3],[3,4],[1,3]]</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: [1,3] can be removed and the rest of intervals are non-overlapping.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2],[1,2],[1,2]]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: You need to remove two [1,2] to make the rest of intervals non-overlapping.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2],[2,3]]</span><br><span class="line">Output: 0</span><br><span class="line">Explanation: You don&#39;t need to remove any of the intervals since they&#39;re already non-overlapping.</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ol>
+<li>You may assume the interval’s end point is always bigger than its start point.</li>
+<li>Intervals like [1,2] and [2,3] have borders “touching” but they don’t overlap each other.</li>
+</ol>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>Greedy，首先对所有intervals按照结束时间进行排序，然后遍历intervals，判断如果两个interval有重叠，则保留结束时间在前的那一个（需要更新prev和cnt）。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; a, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a[<span class="number">1</span>] &lt; b[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;comp;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">eraseOverlapIntervals</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; intervals)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(intervals.empty()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        sort(intervals.<span class="built_in">begin</span>(), intervals.<span class="built_in">end</span>(), comp);</span><br><span class="line">        <span class="keyword">int</span> n = intervals.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">int</span> <span class="built_in">end</span> = intervals[<span class="number">0</span>][<span class="number">1</span>], prev = <span class="number">0</span>, cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(intervals[prev][<span class="number">1</span>] &gt; intervals[i][<span class="number">0</span>])&#123;</span><br><span class="line">                <span class="keyword">if</span>(intervals[prev][<span class="number">1</span>] &gt; intervals[i][<span class="number">1</span>])&#123;</span><br><span class="line">                    prev = i;</span><br><span class="line">                &#125;</span><br><span class="line">                cnt++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                prev = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cnt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC452-Minimum-Number-of-Arrows-to-Burst-Balloons">LC452 Minimum Number of Arrows to Burst Balloons</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>There are a number of spherical balloons spread in two-dimensional space. For each balloon, provided input is the start and end coordinates of the horizontal diameter. Since it’s horizontal, y-coordinates don’t matter and hence the x-coordinates of start and end of the diameter suffice. Start is always smaller than end. There will be at most 104 balloons.</p>
+<p>An arrow can be shot up exactly vertically from different points along the x-axis. A balloon with xstart and xend bursts by an arrow shot at x if xstart ≤ x ≤ xend. There is no limit to the number of arrows that can be shot. An arrow once shot keeps travelling up infinitely. The problem is to find the minimum number of arrows that must be shot to burst all balloons.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">[[10,16], [2,8], [1,6], [7,12]]</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">2</span><br><span class="line"></span><br><span class="line">Explanation:</span><br><span class="line">One way is to shoot one arrow for example at x &#x3D; 6 (bursting the balloons [2,8] and [1,6]) and another arrow at x &#x3D; 11 (bursting the other two balloons).</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>首先对数组进行排序，设置当前的重叠区间cur为points[0]，然后遍历points数组，如果和下一个区间有重叠部分，则说明可以在这个重叠区间里射击即可打穿气球，因此不需要更多一次的次数，因此cur设置为新的重叠区间；如果没有重叠部分，则说明需要更多一次的次数来射击气球，因此次数需要+1，当前重叠区间设置为当前points的区间即可。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findMinArrowShots</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; points)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(points.empty()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    sort(points.<span class="built_in">begin</span>(), points.<span class="built_in">end</span>());</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cur = points[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; points.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(cur[<span class="number">1</span>] &lt; points[i][<span class="number">0</span>])&#123;</span><br><span class="line">            cur = points[i];</span><br><span class="line">            res++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            cur[<span class="number">0</span>] = <span class="built_in">max</span>(cur[<span class="number">0</span>], points[i][<span class="number">0</span>]);</span><br><span class="line">            cur[<span class="number">1</span>] = <span class="built_in">min</span>(cur[<span class="number">1</span>], points[i][<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC455-Assign-Cookies">LC455 Assign Cookies</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Assume you are an awesome parent and want to give your children some cookies. But, you should give each child at most one cookie. Each child i has a greed factor gi, which is the minimum size of a cookie that the child will be content with; and each cookie j has a size sj. If sj &gt;= gi, we can assign the cookie j to the child i, and the child i will be content. Your goal is to maximize the number of your content children and output the maximum number.</p>
+<p><strong>Note:</strong><br>
+You may assume the greed factor is always positive.<br>
+You cannot assign more than one cookie to one child.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,2,3], [1,1]</span><br><span class="line"></span><br><span class="line">Output: 1</span><br><span class="line"></span><br><span class="line">Explanation: You have 3 children and 2 cookies. The greed factors of 3 children are 1, 2, 3. </span><br><span class="line">And even though you have 2 cookies, since their size is both 1, you could only make the child whose greed factor is 1 content.</span><br><span class="line">You need to output 1.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,2], [1,2,3]</span><br><span class="line"></span><br><span class="line">Output: 2</span><br><span class="line"></span><br><span class="line">Explanation: You have 2 children and 3 cookies. The greed factors of 2 children are 1, 2. </span><br><span class="line">You have 3 cookies and their sizes are big enough to gratify all of the children, </span><br><span class="line">You need to output 2.</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>首先将g和s排序，设置i和j初始为0，对每一个饼干j，如果s[j] &gt;= g[i]，即饼干j可以满足第i个人的要求，就跳到下一个人(i++)，且res++</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findContentChildren</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;g, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    sort(g.<span class="built_in">begin</span>(), g.<span class="built_in">end</span>());</span><br><span class="line">    sort(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; g.<span class="built_in">size</span>() &amp;&amp; j &lt; s.<span class="built_in">size</span>())&#123;</span><br><span class="line">        <span class="keyword">if</span>(g[i] &lt;= s[j])&#123;</span><br><span class="line">            i++;</span><br><span class="line">            res++;</span><br><span class="line">        &#125;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC502-IPO">LC502 IPO</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Suppose LeetCode will start its IPO soon. In order to sell a good price of its shares to Venture Capital, LeetCode would like to work on some projects to increase its capital before the IPO. Since it has limited resources, it can only finish at most <strong>k</strong> distinct projects before the IPO. Help LeetCode design the best way to maximize its total capital after finishing at most <strong>k</strong> distinct projects.</p>
+<p>You are given several projects. For each project <strong>i</strong>, it has a pure profit <strong>Pi</strong> and a minimum capital of <strong>Ci</strong> is needed to start the corresponding project. Initially, you have <strong>W</strong>capital. When you finish a project, you will obtain its pure profit and the profit will be added to your total capital.</p>
+<p>To sum up, pick a list of at most <strong>k</strong> distinct projects from given projects to maximize your final capital, and output your final maximized capital.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input: k&#x3D;2, W&#x3D;0, Profits&#x3D;[1,2,3], Capital&#x3D;[0,1,1].</span><br><span class="line"></span><br><span class="line">Output: 4</span><br><span class="line"></span><br><span class="line">Explanation: Since your initial capital is 0, you can only start the project indexed 0.</span><br><span class="line">             After finishing it you will obtain profit 1 and your capital becomes 1.</span><br><span class="line">             With capital 1, you can either start the project indexed 1 or the project indexed 2.</span><br><span class="line">             Since you can choose at most 2 projects, you need to finish the project indexed 2 to get the maximum capital.</span><br><span class="line">             Therefore, output the final maximized capital, which is 0 + 1 + 3 &#x3D; 4.</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ol>
+<li>You may assume all numbers in the input are non-negative integers.</li>
+<li>The length of Profits array and Capital array will not exceed 50,000.</li>
+<li>The answer is guaranteed to fit in a 32-bit signed integer.</li>
+</ol>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>首先判断是否所有的项目都立刻可以做，如果是的话就直接取利润最大的k个项目就可以了；否则：</p>
+<p>建立一个最小堆，将每一个capital和profit对在堆中按capital升序排列；</p>
+<p>建立一个最大堆，存放当前所有可以做的项目，按profit降序排列；</p>
+<p>如果k&gt;0，则说明还可以完成任务，因此将当前所有可以完成的任务加入available堆中，然后取出其中profit最大的任务即可。重复这个过程直到k=0或者无可做任务。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findMaximizedCapital</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span> W, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; Profits, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; Capital)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">bool</span> speedUp = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> c: Capital)&#123;</span><br><span class="line">        <span class="keyword">if</span>(W &lt; c)&#123;</span><br><span class="line">            speedUp = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(speedUp)&#123;</span><br><span class="line">        priority_queue&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> p: Profits)&#123;</span><br><span class="line">            q.push(p);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++)&#123;</span><br><span class="line">            W += q.top();</span><br><span class="line">            q.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> W;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> n = Profits.<span class="built_in">size</span>();</span><br><span class="line">    priority_queue&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;, greater&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&gt; projects;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        projects.push(&#123;Capital[i], Profits[i]&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    priority_queue&lt;<span class="keyword">int</span>&gt; <span class="built_in">available</span>;</span><br><span class="line">    <span class="keyword">while</span>(k &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">while</span>(!projects.empty() &amp;&amp; projects.top()[<span class="number">0</span>] &lt;= W)&#123;</span><br><span class="line">            <span class="built_in">available</span>.push(projects.top()[<span class="number">1</span>]);</span><br><span class="line">            projects.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">available</span>.empty())&#123;</span><br><span class="line">            W += <span class="built_in">available</span>.top();</span><br><span class="line">            <span class="built_in">available</span>.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">        k--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> W;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC621-Task-Scheduler">LC621 Task Scheduler</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks. Tasks could be done without original order. Each task could be done in one interval. For each interval, CPU could finish one task or just be idle.</p>
+<p>However, there is a non-negative cooling interval <strong>n</strong> that means between two <strong>same tasks</strong>, there must be at least n intervals that CPU are doing different tasks or just be idle.</p>
+<p>You need to return the <strong>least</strong> number of intervals the CPU will take to finish all the given tasks.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: tasks &#x3D; [&quot;A&quot;,&quot;A&quot;,&quot;A&quot;,&quot;B&quot;,&quot;B&quot;,&quot;B&quot;], n &#x3D; 2</span><br><span class="line">Output: 8</span><br><span class="line">Explanation: A -&gt; B -&gt; idle -&gt; A -&gt; B -&gt; idle -&gt; A -&gt; B.</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>The number of tasks is in the range <code>[1, 10000]</code>.</li>
+<li>The integer <code>n</code> is in the range <code>[0, 100]</code>.</li>
+</ul>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<p>首先统计各个字母的出现次数，然后排序，取出现次数最多的那一个，即从这一个开始需要进入一个小循环，长度为n，在这个循环里不能有重复的task出现，而只有当第25-i类task存在的时候才会对其次数减一，否则相当于idle；然后再对出现次数数组进行排序，继续下一次循环。</p>
+<ul>
+<li>Approach 2</li>
+</ul>
+<p>首先统计各个字母的出现次数，然后排序，从出现次数最多的那一个开始，将其放在所有时间循环的开头，然后一次将后面的task放在循环的下一个位置，也就是idle的位置每一次都会减少times[i]，最后直接计算idle + tasks.size()即可。</p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/621.PNG" alt="621"></p>
+</details>
+<details><summary>Code</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">leastInterval</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&amp; tasks, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">times</span><span class="params">(<span class="number">26</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> c: tasks)&#123;</span><br><span class="line">        times[c - <span class="string">'A'</span>]++;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(times.<span class="built_in">begin</span>(), times.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(times.back() &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(i &lt;= n)&#123;</span><br><span class="line">            <span class="keyword">if</span>(times[<span class="number">25</span>] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span>(i &lt; <span class="number">26</span> &amp;&amp; times[<span class="number">25</span> - i] &gt; <span class="number">0</span>) times[<span class="number">25</span> - i]--;</span><br><span class="line">            i++;</span><br><span class="line">            res++;</span><br><span class="line">        &#125;</span><br><span class="line">        sort(times.<span class="built_in">begin</span>(), times.<span class="built_in">end</span>());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Approach 2</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">leastInterval</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&amp; tasks, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">times</span><span class="params">(<span class="number">26</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> c: tasks)&#123;</span><br><span class="line">        times[c - <span class="string">'A'</span>]++;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(times.<span class="built_in">begin</span>(), times.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">int</span> max_val = times[<span class="number">25</span>] - <span class="number">1</span>, idle = max_val * n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">24</span>; i &gt;= <span class="number">0</span> &amp;&amp; times[i] &gt; <span class="number">0</span>; i--)&#123;</span><br><span class="line">        idle -= <span class="built_in">min</span>(times[i], max_val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> idle &gt; <span class="number">0</span> ? idle + tasks.<span class="built_in">size</span>() : tasks.<span class="built_in">size</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="Review">Review</h3>
+<p>Greedy的题目都不简单，主要不同的贪心算法的贪的地方不一样，而且很多时候也很难证明贪心算法的正确性，因此面对可能是贪心算法的题目，首先要先确定贪心算法是否有合理性，一般情况先可以通过反证法来略微思考一下，或者举几个例子试一下；在确定了是采用贪心算法的时候，我们就需要判断应该在何处“贪”，一般情况下是出现次数、利润、价格、单位利润率等方向，必要时除了使用sort之外，还可以考虑使用堆(priority_queue)。</p>
+
+        </div>
+        
+
+    </article>
+    
+    <section id="comments">
+        
+            <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+            </div>
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">Catalogue</h3>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC315-Remove-Duplicate-Letters"><span class="toc-number">1.</span> <span class="toc-text">LC315 Remove Duplicate Letters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC321-Create-Maximum-Number"><span class="toc-number">2.</span> <span class="toc-text">LC321 Create Maximum Number</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC330-Patching-Array"><span class="toc-number">3.</span> <span class="toc-text">LC330 Patching Array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC392-Is-Subsequence"><span class="toc-number">4.</span> <span class="toc-text">LC392 Is Subsequence</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC402-Remove-K-Digits"><span class="toc-number">5.</span> <span class="toc-text">LC402 Remove K Digits</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC406-Queue-Reconstruction-by-Height"><span class="toc-number">6.</span> <span class="toc-text">LC406 Queue Reconstruction by Height</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC435-Non-overlapping-Intervals"><span class="toc-number">7.</span> <span class="toc-text">LC435 Non-overlapping Intervals</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC452-Minimum-Number-of-Arrows-to-Burst-Balloons"><span class="toc-number">8.</span> <span class="toc-text">LC452 Minimum Number of Arrows to Burst Balloons</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC455-Assign-Cookies"><span class="toc-number">9.</span> <span class="toc-text">LC455 Assign Cookies</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC502-IPO"><span class="toc-number">10.</span> <span class="toc-text">LC502 IPO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC621-Task-Scheduler"><span class="toc-number">11.</span> <span class="toc-text">LC621 Task Scheduler</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Review"><span class="toc-number">12.</span> <span class="toc-text">Review</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/yox@1.0.0-alpha.121/dist/standard/prod/yox.min.js"></script>
+
+
+<script src="/js/search.min.js"></script>
+
+
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://yoursite.com/Greedy-2/';
+        
+        this.page.identifier = 'Greedy-2';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + '' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+    </body>
+</html>

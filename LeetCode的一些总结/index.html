@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html  lang="en" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>LeetCode的一些总结 | Yiming</title>
+    <meta name="description" content="一些套路的总结  分解问题的角度：固定某一个维度，尝试另一维度上的所有可能  可能是array的(i, j) pointers 可能是矩形的长与宽 可能是tree的每一个subtree，比如固定左子树，来遍历每一个可能的右子树 可能是情景题的每一对pair   求所有解的，一 般暴力上backtracking 如果问最短&#x2F;最少的, 先想BFS和DP 如果环相关，或者涉及到重复访问，可以使用DFS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode的一些总结">
+<meta property="og:url" content="http://yoursite.com/LeetCode%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/">
+<meta property="og:site_name" content="Yiming">
+<meta property="og:description" content="一些套路的总结  分解问题的角度：固定某一个维度，尝试另一维度上的所有可能  可能是array的(i, j) pointers 可能是矩形的长与宽 可能是tree的每一个subtree，比如固定左子树，来遍历每一个可能的右子树 可能是情景题的每一对pair   求所有解的，一 般暴力上backtracking 如果问最短&#x2F;最少的, 先想BFS和DP 如果环相关，或者涉及到重复访问，可以使用DFS">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/slidingWindow.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/TwoPointer.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/Fast&amp;SlowPointer.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/MergeIntervals.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/CyclicSort.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/ReverseLinkedList.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/Subset.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/Binary.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/TopK.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/KMerge.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/Topological.png">
+<meta property="article:published_time" content="2020-05-27T08:21:38.000Z">
+<meta property="article:modified_time" content="2020-09-09T16:22:11.510Z">
+<meta property="article:author" content="Yiming">
+<meta property="article:tag" content="LeetCode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/slidingWindow.png">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://null-2333.github.io" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_self" rel="noopener" rel="noreferrer" >
+                <img src="/images/head1.jpeg" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block" style="font-size: 24px; font-weight: 600; padding-bottom: 10px">Yiming</h2>
+            <h3 id="title" class="hidden xl:block">Coding for fun ~</h3>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" style="padding-left: 5px" placeholder="Search" class="inline-block w-full bg-gray-100 lg:bg-white">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="Search" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-5 pb-3 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            <hr />
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">Home</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">Archives</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">Tags</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">Repository</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">Links</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-12 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            LeetCode的一些总结
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/LeetCode%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/" class="article-date">
+	  <time datetime="2020-05-27T08:21:38.000Z" itemprop="datePublished">May 27</time>
+	</a>
+</span>
+
+                
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-link" href="/tags/LeetCode/" rel="tag">LeetCode</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/LeetCode%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/#comments" class="article-comment-link">
+                        Comments
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 2.5k(words)</span>
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <h3 id="一些套路的总结">一些套路的总结</h3>
+<ol>
+<li>分解问题的角度：固定某一个维度，尝试另一维度上的所有可能
+<ul>
+<li>可能是array的(i, j) pointers</li>
+<li>可能是矩形的长与宽</li>
+<li>可能是tree的每一个subtree，比如固定左子树，来遍历每一个可能的右子树</li>
+<li>可能是情景题的每一对pair</li>
+</ul>
+</li>
+<li>求所有解的，一 般暴力上backtracking</li>
+<li>如果问最短/最少的, 先想BFS和DP</li>
+<li>如果环相关，或者涉及到重复访问，可以使用DFS + visited state（或者记忆数组）</li>
+<li>如果问连通性, 静态靠DFS/BFS, 动态靠Union-Find</li>
+<li>如果不同的实例或者节点之间有依赖性, 想想Topologic order 和indegree</li>
+<li>DAG的万能套路：先进行DFS+memo, 再考虑如何转化成DP</li>
+<li>建图的时候想想vertex, edges/neighbors, cost分别是什么。如果出现cycle, 别忘了给vertex增加状态（visited）</li>
+<li>树相关, 记得考虑backtracking 和 pure recursion两条路</li>
+<li>遇到字符串/字典/char board相关的, Trie tree（前缀树）总是可以试试的</li>
+<li>Range里求最大/最小/sum等特征值, Segment tree（线段树）会是不错的选择</li>
+<li>Matrix和Array通常都是
+<ul>
+<li>Two Pointers</li>
+<li>Sliding Window(fixed &amp; not fixed)</li>
+<li>DP</li>
+</ul>
+</li>
+<li>DP题型往往是
+<ul>
+<li>问你可不可以啊, 数量有多少啊 -&gt; 使用bool类型的数组</li>
+<li>两个string上match来match去的 -&gt; 二维数组，两个维度分别为两个string的长度</li>
+<li>1D/2D array 相关</li>
+<li>博弈游戏 -&gt; 考虑可以往前多少步可以找到相关状态</li>
+</ul>
+</li>
+<li>破解DAG cycle想想哪个维度是具有单调性的: 常见的steps, directions, paths</li>
+<li>Reversed idea非常重要, 可能会帮助你破题: 最长可能是某种最短的反面, 最多可能是某种最少的反面, obstacle的反面是reachable, subarray的反面是array中的剩下元素, left的反面是right</li>
+<li>Look up别忘了HashMap/HashSet（<s>HashMap + DLL是常见hybrid数据结构</s>）</li>
+<li>找规律试试那些旁门左道: 单调Stack/双端Deque</li>
+<li>数组相关，而且涉及到元素之间大小比较的，可以先考虑是否可以先进行排序</li>
+<li>时空复杂度
+<ul>
+<li>backtracking相关, 想想branching factor和height</li>
+<li>DFS+memo/DP相关, 想想state数量, 以及每个state的cost</li>
+<li>tree相关, 总是要考虑balanced 和 single linked list的</li>
+<li>array/矩阵相关, 先数数你有多少个for loops</li>
+<li>binary search application相关, 别忘了check function开销</li>
+<li>stack/queue/deque相关, 常说的吃进去一次又吐出来一次</li>
+<li>Java的string是朵奇葩, string concatenation不是免费的 -&gt; O(n)</li>
+<li>没人知道n是什么, 先告诉别人m，n，k，V，E是什么</li>
+</ul>
+</li>
+<li>比较不同sol的trade offs
+<ul>
+<li>Time/Space complexity异同</li>
+<li>online/offline算法(online算法表示可以一直有数据传输进来的方法)</li>
+<li>pre-computation cost，预处理</li>
+<li>不同APIs的call frequency差异会导致不同的时间要求</li>
+<li>extension: 是否适用于generic parameters/stream input</li>
+<li>线程安全/large scale</li>
+</ul>
+</li>
+</ol>
+<h3 id="DP问题的一些总结">DP问题的一些总结</h3>
+<p>DP有六步，建议面试时写在白板上，一步都不能少，基本上你写出这些 implement起来也非常简单了</p>
+<ol>
+<li>definition: dp(i)或者dp(i, j) 表示什么含义，比如largest subarray sum ending at arr(i), and must include arr(i)，注意语言描述，包括还是不包括arr(i)/matrix(i, j)；</li>
+<li>induction rule: dp(i) 的 dependency 是怎么样的，依赖于dp(i-1) 还是 dp(i+1) 还是 dp(k) for all k &lt; i or all k &gt; i 等等，试着过几个小例子推导一下；</li>
+<li>base case: 往往是dp(0)，二维往往是第一行， 第一列，也就是dp(i, 0)和dp(0, j)；</li>
+<li>result: 往往是dp(n), max(dp(i)) 等等, 从definition 出发；</li>
+<li>filling order: 也就是你填dp表格的顺序，从induction rule 的 dependency出发，判断是从左到右还是从左上到右下；</li>
+<li>optimized: 分为时间和空间两方面：
+<ul>
+<li>时间的比较难，因为往往需要你重新define dp state 和 induction rule；</li>
+<li>空间比较简单，可以根据induction rule看出来，比如斐波那契数列: dp = dp(i-1) + dp(i-2), 那么dp(i) 只依赖于前两个元素，就不需要create 整个 dp array，两个variable即可，空间可以从O(n)优化到O(1)。</li>
+</ul>
+</li>
+</ol>
+<h3 id="14种常见模式">14种常见模式</h3>
+<h4 id="滑动窗口">滑动窗口</h4>
+<p>滑动窗口主要就是维护一个可以不断变化左右边界的子数组，如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/slidingWindow.png" alt="slidingWindow"></p>
+<p>每一次该窗口左边界右移一格，右边界根据需要进行相应的变化，可能向左移动，可能向右移动，也可能不变。</p>
+<h5 id="滑动窗口的问题的标志">滑动窗口的问题的标志</h5>
+<ol>
+<li>输入是线性的结构，比如链表、数组和字符串</li>
+<li>被要求求解最长或者最短的子字符串，子数组或者特定值</li>
+</ol>
+<h5 id="常见问题">常见问题</h5>
+<ol>
+<li>Maximum sum subarray of size ‘K’ (easy)</li>
+<li>Longest substring with ‘K’ distinct characters (medium)</li>
+<li>String anagrams (hard)</li>
+</ol>
+<h4 id="双指针">双指针</h4>
+<p>双指针主要是同时使用两个指针迭代遍历数据结构，直到其中一个或者两个指针达到特定状态。一般用于有序的数组或者链表，可以将原本的O(n^2)​的复杂度降低成​O(n)​。</p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/TwoPointer.png" alt="TwoPointer"></p>
+<h5 id="双指针问题的标志">双指针问题的标志</h5>
+<ol>
+<li>在有序数组或者链表中找到一系列满足特定条件的元素</li>
+<li>这一系列元素一般成对(pair)、成三对(triplet)或者子数组(subarray)</li>
+</ol>
+<h5 id="常见问题-2">常见问题</h5>
+<ol>
+<li>Squaring a sorted array (easy)</li>
+<li>Triplets that sum to zero (medium)</li>
+<li>Comparing strings that contain backspaces (medium)</li>
+</ol>
+<h4 id="快慢指针">快慢指针</h4>
+<p>又称Hare &amp; Tortoise algorithm，是一种使用不同行进速度的双指针的算法，经常用在处理环形链表的问题上。如果两个指针都在同一个环上，则快指针一定能和慢指针相遇。</p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/Fast&amp;SlowPointer.png" alt="Fast&amp;SlowPointer"></p>
+<h5 id="快慢指针问题的标志">快慢指针问题的标志</h5>
+<ol>
+<li>一般是带环的链表或者数组</li>
+<li>需要知道特定元素的位置，或者整个链表的长度</li>
+<li>一般不用在单项链表等无法回头的结构中</li>
+</ol>
+<h5 id="主要问题">主要问题</h5>
+<ol>
+<li>Linked List Cycle (easy)</li>
+<li>Palindrome Linked List (medium)</li>
+<li>Cycle in a Circular Array (hard)</li>
+</ol>
+<h4 id="区间的合并">区间的合并</h4>
+<p>区间合并主要是用来处理相互重叠的区间问题的，主要有以下六种情况：</p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/MergeIntervals.png" alt="MergeIntervals"></p>
+<h5 id="区间合并问题的标志">区间合并问题的标志</h5>
+<ol>
+<li>需要产生只包含互斥区间的数组</li>
+<li>看到“overlapping intervals”的时候</li>
+</ol>
+<h5 id="主要问题-2">主要问题</h5>
+<ol>
+<li>Intervals Intersection (medium)</li>
+<li>Maximum CPU Load (hard)</li>
+</ol>
+<h4 id="循环排序">循环排序</h4>
+<p>主要处理数组中的数值限定在一定的区间的问题。</p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/CyclicSort.png" alt="CyclicSort"></p>
+<h5 id="循环排序问题的标志">循环排序问题的标志</h5>
+<ol>
+<li>涉及到排序好的数组，而且数值满足于一定的区间</li>
+<li>需要在排好序/翻转过的数组中，寻找丢失的/重复的/最小的元素</li>
+</ol>
+<h5 id="主要问题-3">主要问题</h5>
+<ol>
+<li>Find the Missing Number (easy)</li>
+<li>Find the Smallest Missing Positive Number (medium)</li>
+</ol>
+<h4 id="原地链表翻转">原地链表翻转</h4>
+<p>原地链表翻转就是要利用提供的链表的空间来对链表进行翻转操作，一般需要多个变量：</p>
+<ul>
+<li>current指向当前遍历到的节点</li>
+<li>previous指向上一个处理好的节点</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/ReverseLinkedList.png" alt="ReverseLinkedList"></p>
+<h5 id="原地链表翻转的标志">原地链表翻转的标志</h5>
+<ul>
+<li>被要求不使用格外空间进行链表的翻转</li>
+</ul>
+<h5 id="主要问题-4">主要问题</h5>
+<ol>
+<li>Reverse a Sub-list (medium)</li>
+<li>Reverse every K-element Sub-list (medium)</li>
+</ol>
+<h4 id="树BFS">树BFS</h4>
+<p>在树上使用BFS</p>
+<h5 id="树BFS的标志">树BFS的标志</h5>
+<ul>
+<li>需要一层一层的遍历树的时候</li>
+</ul>
+<h5 id="主要问题-5">主要问题</h5>
+<ol>
+<li>Binary Tree Level Order Traversal (easy)</li>
+<li>Zigzag Traversal (medium)</li>
+</ol>
+<h4 id="树DFS">树DFS</h4>
+<p>在树上使用DFS</p>
+<h5 id="树DFS的标志">树DFS的标志</h5>
+<ol>
+<li>需要按前中后序遍历树的时候</li>
+<li>需要搜索的节点离叶节点更近的时候</li>
+</ol>
+<h5 id="主要问题-6">主要问题</h5>
+<ol>
+<li>Sum of Path Numbers (medium)</li>
+<li>All Paths for a Sum (medium)</li>
+</ol>
+<h4 id="双堆">双堆</h4>
+<p>双堆，即一个最大堆一个最小堆，各存放数组的一般的内容</p>
+<h5 id="双堆问题的标志">双堆问题的标志</h5>
+<ol>
+<li>优先队列或者scheduling相关的问题</li>
+<li>找一组数中的最大/最小/中间的数</li>
+<li>具有二叉树结构的时候</li>
+</ol>
+<h5 id="主要问题-7">主要问题</h5>
+<ul>
+<li>Find the Median of a Number Stream (medium)</li>
+</ul>
+<h4 id="子集问题模式">子集问题模式</h4>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/Subset.png" alt="Subset"></p>
+<h5 id="子集问题模式的标志">子集问题模式的标志</h5>
+<ul>
+<li>需要找数字的排列或者组合</li>
+</ul>
+<h5 id="主要问题-8">主要问题</h5>
+<ol>
+<li>Subsets With Duplicates (easy)</li>
+<li>String Permutations by changing case (medium)</li>
+</ol>
+<h4 id="二分">二分</h4>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/Binary.png" alt="Binary"></p>
+<h5 id="主要问题-9">主要问题</h5>
+<ol>
+<li>Order-agnostic Binary Search (easy)</li>
+<li>Search in a Sorted Infinite Array (medium)</li>
+</ol>
+<h4 id="前k大的元素">前k大的元素</h4>
+<p>主要用于求解前k大/小的元素，一般采用最大堆或者最小堆的方式</p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/TopK.png" alt="TopK"></p>
+<h5 id="topK的标志">topK的标志</h5>
+<ol>
+<li>需要求解最大/最小/最频繁的元素</li>
+<li>通过排序定位特定元素</li>
+</ol>
+<h5 id="主要问题-10">主要问题</h5>
+<ol>
+<li>Top ‘K’ Numbers (easy)</li>
+<li>Top ‘K’ Frequent Numbers (medium)</li>
+</ol>
+<h4 id="K路归并">K路归并</h4>
+<p>主要涉及到k个有序数组的合并</p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/KMerge.png" alt="KMerge"></p>
+<h5 id="K路归并的标志">K路归并的标志</h5>
+<ol>
+<li>输入是排好序的数字，链表或者矩阵</li>
+<li>需要合并多个排好序的数组，或者是找到这些数组中的最小数</li>
+</ol>
+<h5 id="主要问题-11">主要问题</h5>
+<ol>
+<li>Merge K Sorted Lists (medium)</li>
+<li>K Pairs with Largest Sums (Hard)</li>
+</ol>
+<h4 id="拓扑排序">拓扑排序</h4>
+<ol>
+<li>初始化<br>
+a) 借助于HashMap将图保存成邻接表形式。<br>
+b) 找到所有的起点，用HashMap来帮助记录每个节点的入度</li>
+<li>创建图，找到每个节点的入度<br>
+a) 利用输入，把图建好，然后遍历一下图，将入度信息记录在HashMap中</li>
+<li>找所有的起点<br>
+a) 所有入度为0的节点，都是有效的起点，而且我们讲他们都加入到一个队列中</li>
+<li>排序<br>
+a) 对每个起点，执行以下步骤<br>
+—i) 把它加到结果的顺序中<br>
+— ii)将其在图中的孩子节点取到<br>
+— iii)将其孩子的入度减少1<br>
+— iv)如果孩子的入度变为0，则改孩子节点成为起点，将其加入队列中<br>
+b) 重复（a）过程，直到起点队列为空。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/Topological.png" alt="Topological"></p>
+<h5 id="拓扑排序的主要标志">拓扑排序的主要标志</h5>
+<ol>
+<li>需要处理的图是无环图</li>
+<li>需要以一定的顺序更新节点</li>
+<li>需要处理的数据输入遵循某种规律</li>
+</ol>
+<h5 id="主要问题-12">主要问题</h5>
+<ol>
+<li>Task scheduling (medium)</li>
+<li>Minimum height of a tree (hard)</li>
+</ol>
+<h3 id="参考">参考</h3>
+<p><a href="https://www.1point3acres.com/bbs/thread-436925-1-1.html" target="_blank" rel="noopener">关于算法的一点总结 | 一亩三分地</a></p>
+<p><a href="https://medium.com/hackernoon/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed" target="_blank" rel="noopener">14 Patterns to Ace Any Coding Interview Question</a></p>
+
+        </div>
+        
+
+    </article>
+    
+    <section id="comments">
+        
+            <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+            </div>
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">Catalogue</h3>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一些套路的总结"><span class="toc-number">1.</span> <span class="toc-text">一些套路的总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DP问题的一些总结"><span class="toc-number">2.</span> <span class="toc-text">DP问题的一些总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14种常见模式"><span class="toc-number">3.</span> <span class="toc-text">14种常见模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#滑动窗口"><span class="toc-number">3.1.</span> <span class="toc-text">滑动窗口</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#滑动窗口的问题的标志"><span class="toc-number">3.1.1.</span> <span class="toc-text">滑动窗口的问题的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#常见问题"><span class="toc-number">3.1.2.</span> <span class="toc-text">常见问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#双指针"><span class="toc-number">3.2.</span> <span class="toc-text">双指针</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#双指针问题的标志"><span class="toc-number">3.2.1.</span> <span class="toc-text">双指针问题的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#常见问题-2"><span class="toc-number">3.2.2.</span> <span class="toc-text">常见问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#快慢指针"><span class="toc-number">3.3.</span> <span class="toc-text">快慢指针</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#快慢指针问题的标志"><span class="toc-number">3.3.1.</span> <span class="toc-text">快慢指针问题的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题"><span class="toc-number">3.3.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#区间的合并"><span class="toc-number">3.4.</span> <span class="toc-text">区间的合并</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#区间合并问题的标志"><span class="toc-number">3.4.1.</span> <span class="toc-text">区间合并问题的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-2"><span class="toc-number">3.4.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#循环排序"><span class="toc-number">3.5.</span> <span class="toc-text">循环排序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#循环排序问题的标志"><span class="toc-number">3.5.1.</span> <span class="toc-text">循环排序问题的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-3"><span class="toc-number">3.5.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#原地链表翻转"><span class="toc-number">3.6.</span> <span class="toc-text">原地链表翻转</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#原地链表翻转的标志"><span class="toc-number">3.6.1.</span> <span class="toc-text">原地链表翻转的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-4"><span class="toc-number">3.6.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#树BFS"><span class="toc-number">3.7.</span> <span class="toc-text">树BFS</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#树BFS的标志"><span class="toc-number">3.7.1.</span> <span class="toc-text">树BFS的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-5"><span class="toc-number">3.7.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#树DFS"><span class="toc-number">3.8.</span> <span class="toc-text">树DFS</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#树DFS的标志"><span class="toc-number">3.8.1.</span> <span class="toc-text">树DFS的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-6"><span class="toc-number">3.8.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#双堆"><span class="toc-number">3.9.</span> <span class="toc-text">双堆</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#双堆问题的标志"><span class="toc-number">3.9.1.</span> <span class="toc-text">双堆问题的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-7"><span class="toc-number">3.9.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#子集问题模式"><span class="toc-number">3.10.</span> <span class="toc-text">子集问题模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#子集问题模式的标志"><span class="toc-number">3.10.1.</span> <span class="toc-text">子集问题模式的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-8"><span class="toc-number">3.10.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二分"><span class="toc-number">3.11.</span> <span class="toc-text">二分</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-9"><span class="toc-number">3.11.1.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前k大的元素"><span class="toc-number">3.12.</span> <span class="toc-text">前k大的元素</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#topK的标志"><span class="toc-number">3.12.1.</span> <span class="toc-text">topK的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-10"><span class="toc-number">3.12.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#K路归并"><span class="toc-number">3.13.</span> <span class="toc-text">K路归并</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#K路归并的标志"><span class="toc-number">3.13.1.</span> <span class="toc-text">K路归并的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-11"><span class="toc-number">3.13.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拓扑排序"><span class="toc-number">3.14.</span> <span class="toc-text">拓扑排序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#拓扑排序的主要标志"><span class="toc-number">3.14.1.</span> <span class="toc-text">拓扑排序的主要标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-12"><span class="toc-number">3.14.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/yox@1.0.0-alpha.121/dist/standard/prod/yox.min.js"></script>
+
+
+<script src="/js/search.min.js"></script>
+
+
+    <script defer>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://yoursite.com/LeetCode%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/';
+        
+        this.page.identifier = 'LeetCode的一些总结';
+    };
+    (function() {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + '' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+    </body>
+</html>
