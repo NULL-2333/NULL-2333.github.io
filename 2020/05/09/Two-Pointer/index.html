@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
     <title>Two Pointer(1) | Yiming</title>
-    <meta name="description" content="LC3 Longest Substring Without Repeating Characters Problem  Given a string, find the length of the longest substring without repeating characters. Example 1: 123Input: &quot;abcabcbb&quot;Output: 3 Ex">
+    <meta name="description" content="LC3 Longest Substring Without Repeating CharactersProblem     Given a string, find the length of the longest substring without repeating characters. Example 1: 123Input: &quot;abcabcbb&quot;Output: 3">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Two Pointer(1)">
-<meta property="og:url" content="http://yoursite.com/2020/05/06/Two-Pointer/index.html">
+<meta property="og:url" content="http://yoursite.com/2020/05/09/Two-Pointer/index.html">
 <meta property="og:site_name" content="Yiming">
-<meta property="og:description" content="LC3 Longest Substring Without Repeating Characters Problem  Given a string, find the length of the longest substring without repeating characters. Example 1: 123Input: &quot;abcabcbb&quot;Output: 3 Ex">
+<meta property="og:description" content="LC3 Longest Substring Without Repeating CharactersProblem     Given a string, find the length of the longest substring without repeating characters. Example 1: 123Input: &quot;abcabcbb&quot;Output: 3">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-05-06T23:14:07.000Z">
-<meta property="article:modified_time" content="2020-05-06T23:25:18.677Z">
+<meta property="article:published_time" content="2020-05-09T20:14:07.000Z">
+<meta property="article:modified_time" content="2020-05-09T21:59:48.624Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="Two Pointer">
@@ -189,8 +189,8 @@
             <p class="article-meta mb-3 text-xs">
                 <span class="article-date">
     <i class="iconfont icon-calendar-check"></i>
-	<a href="/2020/05/06/Two-Pointer/" class="article-date">
-	  <time datetime="2020-05-06T23:14:07.000Z" itemprop="datePublished">May 6</time>
+	<a href="/2020/05/09/Two-Pointer/" class="article-date">
+	  <time datetime="2020-05-09T20:14:07.000Z" itemprop="datePublished">May 9</time>
 	</a>
 </span>
 
@@ -204,7 +204,7 @@
 
 
                 <span class="_partial/post-comment"><i class="icon icon-comment"></i>
-                    <a href="/2020/05/06/Two-Pointer/#comments" class="article-comment-link">
+                    <a href="/2020/05/09/Two-Pointer/#comments" class="article-comment-link">
                         Comments
                     </a>
                 </span>
@@ -213,25 +213,154 @@
             </p>
         </header>
         <div class="marked-body article-body">
-            <h3 id="LC3-Longest-Substring-Without-Repeating-Characters">LC3 Longest Substring Without Repeating Characters</h3>
-<details><summary>Problem</summary>
+            <h3 id="LC3-Longest-Substring-Without-Repeating-Characters"><a href="#LC3-Longest-Substring-Without-Repeating-Characters" class="headerlink" title="LC3 Longest Substring Without Repeating Characters"></a>LC3 Longest Substring Without Repeating Characters</h3><details><summary>Problem</summary>
+
+
+
 <blockquote>
 <p>Given a string, find the length of the <strong>longest substring</strong> without repeating characters.</p>
 <p><strong>Example 1:</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;abcabcbb&quot;</span><br><span class="line">Output: 3 </span><br><span class="line">Explanation: The answer is &quot;abc&quot;, with the length of 3. </span><br></pre></td></tr></table></figure>
+
 <p><strong>Example 2:</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;bbbbb&quot;</span><br><span class="line">Output: 1</span><br><span class="line">Explanation: The answer is &quot;b&quot;, with the length of 1.</span><br></pre></td></tr></table></figure>
+
 <p><strong>Example 3:</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;pwwkew&quot;</span><br><span class="line">Output: 3</span><br><span class="line">Explanation: The answer is &quot;wke&quot;, with the length of 3. </span><br><span class="line">             Note that the answer must be a substring, &quot;pwke&quot; is a subsequence and not a substring.</span><br></pre></td></tr></table></figure>
 </blockquote>
 </details>
+
+
+
 <details><summary>Think</summary>
-<ul>
-<li></li>
-</ul>
+
+
+<p>&#x6ED1;&#x52A8;&#x7A97;&#x53E3;&#x6CD5;&#xFF0C;&#x8BBE;&#x7A97;&#x53E3;&#x4E3A;(i, j]&#xFF0C;&#x5219;&#x904D;&#x5386;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;hashmap&#x4FDD;&#x5B58;&#x6240;&#x6709;&#x5B57;&#x7B26;&#x51FA;&#x73B0;&#x7684;&#x4F4D;&#x7F6E;</p>
+<p>&#x5047;&#x5982;&#x5F53;&#x524D;&#x5B57;&#x7B26;&#x51FA;&#x73B0;&#x8FC7;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x5C06;&#x7A97;&#x53E3;&#x7684;&#x5DE6;&#x8FB9;&#x754C;&#x79FB;&#x5230;&#x4E0A;&#x4E00;&#x6B21;&#x51FA;&#x73B0;&#x7684;&#x4F4D;&#x7F6E;&#xFF1B;</p>
+<p>&#x7136;&#x540E;&#x66F4;&#x65B0;res = max(res, j - i)&#xFF0C;&#x5E76;&#x5C06;&#x5F53;&#x524D;&#x5B57;&#x7B26;&#x548C;&#x4F4D;&#x7F6E;&#x4FDD;&#x5B58;&#x5230;hashmap&#x91CC;</p>
 </details>
+
 <details><summary>Code</summary>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span> n = s.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">-1</span>, res = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt; <span class="built_in">map</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++){</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">map</span>.count(s[j])){</span><br><span class="line">            i = <span class="built_in">max</span>(i, <span class="built_in">map</span>[s[j]]);</span><br><span class="line">        }</span><br><span class="line">        res = <span class="built_in">max</span>(res, j - i);</span><br><span class="line">        <span class="built_in">map</span>[s[j]] = j;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+
+
+
+</details>
+
+<h3 id="LC"><a href="#LC" class="headerlink" title="LC"></a>LC</h3><details><summary>Problem</summary>
+
+
+
+</details>
+
+<details><summary>Think</summary>
+
+
+
+</details>
+
+<details><summary>Code</summary>
+
+
+
+
+</details>
+
+<h3 id="LC-1"><a href="#LC-1" class="headerlink" title="LC"></a>LC</h3><details><summary>Problem</summary>
+
+
+
+</details>
+
+<details><summary>Think</summary>
+
+
+
+</details>
+
+<details><summary>Code</summary>
+
+
+
+
+</details>
+
+<h3 id="LC-2"><a href="#LC-2" class="headerlink" title="LC"></a>LC</h3><details><summary>Problem</summary>
+
+
+
+</details>
+
+<details><summary>Think</summary>
+
+
+
+</details>
+
+<details><summary>Code</summary>
+
+
+
+
+</details>
+
+<h3 id="LC-3"><a href="#LC-3" class="headerlink" title="LC"></a>LC</h3><details><summary>Problem</summary>
+
+
+
+</details>
+
+<details><summary>Think</summary>
+
+
+
+</details>
+
+<details><summary>Code</summary>
+
+
+
+
+</details>
+
+<h3 id="LC-4"><a href="#LC-4" class="headerlink" title="LC"></a>LC</h3><details><summary>Problem</summary>
+
+
+
+</details>
+
+<details><summary>Think</summary>
+
+
+
+</details>
+
+<details><summary>Code</summary>
+
+
+
+
+</details>
+
+<h3 id="LC-5"><a href="#LC-5" class="headerlink" title="LC"></a>LC</h3><details><summary>Problem</summary>
+
+
+
+</details>
+
+<details><summary>Think</summary>
+
+
+
+</details>
+
+<details><summary>Code</summary>
+
+
+
+
 </details>
         </div>
         
@@ -252,7 +381,7 @@
     <div class="toc-sidebar">
         <nav id="toc" class="article-toc">
             <h3 class="toc-title">Catalogue</h3>
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC3-Longest-Substring-Without-Repeating-Characters"><span class="toc-number">1.</span> <span class="toc-text">LC3 Longest Substring Without Repeating Characters</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC3-Longest-Substring-Without-Repeating-Characters"><span class="toc-number">1.</span> <span class="toc-text">LC3 Longest Substring Without Repeating Characters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC"><span class="toc-number">2.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-1"><span class="toc-number">3.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-2"><span class="toc-number">4.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-3"><span class="toc-number">5.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-4"><span class="toc-number">6.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-5"><span class="toc-number">7.</span> <span class="toc-text">LC</span></a></li></ol>
         </nav>
     </div>
 </aside>
