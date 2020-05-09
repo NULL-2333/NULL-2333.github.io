@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html  lang="en" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>LeetCode股票类问题研究 | Yiming</title>
+    <meta name="description" content="LeetCode&amp;#x4E0A;&amp;#x7684;&amp;#x80A1;&amp;#x7968;&amp;#x7C7B;&amp;#x95EE;&amp;#x9898;&amp;#x4E00;&amp;#x5171;&amp;#x6709;6&amp;#x9053;&amp;#xFF0C;121 122 123 188 309 714 LC121 Best Time to Buy and Sell Stock Description  Say you have an arra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode股票类问题研究">
+<meta property="og:url" content="http://yoursite.com/2020/05/06/LeetCode%E8%82%A1%E7%A5%A8%E7%B1%BB%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6/index.html">
+<meta property="og:site_name" content="Yiming">
+<meta property="og:description" content="LeetCode&amp;#x4E0A;&amp;#x7684;&amp;#x80A1;&amp;#x7968;&amp;#x7C7B;&amp;#x95EE;&amp;#x9898;&amp;#x4E00;&amp;#x5171;&amp;#x6709;6&amp;#x9053;&amp;#xFF0C;121 122 123 188 309 714 LC121 Best Time to Buy and Sell Stock Description  Say you have an arra">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-07T01:26:59.000Z">
+<meta property="article:modified_time" content="2020-05-09T05:23:43.441Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="LeetCode">
+<meta name="twitter:card" content="summary">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://www.linkedin.com/in/yiming-chen-cym/" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
+                <img src="/images/head.jpeg" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block" style="font-size: 24px; font-weight: 600; padding-bottom: 10px">Yiming</h2>
+            <h3 id="title" class="hidden xl:block">Student in USC &amp; Coder</h3>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" style="padding-left: 5px" placeholder="Search" class="inline-block w-full bg-gray-100 lg:bg-white">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        <script id="search-teamplate" type="text/html">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="Search" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-2 pb-3 mb-1 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">Home</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">Archives</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-categories" role="menuitem">
+                <a href="/categories">
+                    <i class="iconfont icon-folder" aria-hidden="true"></i>
+                    <span class="menu-title">Categories</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">Tags</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">Repository</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">Links</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-about" role="menuitem">
+                <a href="/about">
+                    <i class="iconfont icon-cup" aria-hidden="true"></i>
+                    <span class="menu-title">About</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links lg:hidden px-6 my-2 sm:mt-48">
+    
+        <span class="social-item mr-2 mb-2">
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener" class="lg:my-1 lg:mx-2 lg:px-4 lg:py-2 sm:px-5 sm:py-2">
+                <i class="iconfont icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+        <span class="social-item mr-2 mb-2">
+            <a href="https://www.linkedin.com/in/yiming-chen-cym/" target="_blank" rel="noopener" class="lg:my-1 lg:mx-2 lg:px-4 lg:py-2 sm:px-5 sm:py-2">
+                <i class="iconfont icon-linkedin"></i>
+                <span class="menu-title hidden lg:inline">menu.linkedin</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-12 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            LeetCode股票类问题研究
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/2020/05/06/LeetCode%E8%82%A1%E7%A5%A8%E7%B1%BB%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6/" class="article-date">
+	  <time datetime="2020-05-07T01:26:59.000Z" itemprop="datePublished">May 6</time>
+	</a>
+</span>
+
+                
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-link" href="/tags/LeetCode/" rel="tag">LeetCode</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/2020/05/06/LeetCode%E8%82%A1%E7%A5%A8%E7%B1%BB%E9%97%AE%E9%A2%98%E7%A0%94%E7%A9%B6/#comments" class="article-comment-link">
+                        Comments
+                    </a>
+                </span>
+                
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <p>LeetCode&#x4E0A;&#x7684;&#x80A1;&#x7968;&#x7C7B;&#x95EE;&#x9898;&#x4E00;&#x5171;&#x6709;6&#x9053;&#xFF0C;121 122 123 188 309 714</p>
+<h3 id="LC121-Best-Time-to-Buy-and-Sell-Stock">LC121 Best Time to Buy and Sell Stock</h3>
+<details><summary>Description</summary>
+<blockquote>
+<p>Say you have an array for which the <em>i</em>th element is the price of a given stock on day <em>i</em>.</p>
+<p>If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.</p>
+<p>Note that you cannot sell a stock before you buy one.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: [7,1,5,3,6,4]</span><br><span class="line">Output: 5</span><br><span class="line">Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.</span><br><span class="line">             Not 7-1 = 6, as selling price needs to be larger than buying price.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [7,6,4,3,1]</span><br><span class="line">Output: 0</span><br><span class="line">Explanation: In this case, no transaction is done, i.e. max profit = 0.</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>&#x8BE5;&#x95EE;&#x9898;&#x5373;&#x4E3A;&#x6C42;&#x89E3;&#x5728;&#x524D;i&#x4E2A;&#x5143;&#x7D20;&#x7684;&#x6700;&#x5C0F;&#x503C;&#x5904;&#x4E70;&#x5165;&#xFF0C;&#x5728;prices[i]&#x5904;&#x5356;&#x51FA;&#xFF0C;&#x904D;&#x5386;&#x6570;&#x7EC4;&#x6C42;&#x6700;&#x5927;&#x5229;&#x6DA6;&#x3002;</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span> n = prices.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> maxProfit = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> minPrice = INT_MAX;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++){</span><br><span class="line">        <span class="keyword">if</span>(prices[i] &lt; minPrice){</span><br><span class="line">            minPrice = <span class="built_in">min</span>(minPrice, prices[i]);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span>(maxProfit &lt; prices[i] - minPrice){</span><br><span class="line">            maxProfit = prices[i] - minPrice;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> maxProfit;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC122-Best-Time-to-Buy-and-Sell-Stock-II">LC122 Best Time to Buy and Sell Stock II</h3>
+<details><summary>Description</summary>
+<p>Say you have an array <code>prices</code> for which the <em>i</em>th element is the price of a given stock on day <em>i</em>.</p>
+<p>Design an algorithm to find the maximum profit. You may complete as many transactions as you like (i.e., buy one and sell one share of the stock multiple times).</p>
+<p><strong>Note:</strong> You may not engage in multiple transactions at the same time (i.e., you must sell the stock before you buy again).</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: [7,1,5,3,6,4]</span><br><span class="line">Output: 7</span><br><span class="line">Explanation: Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.</span><br><span class="line">             Then buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,2,3,4,5]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: Buy on day 1 (price = 1) and sell on day 5 (price = 5), profit = 5-1 = 4.</span><br><span class="line">             Note that you cannot buy on day 1, buy on day 2 and sell them later, as you are</span><br><span class="line">             engaging multiple transactions at the same time. You must sell before buying again.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [7,6,4,3,1]</span><br><span class="line">Output: 0</span><br><span class="line">Explanation: In this case, no transaction is done, i.e. max profit = 0.</span><br></pre></td></tr></table></figure>
+</details>
+<details><summary>Think</summary>
+<p>&#x4E3A;&#x4E86;&#x83B7;&#x5F97;&#x6700;&#x5927;&#x5229;&#x6DA6;&#xFF0C;&#x6211;&#x53EF;&#x4EE5;&#x5728;&#x6BCF;&#x4E00;&#x4E2A;&#x6709;&#x5229;&#x53EF;&#x56FE;&#x7684;&#x65F6;&#x5019;&#x4E70;&#x5165;&#x518D;&#x5356;&#x51FA;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x53EA;&#x8981;prices[i] &gt; prices[i - 1]&#x6211;&#x5C31;&#x8FDB;&#x884C;&#x4E00;&#x6B21;&#x4E70;&#x5165;&#x5356;&#x51FA;&#x7684;&#x64CD;&#x4F5C;</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; prices.<span class="built_in">size</span>(); i++){</span><br><span class="line">        <span class="keyword">if</span>(prices[i] &gt; prices[i - <span class="number">1</span>]){</span><br><span class="line">            res += prices[i] - prices[i - <span class="number">1</span>];</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC123-Best-Time-to-Buy-and-Sell-Stock-III">LC123 Best Time to Buy and Sell Stock III</h3>
+<details><summary>Description</summary>
+<blockquote>
+<p>Say you have an array for which the <em>i</em>th element is the price of a given stock on day <em>i</em>.</p>
+<p>Design an algorithm to find the maximum profit. You may complete at most <em>two</em>transactions.</p>
+<p><strong>Note:</strong> You may not engage in multiple transactions at the same time (i.e., you must sell the stock before you buy again).</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: [3,3,5,0,0,3,1,4]</span><br><span class="line">Output: 6</span><br><span class="line">Explanation: Buy on day 4 (price = 0) and sell on day 6 (price = 3), profit = 3-0 = 3.</span><br><span class="line">             Then buy on day 7 (price = 1) and sell on day 8 (price = 4), profit = 4-1 = 3.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,2,3,4,5]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: Buy on day 1 (price = 1) and sell on day 5 (price = 5), profit = 5-1 = 4.</span><br><span class="line">             Note that you cannot buy on day 1, buy on day 2 and sell them later, as you are</span><br><span class="line">             engaging multiple transactions at the same time. You must sell before buying again.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [7,6,4,3,1]</span><br><span class="line">Output: 0</span><br><span class="line">Explanation: In this case, no transaction is done, i.e. max profit = 0.</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>&#x4E24;&#x6B21;&#x4E70;&#x5356;&#xFF0C;&#x904D;&#x5386;prices&#x6570;&#x7EC4;&#xFF0C;&#x5F53;&#x904D;&#x5386;&#x5230;&#x7B2C;i&#x4E2A;&#x5143;&#x7D20;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;lc121&#x7684;&#x65B9;&#x6CD5;&#x6C42;&#x5F97;&#x524D;i&#x4E2A;&#x5143;&#x7D20;&#x7528;&#x4E00;&#x6B21;&#x4E70;&#x5356;&#x5F97;&#x5230;&#x7684;&#x6700;&#x5927;&#x5229;&#x6DA6;&#xFF0C;&#x5047;&#x8BBE;&#x4ECE;&#x8FD9;&#x4E2A;&#x5143;&#x7D20;&#x4E4B;&#x540E;&#x5F00;&#x59CB;&#x7B2C;&#x4E8C;&#x6B21;&#x4E70;&#x5356;&#xFF0C;&#x5219;&#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#x4E0A;&#x8FF0;&#x65B9;&#x6CD5;&#x6C42;&#x5F97;&#x7B2C;&#x4E8C;&#x6B21;&#x4E70;&#x5356;&#x7684;&#x6700;&#x5927;&#x5229;&#x6DA6;&#xFF0C;&#x5176;&#x4E2D;&#x6BCF;&#x4E00;&#x6B21;&#x7684;&#x4E70;&#x5165;&#x4EF7;&#x683C;&#x4ECE;prices[i]&#x53D8;&#x4E3A;prices[i] - maxProfit1</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span> minPrice1 = INT_MAX, minPrice2 = INT_MAX;</span><br><span class="line">    <span class="keyword">int</span> maxProfit1 = <span class="number">0</span>, maxProfit2 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> p: prices){</span><br><span class="line">        minPrice1 = <span class="built_in">min</span>(minPrice1, p);</span><br><span class="line">        maxProfit1 = <span class="built_in">max</span>(maxProfit1, p - minPrice1);</span><br><span class="line">        minPrice2 = <span class="built_in">min</span>(minPrice2, p - maxProfit1);</span><br><span class="line">        maxProfit2 = <span class="built_in">max</span>(maxProfit2, p - minPrice2);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> maxProfit2;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC188-Best-Time-to-Buy-and-Sell-Stock-IV">LC188 Best Time to Buy and Sell Stock IV</h3>
+<details><summary>Description</summary>
+<blockquote>
+<p>Say you have an array for which the *i-*th element is the price of a given stock on day <em>i</em>.</p>
+<p>Design an algorithm to find the maximum profit. You may complete at most <strong>k</strong> transactions.</p>
+<p><strong>Note:</strong><br>
+You may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [2,4,1], k = 2</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: Buy on day 1 (price = 2) and sell on day 2 (price = 4), profit = 4-2 = 2.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: [3,2,6,5,0,3], k = 2</span><br><span class="line">Output: 7</span><br><span class="line">Explanation: Buy on day 2 (price = 2) and sell on day 3 (price = 6), profit = 6-2 = 4.</span><br><span class="line">             Then buy on day 5 (price = 0) and sell on day 6 (price = 3), profit = 3-0 = 3.</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>&#x7C7B;&#x4F3C;&#x4E70;&#x5356;&#x80A1;&#x7968;&#x95EE;&#x9898;3&#x7684;&#x60F3;&#x6CD5;&#xFF0C;&#x53EA;&#x8981;&#x5728;&#x524D;&#x4E00;&#x6B21;&#x4E70;&#x5356;&#x7684;&#x57FA;&#x7840;&#x4E0A;&#x6709;&#x5229;&#x53EF;&#x56FE;&#x5C31;&#x4E70;&#x5165;&#x3002;</p>
+<p>p.s. &#x5F53;k&#x6BD4;prices&#x6570;&#x7EC4;&#x7684;&#x957F;&#x5EA6;&#x5927;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5E94;&#x8BE5;&#x91C7;&#x7528;&#x4E70;&#x5356;&#x80A1;&#x7968;2&#x7684;&#x65B9;&#x5F0F;&#x89E3;&#x51B3;&#xFF0C;&#x8FD9;&#x6837;&#x53EA;&#x9700;&#x8981;O(n)&#x7684;&#x590D;&#x6742;&#x5EA6;&#x3002;</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span> k, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span>(k == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (k &gt;= prices.<span class="built_in">size</span>()) <span class="keyword">return</span> solveMaxProfit(prices);</span><br><span class="line">    vector&lt;int&gt; minPrice(k, INT_MAX), maxProfit(k, 0);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> p: prices){</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++){</span><br><span class="line">            minPrice[i] = <span class="built_in">min</span>(minPrice[i], i == <span class="number">0</span> ? p : p - maxProfit[i - <span class="number">1</span>]);</span><br><span class="line">            maxProfit[i] = <span class="built_in">max</span>(maxProfit[i], p - minPrice[i]);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> maxProfit.back();</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">solveMaxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span></span>{</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; prices.<span class="built_in">size</span>(); ++i) {</span><br><span class="line">        <span class="keyword">if</span> (prices[i] - prices[i - <span class="number">1</span>] &gt; <span class="number">0</span>) {</span><br><span class="line">            res += prices[i] - prices[i - <span class="number">1</span>];</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC309-Best-Time-to-Buy-and-Sell-Stock-with-Cooldown">LC309 Best Time to Buy and Sell Stock with Cooldown</h3>
+<details><summary>Description</summary>
+<blockquote>
+<p>Say you have an array for which the <em>i</em>th element is the price of a given stock on day <em>i</em>.</p>
+<p>Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy one and sell one share of the stock multiple times) with the following restrictions:</p>
+<ul>
+<li>You may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).</li>
+<li>After you sell your stock, you cannot buy stock on next day. (ie, cooldown 1 day)</li>
+</ul>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,2,3,0,2]</span><br><span class="line">Output: 3 </span><br><span class="line">Explanation: transactions = [buy, sell, cooldown, buy, sell]</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<p>DP&#xFF0C;dp[i]&#x8868;&#x793A;prices[i&#x2026;n]&#x7684;&#x6700;&#x5927;&#x5229;&#x6DA6;&#xFF0C;dp[i] = max(dp[i + 1], max(dp[j + 2] + prices[j] - prices[i]))&#xFF0C;for all j &gt; i</p>
+<ul>
+<li>Approach 2</li>
+</ul>
+</details>
+<details><summary>Code</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span> n = prices.<span class="built_in">size</span>();</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(n + <span class="number">2</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;=<span class="number">0</span>; i--){</span><br><span class="line">        <span class="keyword">int</span> c1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; n; j++){</span><br><span class="line">            c1 = <span class="built_in">max</span>(c1, dp[j + <span class="number">2</span>] + prices[j] - prices[i]);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">int</span> c2 = dp[i + <span class="number">1</span>];</span><br><span class="line">        dp[i] = <span class="built_in">max</span>(c1, c2);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> dp[<span class="number">0</span>];</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC714-Best-Time-to-Buy-and-Sell-Stock-with-Transaction-Fee">LC714 Best Time to Buy and Sell Stock with Transaction Fee</h3>
+<details><summary>Description</summary>
+<blockquote>
+<p>Your are given an array of integers <code>prices</code>, for which the <code>i</code>-th element is the price of a given stock on day <code>i</code>; and a non-negative integer <code>fee</code> representing a transaction fee.</p>
+<p>You may complete as many transactions as you like, but you need to pay the transaction fee for each transaction. You may not buy more than 1 share of a stock at a time (ie. you must sell the stock share before you buy again.)</p>
+<p>Return the maximum profit you can make.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: prices = [1, 3, 2, 8, 4, 9], fee = 2</span><br><span class="line">Output: 8</span><br><span class="line">Explanation: The maximum profit can be achieved by:</span><br><span class="line">Buying at prices[0] = 1Selling at prices[3] = 8Buying at prices[4] = 4Selling at prices[5] = 9The total profit is ((8 - 1) - 2) + ((9 - 4) - 2) = 8.</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+
+        </div>
+        
+
+    </article>
+    
+    <section id="comments">
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">Catalogue</h3>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC121-Best-Time-to-Buy-and-Sell-Stock"><span class="toc-number">1.</span> <span class="toc-text">LC121 Best Time to Buy and Sell Stock</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC122-Best-Time-to-Buy-and-Sell-Stock-II"><span class="toc-number">2.</span> <span class="toc-text">LC122 Best Time to Buy and Sell Stock II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC123-Best-Time-to-Buy-and-Sell-Stock-III"><span class="toc-number">3.</span> <span class="toc-text">LC123 Best Time to Buy and Sell Stock III</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC188-Best-Time-to-Buy-and-Sell-Stock-IV"><span class="toc-number">4.</span> <span class="toc-text">LC188 Best Time to Buy and Sell Stock IV</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC309-Best-Time-to-Buy-and-Sell-Stock-with-Cooldown"><span class="toc-number">5.</span> <span class="toc-text">LC309 Best Time to Buy and Sell Stock with Cooldown</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC714-Best-Time-to-Buy-and-Sell-Stock-with-Transaction-Fee"><span class="toc-number">6.</span> <span class="toc-text">LC714 Best Time to Buy and Sell Stock with Transaction Fee</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+            <a href="https://www.linkedin.com/in/yiming-chen-cym/" target="_blank" rel="noopener">
+                <i class="iconfont icon-linkedin"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/yox@1.0.0-alpha.121/dist/standard/prod/yox.min.js"></script>
+
+
+<script src="/js/search.min.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+    </body>
+</html>
