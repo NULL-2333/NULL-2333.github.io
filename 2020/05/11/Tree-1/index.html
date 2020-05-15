@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
     <title>Tree(1) | Yiming</title>
-    <meta name="description" content="LC94 Binary Tree Inorder TraversalProblem    Given a binary tree, return the inorder traversal of its nodes&amp;#x2019; values. Example: 12345678Input: [1,null,2,3]   1    \     2    &#x2F;   3Output: [1,3,2]">
+    <meta name="description" content="LC94 Binary Tree Inorder Traversal Problem  Given a binary tree, return the inorder traversal of its nodes&amp;#x2019; values. Example: 12345678Input: [1,null,2,3]   1    \     2    &#x2F;   3Output: [1,3,2] F">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tree(1)">
 <meta property="og:url" content="http://yoursite.com/2020/05/11/Tree-1/index.html">
 <meta property="og:site_name" content="Yiming">
-<meta property="og:description" content="LC94 Binary Tree Inorder TraversalProblem    Given a binary tree, return the inorder traversal of its nodes&amp;#x2019; values. Example: 12345678Input: [1,null,2,3]   1    \     2    &#x2F;   3Output: [1,3,2]">
+<meta property="og:description" content="LC94 Binary Tree Inorder Traversal Problem  Given a binary tree, return the inorder traversal of its nodes&amp;#x2019; values. Example: 12345678Input: [1,null,2,3]   1    \     2    &#x2F;   3Output: [1,3,2] F">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-11T23:50:12.000Z">
-<meta property="article:modified_time" content="2020-05-12T06:52:23.785Z">
+<meta property="article:modified_time" content="2020-05-15T00:24:25.109Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -212,192 +212,115 @@
             </p>
         </header>
         <div class="marked-body article-body">
-            <h3 id="LC94-Binary-Tree-Inorder-Traversal"><a href="#LC94-Binary-Tree-Inorder-Traversal" class="headerlink" title="LC94 Binary Tree Inorder Traversal"></a>LC94 Binary Tree Inorder Traversal</h3><details><summary>Problem</summary>
-
-
+            <h3 id="LC94-Binary-Tree-Inorder-Traversal">LC94 Binary Tree Inorder Traversal</h3>
+<details><summary>Problem</summary>
 <blockquote>
 <p>Given a binary tree, return the <em>inorder</em> traversal of its nodes&#x2019; values.</p>
 <p><strong>Example:</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,null,2,3]</span><br><span class="line">   1</span><br><span class="line">    \</span><br><span class="line">     2</span><br><span class="line">    /</span><br><span class="line">   3</span><br><span class="line"></span><br><span class="line">Output: [1,3,2]</span><br></pre></td></tr></table></figure>
-
 <p><strong>Follow up:</strong> Recursive solution is trivial, could you do it iteratively?</p>
 </blockquote>
 </details>
-
 <details><summary>Think</summary>
-
-
 <p>&#x4E2D;&#x5E8F;&#x904D;&#x5386;&#xFF0C;&#x4E24;&#x79CD;&#x65B9;&#x6CD5;&#xFF1A;&#x9012;&#x5F52;&#x6CD5;&#x548C;&#x8FED;&#x4EE3;&#x6CD5;</p>
 </details>
-
 <details><summary>Code</summary>
-
-
 <ul>
 <li>Approach 1</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode* root)</span> </span>{</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    helper(root, res);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">helper</span><span class="params">(TreeNode* root, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; res)</span></span>{</span><br><span class="line">    <span class="keyword">if</span>(!root){</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    helper(root-&gt;left, res);</span><br><span class="line">    res.push_back(root-&gt;val);</span><br><span class="line">    helper(root-&gt;right, res);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>Approach 2</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode* root)</span> </span>{</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; s;</span><br><span class="line">    TreeNode* p = root;</span><br><span class="line">    <span class="keyword">while</span>(!s.empty() || p){</span><br><span class="line">        <span class="keyword">if</span>(p){</span><br><span class="line">            s.push(p);</span><br><span class="line">            p = p-&gt;left;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">else</span>{</span><br><span class="line">            TreeNode *t = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            res.push_back(t-&gt;val);</span><br><span class="line">            p = t-&gt;right;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
-
-
-
-
 </details>
-
-<h3 id="LC95-Unique-Binary-Search-Trees-II"><a href="#LC95-Unique-Binary-Search-Trees-II" class="headerlink" title="LC95 Unique Binary Search Trees II"></a>LC95 Unique Binary Search Trees II</h3><details><summary>Problem</summary>
-
-
+<h3 id="LC95-Unique-Binary-Search-Trees-II">LC95 Unique Binary Search Trees II</h3>
+<details><summary>Problem</summary>
 <blockquote>
 <p>Given an integer <em>n</em>, generate all structurally unique <strong>BST&#x2019;s</strong> (binary search trees) that store values 1 &#x2026; <em>n</em>.</p>
 <p><strong>Example:</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Input: 3</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [1,null,3,2],</span><br><span class="line">  [3,2,null,1],</span><br><span class="line">  [3,1,null,null,2],</span><br><span class="line">  [2,1,3],</span><br><span class="line">  [1,null,2,null,3]</span><br><span class="line">]</span><br><span class="line">Explanation:</span><br><span class="line">The above output corresponds to the 5 unique BST&apos;s shown below:</span><br><span class="line"></span><br><span class="line">   1         3     3      2      1</span><br><span class="line">    \       /     /      / \      \</span><br><span class="line">     3     2     1      1   3      2</span><br><span class="line">    /     /       \                 \</span><br><span class="line">   2     1         2                 3</span><br></pre></td></tr></table></figure>
 </blockquote>
 </details>
-
 <details><summary>Think</summary>
-
-
-
-
-
+<p>&#x9012;&#x5F52;&#xFF0C;&#x9009;&#x62E9;&#x6240;&#x6709;&#x53EF;&#x80FD;&#x7684;&#x6839;&#x8282;&#x70B9;i&#xFF0C;&#x7136;&#x540E;&#x5C06;left &#xFF5E; i - 1&#x7684;&#x90E8;&#x5206;&#x7528;&#x9012;&#x5F52;&#x7684;&#x65B9;&#x5F0F;&#x6784;&#x6210;&#x5DE6;&#x5B50;&#x6811;&#xFF0C;&#x5C06;i + 1 &#xFF5E; right&#x7684;&#x90E8;&#x5206;&#x7528;&#x9012;&#x5F52;&#x7684;&#x65B9;&#x5F0F;&#x6784;&#x6210;&#x53F3;&#x5B50;&#x6811;&#xFF0C;&#x6700;&#x540E;&#x5C06;&#x6240;&#x6709;&#x53EF;&#x80FD;&#x7684;&#x5DE6;&#x53F3;&#x5B50;&#x6811;&#x548C;&#x6839;&#x8282;&#x70B9;&#x62FC;&#x63A5;&#x8D77;&#x6765;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5F97;&#x5230;&#x6240;&#x6709;&#x53EF;&#x80FD;&#x7684;&#x6811;&#x7684;&#x6784;&#x6210;</p>
 </details>
-
 <details><summary>Code</summary>
-
-
-
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;TreeNode*&gt; <span class="title">generateTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">0</span>){</span><br><span class="line">        <span class="keyword">return</span> {};</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> helper(<span class="number">1</span>, n);</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;TreeNode*&gt; <span class="title">helper</span><span class="params">(<span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span>{</span><br><span class="line">    <span class="built_in">vector</span>&lt;TreeNode*&gt; res;</span><br><span class="line">    <span class="keyword">if</span>(left &gt; right){</span><br><span class="line">        res.push_back(<span class="literal">NULL</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = left; i &lt;= right; i++){</span><br><span class="line">        <span class="built_in">vector</span>&lt;TreeNode*&gt; lTree = helper(left, i - <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">vector</span>&lt;TreeNode*&gt; rTree = helper(i + <span class="number">1</span>, right);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> l: lTree){</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> r: rTree){</span><br><span class="line">                TreeNode* tr = <span class="keyword">new</span> TreeNode(i);</span><br><span class="line">                tr-&gt;left = l;</span><br><span class="line">                tr-&gt;right = r;</span><br><span class="line">                res.push_back(tr);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 </details>
-
-
-
-<h3 id="LC"><a href="#LC" class="headerlink" title="LC"></a>LC</h3><details><summary>Problem</summary>
-
-
-
+<h3 id="LC96-Unique-Binary-Search-Trees">LC96 Unique Binary Search Trees</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given <em>n</em>, how many structurally unique <strong>BST&#x2019;s</strong> (binary search trees) that store values 1 &#x2026; <em>n</em>?</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Input: 3</span><br><span class="line">Output: 5</span><br><span class="line">Explanation:</span><br><span class="line">Given n = 3, there are a total of 5 unique BST&apos;s:</span><br><span class="line"></span><br><span class="line">   1         3     3      2      1</span><br><span class="line">    \       /     /      / \      \</span><br><span class="line">     3     2     1      1   3      2</span><br><span class="line">    /     /       \                 \</span><br><span class="line">   2     1         2                 3</span><br></pre></td></tr></table></figure>
+</blockquote>
 </details>
-
 <details><summary>Think</summary>
-
-
-
-
-
+<p>DP&#xFF0C;&#x5BF9;&#x4E8E;&#x957F;&#x5EA6;i&#xFF0C;&#x53D6;j&#x4E3A;&#x4E2D;&#x5FC3;&#x70B9;&#xFF0C;&#x5219;dp[i] += dp[j - 1] * dp[i - j]&#xFF0C;1 &lt;= j &lt;= i</p>
 </details>
-
 <details><summary>Code</summary>
-
-
-
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>{</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(n + <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++){</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= i; j++){</span><br><span class="line">            dp[i] += dp[j - <span class="number">1</span>] * dp[i - j];</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> dp.back();</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 </details>
-
-
-
-<h3 id="LC-1"><a href="#LC-1" class="headerlink" title="LC"></a>LC</h3><details><summary>Problem</summary>
-
-
-
+<h3 id="LC98-Validate-Binary-Search-Tree">LC98 Validate Binary Search Tree</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a binary tree, determine if it is a valid binary search tree (BST).</p>
+<p>Assume a BST is defined as follows:</p>
+<ul>
+<li>The left subtree of a node contains only nodes with keys <strong>less than</strong> the node&#x2019;s key.</li>
+<li>The right subtree of a node contains only nodes with keys <strong>greater than</strong> the node&#x2019;s key.</li>
+<li>Both the left and right subtrees must also be binary search trees.</li>
+</ul>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    2</span><br><span class="line">   / \</span><br><span class="line">  1   3</span><br><span class="line"></span><br><span class="line">Input: [2,1,3]</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">    5</span><br><span class="line">   / \</span><br><span class="line">  1   4</span><br><span class="line">     / \</span><br><span class="line">    3   6</span><br><span class="line"></span><br><span class="line">Input: [5,1,4,null,null,3,6]</span><br><span class="line">Output: false</span><br><span class="line">Explanation: The root node&apos;s value is 5 but its right child&apos;s value is 4.</span><br></pre></td></tr></table></figure>
+</blockquote>
 </details>
-
 <details><summary>Think</summary>
-
-
-
-
-
+<p>&#x9012;&#x5F52;&#xFF0C;&#x51FD;&#x6570;&#x8F93;&#x5165;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x5E94;&#x8BE5;&#x5728;&#x7684;&#x8303;&#x56F4;&#xFF0C;&#x5982;&#x679C;&#x8282;&#x70B9;&#x4E0D;&#x5728;&#x8FD9;&#x4E2A;&#x8303;&#x56F4;&#x5185;&#x5219;&#x8FD4;&#x56DE;false&#xFF1B;&#x7136;&#x540E;&#x9012;&#x5F52;&#x5224;&#x65AD;&#x5DE6;&#x53F3;&#x5B50;&#x6811;&#x5373;&#x53EF;</p>
 </details>
-
 <details><summary>Code</summary>
-
-
-
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> helper(root, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">helper</span><span class="params">(TreeNode* root, TreeNode* lower, TreeNode* upper)</span></span>{</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span>(lower &amp;&amp; root-&gt;val &lt;= lower-&gt;val) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(upper &amp;&amp; root-&gt;val &gt;= upper-&gt;val) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!helper(root-&gt;left, lower, root)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(!helper(root-&gt;right, root, upper)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 </details>
-
-
-
-<h3 id="LC-2"><a href="#LC-2" class="headerlink" title="LC"></a>LC</h3><details><summary>Problem</summary>
-
-
-
+<h3 id="LC99-Recover-Binary-Search-Tree">LC99 Recover Binary Search Tree</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Two elements of a binary search tree (BST) are swapped by mistake.</p>
+<p>Recover the tree without changing its structure.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,3,null,null,2]</span><br><span class="line"></span><br><span class="line">   1</span><br><span class="line">  /</span><br><span class="line"> 3</span><br><span class="line">  \</span><br><span class="line">   2</span><br><span class="line"></span><br><span class="line">Output: [3,1,null,null,2]</span><br><span class="line"></span><br><span class="line">   3</span><br><span class="line">  /</span><br><span class="line"> 1</span><br><span class="line">  \</span><br><span class="line">   2</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Input: [3,1,4,null,null,2]</span><br><span class="line"></span><br><span class="line">  3</span><br><span class="line"> / \</span><br><span class="line">1   4</span><br><span class="line">   /</span><br><span class="line">  2</span><br><span class="line"></span><br><span class="line">Output: [2,1,4,null,null,3]</span><br><span class="line"></span><br><span class="line">  2</span><br><span class="line"> / \</span><br><span class="line">1   4</span><br><span class="line">   /</span><br><span class="line">  3</span><br></pre></td></tr></table></figure>
+<p><strong>Follow up:</strong></p>
+<ul>
+<li>A solution using O(<em>n</em>) space is pretty straight forward.</li>
+<li>Could you devise a constant space solution?</li>
+</ul>
+</blockquote>
 </details>
-
 <details><summary>Think</summary>
-
-
-
-
-
+<p>&#x7C7B;&#x4F3C;&#x7EBF;&#x7D22;&#x4E8C;&#x53C9;&#x6811;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x6BCF;&#x6B21;&#x5230;&#x5B50;&#x6811;&#x7684;&#x6700;&#x53F3;&#x8FB9;&#x7684;&#x90A3;&#x4E2A;&#x8282;&#x70B9;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x6307;&#x9488;&#x6307;&#x5411;&#x4E0B;&#x4E00;&#x4E2A;&#x5E94;&#x8BE5;&#x904D;&#x5386;&#x7684;&#x8282;&#x70B9;</p>
 </details>
-
 <details><summary>Code</summary>
-
-
-
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(TreeNode* x, TreeNode* y)</span></span>{</span><br><span class="line">    <span class="keyword">int</span> tmp = x-&gt;val;</span><br><span class="line">    x-&gt;val = y-&gt;val;</span><br><span class="line">    y-&gt;val = tmp;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">recoverTree</span><span class="params">(TreeNode* root)</span> </span>{</span><br><span class="line">    TreeNode *x = <span class="literal">NULL</span>, *y = <span class="literal">NULL</span>, *pred = <span class="literal">NULL</span>, *predecessor = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span>(root){</span><br><span class="line">        <span class="keyword">if</span>(root-&gt;left){</span><br><span class="line">            predecessor = root-&gt;left;</span><br><span class="line">            <span class="keyword">while</span>(predecessor-&gt;right &amp;&amp; predecessor-&gt;right != root){</span><br><span class="line">                predecessor = predecessor-&gt;right;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span>(!predecessor-&gt;right){</span><br><span class="line">                predecessor-&gt;right = root;</span><br><span class="line">                root = root-&gt;left;</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">else</span>{</span><br><span class="line">                <span class="keyword">if</span>(pred &amp;&amp; root-&gt;val &lt; pred-&gt;val){</span><br><span class="line">                    y = root;</span><br><span class="line">                    <span class="keyword">if</span>(x == <span class="literal">NULL</span>) x = pred;</span><br><span class="line">                }</span><br><span class="line">                pred = root;</span><br><span class="line">                predecessor-&gt;right = <span class="literal">NULL</span>;</span><br><span class="line">                root = root-&gt;right;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">else</span>{</span><br><span class="line">            <span class="keyword">if</span>(pred &amp;&amp; root-&gt;val &lt; pred-&gt;val){</span><br><span class="line">                y = root;</span><br><span class="line">                <span class="keyword">if</span>(x == <span class="literal">NULL</span>) x = pred;</span><br><span class="line">            }</span><br><span class="line">            pred = root;</span><br><span class="line">            root = root-&gt;right;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    swap(x, y);</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 </details>
-
-
-
-<h3 id="LC-3"><a href="#LC-3" class="headerlink" title="LC"></a>LC</h3><details><summary>Problem</summary>
-
-
-
+<h3 id="LC">LC</h3>
+<details><summary>Problem</summary>
 </details>
-
 <details><summary>Think</summary>
-
-
-
-
-
 </details>
-
 <details><summary>Code</summary>
-
-
-
-
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 </details>
-
-
-
-<h3 id="LC-4"><a href="#LC-4" class="headerlink" title="LC"></a>LC</h3><details><summary>Problem</summary>
-
-
-
+<h3 id="LC-2">LC</h3>
+<details><summary>Problem</summary>
 </details>
-
 <details><summary>Think</summary>
-
-
-
-
-
 </details>
-
 <details><summary>Code</summary>
-
-
-
-
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 </details>
         </div>
         
@@ -418,7 +341,7 @@
     <div class="toc-sidebar">
         <nav id="toc" class="article-toc">
             <h3 class="toc-title">Catalogue</h3>
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC94-Binary-Tree-Inorder-Traversal"><span class="toc-number">1.</span> <span class="toc-text">LC94 Binary Tree Inorder Traversal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC95-Unique-Binary-Search-Trees-II"><span class="toc-number">2.</span> <span class="toc-text">LC95 Unique Binary Search Trees II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC"><span class="toc-number">3.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-1"><span class="toc-number">4.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-2"><span class="toc-number">5.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-3"><span class="toc-number">6.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-4"><span class="toc-number">7.</span> <span class="toc-text">LC</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC94-Binary-Tree-Inorder-Traversal"><span class="toc-number">1.</span> <span class="toc-text">LC94 Binary Tree Inorder Traversal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC95-Unique-Binary-Search-Trees-II"><span class="toc-number">2.</span> <span class="toc-text">LC95 Unique Binary Search Trees II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC96-Unique-Binary-Search-Trees"><span class="toc-number">3.</span> <span class="toc-text">LC96 Unique Binary Search Trees</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC98-Validate-Binary-Search-Tree"><span class="toc-number">4.</span> <span class="toc-text">LC98 Validate Binary Search Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC99-Recover-Binary-Search-Tree"><span class="toc-number">5.</span> <span class="toc-text">LC99 Recover Binary Search Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC"><span class="toc-number">6.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-2"><span class="toc-number">7.</span> <span class="toc-text">LC</span></a></li></ol>
         </nav>
     </div>
 </aside>
