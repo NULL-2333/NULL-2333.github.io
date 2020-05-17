@@ -12,7 +12,7 @@
 <meta property="og:description" content="LC64 Minimum Path Sum Problem  Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right which minimizes the sum of all numbers along its path. Note: You can only">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-15T23:21:58.000Z">
-<meta property="article:modified_time" content="2020-05-17T00:00:24.072Z">
+<meta property="article:modified_time" content="2020-05-17T06:10:11.304Z">
 <meta property="article:author" content="Yiming">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="Dynamic Programming">
@@ -213,10 +213,10 @@
                 </span>
                 
     
-        <span class="post-wordcount" itemprop="wordCount">Word Count: 2.2k(words)</span>
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 2.9k(words)</span>
     
     
-        <span class="post-readcount" itemprop="timeRequired">Read Count: 12(minutes)</span>
+        <span class="post-readcount" itemprop="timeRequired">Read Count: 16(minutes)</span>
     
 
 
@@ -377,6 +377,43 @@
 </blockquote>
 </details>
 <details><summary>Think</summary>
+<p>DP，使用二维数组dp[i, j]表示长度为i的s1和长度为j的s2能否组成s3；</p>
+<p>dp[i, j] = (s1[i - 1] == s3[i + j - 1] &amp;&amp; dp[i - 1, j]) || (s2[j - 1] == s3[i + j - 1] &amp;&amp; dp[i, j - 1]);</p>
+<p>初始条件即为s1和s2分别为0的时候</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isInterleave</span><span class="params">(<span class="built_in">string</span> s1, <span class="built_in">string</span> s2, <span class="built_in">string</span> s3)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = s1.<span class="built_in">size</span>(), n = s2.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">if</span>(s3.<span class="built_in">size</span>() != m + n) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&gt; <span class="title">dp</span><span class="params">(m + <span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;(n + <span class="number">1</span>, <span class="literal">false</span>))</span></span>;</span><br><span class="line">    dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++)&#123;</span><br><span class="line">        dp[i][<span class="number">0</span>] = dp[i - <span class="number">1</span>][<span class="number">0</span>] &amp;&amp; s1[i - <span class="number">1</span>] == s3[i - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        dp[<span class="number">0</span>][i] = dp[<span class="number">0</span>][i - <span class="number">1</span>] &amp;&amp; s2[i - <span class="number">1</span>] == s3[i - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++)&#123;</span><br><span class="line">            dp[i][j] = (s1[i - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>] &amp;&amp; dp[i - <span class="number">1</span>][j]) || (s2[j - <span class="number">1</span>] == s3[i + j - <span class="number">1</span>] &amp;&amp; dp[i][j - <span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[m][n];</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC115-Distinct-Subsequences">LC115 Distinct Subsequences</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a string <strong>S</strong> and a string <strong>T</strong>, count the number of distinct subsequences of <strong>S</strong> which equals <strong>T</strong>.</p>
+<p>A subsequence of a string is a new string which is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (ie, <code>&quot;ACE&quot;</code> is a subsequence of <code>&quot;ABCDE&quot;</code> while <code>&quot;AEC&quot;</code> is not).</p>
+<p>It’s guaranteed the answer fits on a 32-bit signed integer.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Input: S &#x3D; &quot;rabbbit&quot;, T &#x3D; &quot;rabbit&quot;</span><br><span class="line">Output: 3</span><br><span class="line">Explanation:</span><br><span class="line">As shown below, there are 3 ways you can generate &quot;rabbit&quot; from S.</span><br><span class="line">(The caret symbol ^ means the chosen letters)</span><br><span class="line"></span><br><span class="line">rabbbit</span><br><span class="line">^^^^ ^^</span><br><span class="line">rabbbit</span><br><span class="line">^^ ^^^^</span><br><span class="line">rabbbit</span><br><span class="line">^^^ ^^^</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Input: S &#x3D; &quot;babgbag&quot;, T &#x3D; &quot;bag&quot;</span><br><span class="line">Output: 5</span><br><span class="line">Explanation:</span><br><span class="line">As shown below, there are 5 ways you can generate &quot;bag&quot; from S.</span><br><span class="line">(The caret symbol ^ means the chosen letters)</span><br><span class="line"></span><br><span class="line">babgbag</span><br><span class="line">^^ ^</span><br><span class="line">babgbag</span><br><span class="line">^^    ^</span><br><span class="line">babgbag</span><br><span class="line">^    ^^</span><br><span class="line">babgbag</span><br><span class="line">  ^  ^^</span><br><span class="line">babgbag</span><br><span class="line">    ^^^</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>DP，dp[i ,j]表示从后往前长度分别为m-i和n-j的字符串所能匹配出来的数目；</p>
+<p>dp[i, j] = dp[i + 1, j] + dp[i + 1, j + 1] * (s[i] == t[j])</p>
+<p>注意初始条件是从右下角开始的，因此需要先设置所有的dp[i, n]和dp[m, j]；</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">numDistinct</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> t)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m = s.<span class="built_in">size</span>(), n = t.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">if</span>(m &lt; n) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">long</span>&gt;&gt; <span class="title">dp</span><span class="params">(m + <span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="keyword">long</span>&gt;(n + <span class="number">1</span>, <span class="number">0</span>))</span></span>;</span><br><span class="line">    dp[m][n] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = m - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        dp[i][n] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        dp[m][i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = m - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = n - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--)&#123;</span><br><span class="line">            dp[i][j] = dp[i + <span class="number">1</span>][j];</span><br><span class="line">            <span class="keyword">if</span>(s[i] == t[j])&#123;</span><br><span class="line">                dp[i][j] += dp[i + <span class="number">1</span>][j + <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">int</span>)dp[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC120-Triangle">LC120 Triangle</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below.</p>
+<p>For example, given the following triangle</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">     [2],</span><br><span class="line">    [3,4],</span><br><span class="line">   [6,5,7],</span><br><span class="line">  [4,1,8,3]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>The minimum path sum from top to bottom is <code>11</code> (i.e., <strong>2</strong> + <strong>3</strong> + <strong>5</strong> + <strong>1</strong> = 11).</p>
+</blockquote>
+</details>
+<details><summary>Think</summary>
 </details>
 <details><summary>Code</summary>
 </details>
@@ -429,20 +466,6 @@
 </details>
 <details><summary>Code</summary>
 </details>
-<h3 id="LC-8">LC</h3>
-<details><summary>Problem</summary>
-</details>
-<details><summary>Think</summary>
-</details>
-<details><summary>Code</summary>
-</details>
-<h3 id="LC-9">LC</h3>
-<details><summary>Problem</summary>
-</details>
-<details><summary>Think</summary>
-</details>
-<details><summary>Code</summary>
-</details>
 
         </div>
         
@@ -463,7 +486,7 @@
     <div class="toc-sidebar">
         <nav id="toc" class="article-toc">
             <h3 class="toc-title">Catalogue</h3>
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC64-Minimum-Path-Sum"><span class="toc-number">1.</span> <span class="toc-text">LC64 Minimum Path Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC70-Climbing-Stairs"><span class="toc-number">2.</span> <span class="toc-text">LC70 Climbing Stairs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC72-Edit-Distance"><span class="toc-number">3.</span> <span class="toc-text">LC72 Edit Distance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC87-Scramble-String"><span class="toc-number">4.</span> <span class="toc-text">LC87 Scramble String</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC91-Decode-Ways"><span class="toc-number">5.</span> <span class="toc-text">LC91. Decode Ways</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC97-Interleaving-String"><span class="toc-number">6.</span> <span class="toc-text">LC97 Interleaving String</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC"><span class="toc-number">7.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-2"><span class="toc-number">8.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-3"><span class="toc-number">9.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-4"><span class="toc-number">10.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-5"><span class="toc-number">11.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-6"><span class="toc-number">12.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-7"><span class="toc-number">13.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-8"><span class="toc-number">14.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-9"><span class="toc-number">15.</span> <span class="toc-text">LC</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC64-Minimum-Path-Sum"><span class="toc-number">1.</span> <span class="toc-text">LC64 Minimum Path Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC70-Climbing-Stairs"><span class="toc-number">2.</span> <span class="toc-text">LC70 Climbing Stairs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC72-Edit-Distance"><span class="toc-number">3.</span> <span class="toc-text">LC72 Edit Distance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC87-Scramble-String"><span class="toc-number">4.</span> <span class="toc-text">LC87 Scramble String</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC91-Decode-Ways"><span class="toc-number">5.</span> <span class="toc-text">LC91. Decode Ways</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC97-Interleaving-String"><span class="toc-number">6.</span> <span class="toc-text">LC97 Interleaving String</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC115-Distinct-Subsequences"><span class="toc-number">7.</span> <span class="toc-text">LC115 Distinct Subsequences</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC120-Triangle"><span class="toc-number">8.</span> <span class="toc-text">LC120 Triangle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC"><span class="toc-number">9.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-2"><span class="toc-number">10.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-3"><span class="toc-number">11.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-4"><span class="toc-number">12.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-5"><span class="toc-number">13.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-6"><span class="toc-number">14.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-7"><span class="toc-number">15.</span> <span class="toc-text">LC</span></a></li></ol>
         </nav>
     </div>
 </aside>
