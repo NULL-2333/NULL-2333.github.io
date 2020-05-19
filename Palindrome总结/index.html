@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
     <title>Palindrome总结 | Yiming</title>
-    <meta property="og:type" content="article">
+    <meta name="description" content="LC125 Valid Palindrome Problem  Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases. Note: For the purpose of this problem, we define empty str">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Palindrome总结">
 <meta property="og:url" content="http://yoursite.com/Palindrome%E6%80%BB%E7%BB%93/">
 <meta property="og:site_name" content="Yiming">
+<meta property="og:description" content="LC125 Valid Palindrome Problem  Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases. Note: For the purpose of this problem, we define empty str">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-17T18:19:18.000Z">
-<meta property="article:modified_time" content="2020-05-17T18:19:18.105Z">
+<meta property="article:modified_time" content="2020-05-18T23:49:58.518Z">
 <meta property="article:author" content="Yiming">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="Palindrome">
 <meta name="twitter:card" content="summary">
 
     
@@ -194,6 +198,11 @@
                 
 
                 
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-link" href="/tags/LeetCode/" rel="tag">LeetCode</a>, <a class="article-tag-link" href="/tags/Palindrome/" rel="tag">Palindrome</a>
+  </span>
+
 
                 <span class="_partial/post-comment"><i class="icon icon-comment"></i>
                     <a href="/Palindrome%E6%80%BB%E7%BB%93/#comments" class="article-comment-link">
@@ -202,17 +211,107 @@
                 </span>
                 
     
-        <span class="post-wordcount" itemprop="wordCount">Word Count: 0(words)</span>
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 614(words)</span>
     
     
-        <span class="post-readcount" itemprop="timeRequired">Read Count: 1(minutes)</span>
+        <span class="post-readcount" itemprop="timeRequired">Read Count: 3(minutes)</span>
     
 
 
             </p>
         </header>
         <div class="marked-body article-body">
-            
+            <h3 id="LC125-Valid-Palindrome">LC125 Valid Palindrome</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.</p>
+<p><strong>Note:</strong> For the purpose of this problem, we define empty string as valid palindrome.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;A man, a plan, a canal: Panama&quot;</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;race a car&quot;</span><br><span class="line">Output: false</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>双指针，比较两个指针处的char值即可</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = s.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> l = <span class="number">0</span>, r = n - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(l &lt; r)&#123;</span><br><span class="line">        <span class="keyword">char</span> cl = change(s[l]);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(cl == <span class="string">'#'</span>)&#123;</span><br><span class="line">            l++;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">char</span> cr = change(s[r]);</span><br><span class="line">        <span class="keyword">if</span>(cr == <span class="string">'#'</span>)&#123;</span><br><span class="line">            r--;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(cl != cr) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        l++;</span><br><span class="line">        r--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">char</span> <span class="title">change</span><span class="params">(<span class="keyword">char</span> c)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(c &gt;= <span class="string">'A'</span> &amp;&amp; c &lt;= <span class="string">'Z'</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">char</span>)(c - <span class="string">'A'</span> + <span class="string">'a'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>((c &gt;= <span class="string">'a'</span> &amp;&amp; c &lt;= <span class="string">'z'</span>) || (c &gt;= <span class="string">'0'</span> &amp;&amp; c &lt;= <span class="string">'9'</span>))&#123;</span><br><span class="line">        <span class="keyword">return</span> c;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'#'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC214-Shortest-Palindrome">LC214 Shortest Palindrome</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a string <em><strong>s</strong></em>, you are allowed to convert it to a palindrome by adding characters in front of it. Find and return the shortest palindrome you can find by performing this transformation.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;aacecaaa&quot;</span><br><span class="line">Output: &quot;aaacecaaa&quot;</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;abcd&quot;</span><br><span class="line">Output: &quot;dcbabcd&quot;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>利用KMP算法中的部分匹配表的算法</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">shortestPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = s.<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">string</span> revStr = s;</span><br><span class="line">    reverse(revStr.<span class="built_in">begin</span>(), revStr.<span class="built_in">end</span>());</span><br><span class="line">    <span class="built_in">string</span> newStr = s + <span class="string">"#"</span> + revStr;</span><br><span class="line">    <span class="keyword">int</span> newN = <span class="number">2</span> * n + <span class="number">1</span>;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">f</span><span class="params">(newN, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; newN; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> t = f[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">while</span>(t &gt; <span class="number">0</span> &amp;&amp; newStr[i] != newStr[t])&#123;</span><br><span class="line">            t = f[t - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(newStr[i] == newStr[t])&#123;</span><br><span class="line">            t++;</span><br><span class="line">        &#125;</span><br><span class="line">        f[i] = t;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> revStr.substr(<span class="number">0</span>, n - f.back()) + s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC409-Longest-Palindrome">LC409 Longest Palindrome</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a string which consists of lowercase or uppercase letters, find the length of the longest palindromes that can be built with those letters.</p>
+<p>This is case sensitive, for example <code>&quot;Aa&quot;</code> is not considered a palindrome here.</p>
+<p><strong>Note:</strong><br>
+Assume the length of given string will not exceed 1,010.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">&quot;abccccdd&quot;</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">7</span><br><span class="line"></span><br><span class="line">Explanation:</span><br><span class="line">One longest palindrome that can be built is &quot;dccaccd&quot;, whose length is 7.</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>统计所有52个字母出现的次数，累计所有次数 / 2 = k，然后判断是否有奇数出现次数的字母，如果有则返回2 * ，否则返回2 * k + 1。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">longestPalindrome</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">m</span><span class="params">(<span class="number">52</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> c: s)&#123;</span><br><span class="line">        <span class="keyword">if</span>(c &gt;= <span class="string">'a'</span> &amp;&amp; c &lt;= <span class="string">'z'</span>)&#123;</span><br><span class="line">            m[c - <span class="string">'a'</span>]++;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(c &gt;= <span class="string">'A'</span> &amp;&amp; c &lt;= <span class="string">'Z'</span>)&#123;</span><br><span class="line">            m[c - <span class="string">'A'</span> + <span class="number">26</span>]++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>, flag = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">52</span>; i++)&#123;</span><br><span class="line">        res += m[i] / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(m[i] % <span class="number">2</span> == <span class="number">1</span>)&#123;</span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> flag ? <span class="number">2</span> * res + <span class="number">1</span>: <span class="number">2</span> * res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC131-Palindrome-Partitioning">LC131 Palindrome Partitioning</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a string <em>s</em>, partition <em>s</em> such that every substring of the partition is a palindrome.</p>
+<p>Return all possible palindrome partitioning of <em>s</em>.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input: &quot;aab&quot;</span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [&quot;aa&quot;,&quot;b&quot;],</span><br><span class="line">  [&quot;a&quot;,&quot;a&quot;,&quot;b&quot;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-2">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-3">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-4">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
         </div>
         
 
@@ -232,7 +331,7 @@
     <div class="toc-sidebar">
         <nav id="toc" class="article-toc">
             <h3 class="toc-title">Catalogue</h3>
-            
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC125-Valid-Palindrome"><span class="toc-number">1.</span> <span class="toc-text">LC125 Valid Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC214-Shortest-Palindrome"><span class="toc-number">2.</span> <span class="toc-text">LC214 Shortest Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC409-Longest-Palindrome"><span class="toc-number">3.</span> <span class="toc-text">LC409 Longest Palindrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC131-Palindrome-Partitioning"><span class="toc-number">4.</span> <span class="toc-text">LC131 Palindrome Partitioning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC"><span class="toc-number">5.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-2"><span class="toc-number">6.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-3"><span class="toc-number">7.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-4"><span class="toc-number">8.</span> <span class="toc-text">LC</span></a></li></ol>
         </nav>
     </div>
 </aside>
