@@ -12,7 +12,7 @@
 <meta property="og:description" content="二分法的主要用途 二分法主要是通过左右逼近的方式，向目标值靠拢，并且取得对数复杂度的算法。 二分法的分类 查找和目标值相等的元素 给定有序数组nums，寻找元素target 写法一 12345678910111213# n: nums数组的大小# left: 左界限，初始化为0# right: 右界限，初始化为n - 1# target: 要寻找的值while left &lt;&#x3D; right:">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-20T07:00:46.000Z">
-<meta property="article:modified_time" content="2020-05-20T08:21:15.283Z">
+<meta property="article:modified_time" content="2020-05-20T18:03:21.998Z">
 <meta property="article:author" content="Yiming">
 <meta property="article:tag" content="Binary Search">
 <meta name="twitter:card" content="summary">
@@ -210,10 +210,10 @@
                 </span>
                 
     
-        <span class="post-wordcount" itemprop="wordCount">Word Count: 1.2k(words)</span>
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 1.3k(words)</span>
     
     
-        <span class="post-readcount" itemprop="timeRequired">Read Count: 4(minutes)</span>
+        <span class="post-readcount" itemprop="timeRequired">Read Count: 5(minutes)</span>
     
 
 
@@ -254,6 +254,7 @@ upper_bound(nums.begin(), nums.end(), target, greater<type>())<br>
 <h4 id="target值不固定">target值不固定</h4>
 <p>target的值可能随mid变化，比如需要搜索局部峰值的时候，需要比较的是mid和两边的值，这个时候target就会根据mid所在位置的不同而产生变化。</p>
 <h3 id="总结">总结</h3>
+<p>二分法主要的思想就是对在某种程度上有序的数组上寻找特定值或者特定范围的值，通过大小关系来判断应该选择左半段还是右半段继续进行迭代。注意要确定这里left或者right的取值的时候，需要通过判断具体值的范围，特别注意right值的初始值，为n的时候表示左闭右开，为n - 1的时候表示左闭右闭。</p>
 <h3 id="参考">参考</h3>
 <p><a href="https://www.cnblogs.com/grandyang/p/6854825.html" target="_blank" rel="noopener">https://www.cnblogs.com/grandyang/p/6854825.html</a></p>
 
