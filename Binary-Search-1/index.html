@@ -12,7 +12,7 @@
 <meta property="og:description" content="LC4 Median of Two Sorted Arrays Problem  There are two sorted arrays nums1 and nums2 of size m and n respectively. Find the median of the two sorted arrays. The overall run time complexity should be O">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-22T03:55:17.000Z">
-<meta property="article:modified_time" content="2020-05-23T06:38:17.020Z">
+<meta property="article:modified_time" content="2020-05-23T23:26:35.942Z">
 <meta property="article:author" content="Yiming">
 <meta property="article:tag" content="Binary Search">
 <meta property="article:tag" content="LeetCode">
@@ -211,7 +211,7 @@
                 </span>
                 
     
-        <span class="post-wordcount" itemprop="wordCount">Word Count: 2k(words)</span>
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 3.6k(words)</span>
     
     
 
@@ -380,44 +380,144 @@
 </blockquote>
 </details>
 <details><summary>Think</summary>
+<p>二分法，设置left和right，表示结果在[left, right]内</p>
+<p>如果mid*mid=target则直接返回，如果mid*mid&lt;target，说明结果应该在[mid+1, right]内，否则结果应该在[left, mid-1]内。</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(x == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = x;</span><br><span class="line">    <span class="keyword">while</span>(left &lt; right)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(mid == x / mid &amp;&amp; x % mid == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(mid &gt; x / mid)&#123;</span><br><span class="line">            right = mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> left - <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-<h3 id="LC">LC</h3>
+<h3 id="LC74-Search-a-2D-Matrix">LC74 Search a 2D Matrix</h3>
 <details><summary>Problem</summary>
+<blockquote>
+<p>Write an efficient algorithm that searches for a value in an <em>m</em> x <em>n</em> matrix. This matrix has the following properties:</p>
+<ul>
+<li>Integers in each row are sorted from left to right.</li>
+<li>The first integer of each row is greater than the last integer of the previous row.</li>
+</ul>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">matrix &#x3D; [</span><br><span class="line">  [1,   3,  5,  7],</span><br><span class="line">  [10, 11, 16, 20],</span><br><span class="line">  [23, 30, 34, 50]</span><br><span class="line">]</span><br><span class="line">target &#x3D; 3</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">matrix &#x3D; [</span><br><span class="line">  [1,   3,  5,  7],</span><br><span class="line">  [10, 11, 16, 20],</span><br><span class="line">  [23, 30, 34, 50]</span><br><span class="line">]</span><br><span class="line">target &#x3D; 13</span><br><span class="line">Output: false</span><br></pre></td></tr></table></figure>
+</blockquote>
 </details>
 <details><summary>Think</summary>
+<p>二分，初始left=0，right=m * n即可。</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">searchMatrix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(matrix.empty() || matrix[<span class="number">0</span>].empty()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">int</span> m = matrix.<span class="built_in">size</span>(), n = matrix[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = m * n;</span><br><span class="line">    <span class="keyword">while</span>(left &lt; right)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> row = mid / n;</span><br><span class="line">        <span class="keyword">int</span> col = mid % n;</span><br><span class="line">        <span class="keyword">if</span>(matrix[row][col] == target) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(matrix[row][col] &lt; target) left = mid + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> right = mid;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-<h3 id="LC-2">LC</h3>
+<h3 id="LC81-Search-in-Rotated-Sorted-Array-II">LC81 Search in Rotated Sorted Array II</h3>
 <details><summary>Problem</summary>
+<blockquote>
+<p>Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.</p>
+<p>(i.e., <code>[0,0,1,2,2,5,6]</code> might become <code>[2,5,6,0,0,1,2]</code>).</p>
+<p>You are given a target value to search. If found in the array return <code>true</code>, otherwise return <code>false</code>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums &#x3D; [2,5,6,0,0,1,2], target &#x3D; 0</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums &#x3D; [2,5,6,0,0,1,2], target &#x3D; 3</span><br><span class="line">Output: false</span><br></pre></td></tr></table></figure>
+<p><strong>Follow up:</strong></p>
+<ul>
+<li>This is a follow up problem to <a href="">Search in Rotated Sorted Array</a>, where <code>nums</code> may contain duplicates.</li>
+<li>Would this affect the run-time complexity? How and why?</li>
+</ul>
+</blockquote>
 </details>
 <details><summary>Think</summary>
+<p>在<a href="#LC33-Search-in-Rotated-Sorted-Array">LC33-Search-in-Rotated-Sorted-Array</a>的基础上，注意判断一下当前nums[mid]=num等于nums[left]的时候，这个时候mid可能在左上升区间也可能在右上升区间，所以此时只能将left+1，相当于跳过最左端的部分。</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">search</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(nums.empty()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">while</span>(left &lt; right)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> num = nums[mid];</span><br><span class="line">        <span class="keyword">if</span>(num == target) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(num &lt; target)&#123;</span><br><span class="line">            <span class="keyword">if</span>(num == nums[left]) left += <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(num &gt; nums[left]) left = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(target == nums[left]) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(target &gt; nums[left]) right = mid;</span><br><span class="line">                <span class="keyword">else</span> left = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(num == nums[left]) left += <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(num &gt; nums[left])&#123;</span><br><span class="line">                <span class="keyword">if</span>(target == nums[left]) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(target &gt; nums[left]) right = mid;</span><br><span class="line">                <span class="keyword">else</span> left = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> right = mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-<h3 id="LC-3">LC</h3>
+<h3 id="LC153-Find-Minimum-in-Rotated-Sorted-Array">LC153 Find Minimum in Rotated Sorted Array</h3>
 <details><summary>Problem</summary>
+<blockquote>
+<p>Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.</p>
+<p>(i.e.,  <code>[0,1,2,4,5,6,7]</code> might become  <code>[4,5,6,7,0,1,2]</code>).</p>
+<p>Find the minimum element.</p>
+<p>You may assume no duplicate exists in the array.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [3,4,5,1,2] </span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [4,5,6,7,0,1,2]</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure>
+</blockquote>
 </details>
 <details><summary>Think</summary>
+<p>二分，设置left和right，我们要找的分界点的特点是大于其右边的值，范围为[left, right]，因此有：</p>
+<p>当nums[mid] &lt; nums[right]的时候，说明mid在右上升区间，因此right = mid；</p>
+<p>当nums[mid] &gt; nums[right]的时候，说明mid在左上升区间，因此left = mid + 1；</p>
+<p>注意这里只能和nums[right]比较，因为nums[right]一定在右上升区间上，但是left可能不在左上升区间上。</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findMin</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left &lt; right)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(nums[mid] &lt; nums[right])&#123;</span><br><span class="line">            right = mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nums[left];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-<h3 id="LC-4">LC</h3>
+<h3 id="LC154-Find-Minimum-in-Rotated-Sorted-Array-II">LC154 Find Minimum in Rotated Sorted Array II</h3>
 <details><summary>Problem</summary>
+<blockquote>
+<p>Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.</p>
+<p>(i.e.,  <code>[0,1,2,4,5,6,7]</code> might become  <code>[4,5,6,7,0,1,2]</code>).</p>
+<p>Find the minimum element.</p>
+<p>The array may contain duplicates.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,3,5]</span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [2,2,2,0,1]</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ul>
+<li>This is a follow up problem to <a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/" target="_blank" rel="noopener">Find Minimum in Rotated Sorted Array</a>.</li>
+<li>Would allow duplicates affect the run-time complexity? How and why?</li>
+</ul>
+</blockquote>
 </details>
 <details><summary>Think</summary>
+<p>二分法，在<a href="#LC153-Find-Minimum-in-Rotated-Sorted-Array">LC153 Find Minimum in Rotated Sorted Array</a>的基础上，当nums[mid] == nums[right]的时候，根据上题分析，left可能不在左上升区间上，此时left即为要求的结果，而right必定不可能为要求解的结果，因此此处将right -= 1即可，而不可以left += 1.</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findMin</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left &lt; right)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(nums[mid] &lt; nums[right])&#123;</span><br><span class="line">            right = mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(nums[mid] &gt; nums[right])&#123;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            right -= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nums[left];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-<h3 id="LC-5">LC</h3>
+<h3 id="LC167-Two-Sum-II-Input-array-is-sorted">LC167 Two Sum II - Input array is sorted</h3>
 <details><summary>Problem</summary>
+<blockquote>
+<p>Given an array of integers that is already *<strong>sorted in ascending order*</strong>, find two numbers such that they add up to a specific target number.</p>
+<p>The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2.</p>
+<p><strong>Note:</strong></p>
+<ul>
+<li>Your returned answers (both index1 and index2) are not zero-based.</li>
+<li>You may assume that each input would have <em>exactly</em> one solution and you may not use the <em>same</em> element twice.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: numbers &#x3D; [2,7,11,15], target &#x3D; 9</span><br><span class="line">Output: [1,2]</span><br><span class="line">Explanation: The sum of 2 and 7 is 9. Therefore index1 &#x3D; 1, index2 &#x3D; 2.</span><br></pre></td></tr></table></figure>
+</blockquote>
 </details>
 <details><summary>Think</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<p>二分，确定一个找另一个</p>
+<ul>
+<li>Approach 2</li>
+</ul>
+<p>双指针，nums[left]+nums[right] &gt; target的时候right–，&lt; target的时候left++；</p>
 </details>
 <details><summary>Code</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; numbers, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = numbers.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n &amp;&amp; numbers[i] &lt;= target / <span class="number">2</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> index = findTarget(numbers, i, target - numbers[i]);</span><br><span class="line">        <span class="keyword">if</span>(index != <span class="number">-1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;<span class="built_in">min</span>(i + <span class="number">1</span>, index + <span class="number">1</span>), <span class="built_in">max</span>(i + <span class="number">1</span>, index + <span class="number">1</span>)&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findTarget</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; numbers, <span class="keyword">int</span> start, <span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> left = start + <span class="number">1</span>, right = numbers.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left &lt;= right)&#123;</span><br><span class="line">        <span class="keyword">int</span> mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(numbers[mid] == target)&#123;</span><br><span class="line">            <span class="keyword">return</span> mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(numbers[mid] &gt; target)&#123;</span><br><span class="line">            right = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Approach 2</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = n - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left &lt; right)&#123;</span><br><span class="line">        <span class="keyword">int</span> tmp = nums[left] + nums[right];</span><br><span class="line">        <span class="keyword">if</span>(tmp &lt; target)&#123;</span><br><span class="line">            left++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(tmp &gt; target)&#123;</span><br><span class="line">            right--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;left + <span class="number">1</span>, right + <span class="number">1</span>&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="number">-1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
+<h3 id="Review">Review</h3>
+<p>对于二分搜索的题目来说，最重要的是</p>
+<ul>
+<li>确定left和right的初值；</li>
+<li>确定我们要求的值是在[left, right]还是[left, right)；</li>
+<li>内部分至少三种情况，f(mid) == target，f(mid) &lt; target，f(mid) &gt; target，注意这里就算f(mid) == target也不一定代表可以直接返回结果，因为可能存在相同值的情况；</li>
+<li>循环结束，如果循环的条件是left &lt;= right，则循环 结束代表没有找到需要的值；如果循环的条件是left &lt; right，则需要单独判断一下left=right处的值是否符合条件。</li>
+</ul>
+
         </div>
         
 
@@ -437,7 +537,7 @@
     <div class="toc-sidebar">
         <nav id="toc" class="article-toc">
             <h3 class="toc-title">Catalogue</h3>
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC4-Median-of-Two-Sorted-Arrays"><span class="toc-number">1.</span> <span class="toc-text">LC4 Median of Two Sorted Arrays</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC29-Divide-Two-Integers"><span class="toc-number">2.</span> <span class="toc-text">LC29 Divide Two Integers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC33-Search-in-Rotated-Sorted-Array"><span class="toc-number">3.</span> <span class="toc-text">LC33 Search in Rotated Sorted Array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC34-Find-First-and-Last-Position-of-Element-in-Sorted-Array"><span class="toc-number">4.</span> <span class="toc-text">LC34 Find First and Last Position of Element in Sorted Array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC35-Search-Insert-Position"><span class="toc-number">5.</span> <span class="toc-text">LC35 Search Insert Position</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC50-Pow-x-n"><span class="toc-number">6.</span> <span class="toc-text">LC50 Pow(x, n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC69-Sqrt-x"><span class="toc-number">7.</span> <span class="toc-text">LC69 Sqrt(x)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC"><span class="toc-number">8.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-2"><span class="toc-number">9.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-3"><span class="toc-number">10.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-4"><span class="toc-number">11.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-5"><span class="toc-number">12.</span> <span class="toc-text">LC</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC4-Median-of-Two-Sorted-Arrays"><span class="toc-number">1.</span> <span class="toc-text">LC4 Median of Two Sorted Arrays</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC29-Divide-Two-Integers"><span class="toc-number">2.</span> <span class="toc-text">LC29 Divide Two Integers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC33-Search-in-Rotated-Sorted-Array"><span class="toc-number">3.</span> <span class="toc-text">LC33 Search in Rotated Sorted Array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC34-Find-First-and-Last-Position-of-Element-in-Sorted-Array"><span class="toc-number">4.</span> <span class="toc-text">LC34 Find First and Last Position of Element in Sorted Array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC35-Search-Insert-Position"><span class="toc-number">5.</span> <span class="toc-text">LC35 Search Insert Position</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC50-Pow-x-n"><span class="toc-number">6.</span> <span class="toc-text">LC50 Pow(x, n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC69-Sqrt-x"><span class="toc-number">7.</span> <span class="toc-text">LC69 Sqrt(x)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC74-Search-a-2D-Matrix"><span class="toc-number">8.</span> <span class="toc-text">LC74 Search a 2D Matrix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC81-Search-in-Rotated-Sorted-Array-II"><span class="toc-number">9.</span> <span class="toc-text">LC81 Search in Rotated Sorted Array II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC153-Find-Minimum-in-Rotated-Sorted-Array"><span class="toc-number">10.</span> <span class="toc-text">LC153 Find Minimum in Rotated Sorted Array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC154-Find-Minimum-in-Rotated-Sorted-Array-II"><span class="toc-number">11.</span> <span class="toc-text">LC154 Find Minimum in Rotated Sorted Array II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC167-Two-Sum-II-Input-array-is-sorted"><span class="toc-number">12.</span> <span class="toc-text">LC167 Two Sum II - Input array is sorted</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Review"><span class="toc-number">13.</span> <span class="toc-text">Review</span></a></li></ol>
         </nav>
     </div>
 </aside>
