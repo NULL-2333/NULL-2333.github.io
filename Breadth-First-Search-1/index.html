@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html  lang="en" >
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <title>Breadth First Search(1) | Yiming</title>
+    <meta name="description" content="LC107 Binary Tree Level Order Traversal II Problem  Given a binary tree, return the bottom-up level order traversal of its nodes’ values. (ie, from left to right, level by level from leaf to root). Fo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Breadth First Search(1)">
+<meta property="og:url" content="http://yoursite.com/Breadth-First-Search-1/">
+<meta property="og:site_name" content="Yiming">
+<meta property="og:description" content="LC107 Binary Tree Level Order Traversal II Problem  Given a binary tree, return the bottom-up level order traversal of its nodes’ values. (ie, from left to right, level by level from leaf to root). Fo">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-25T03:28:19.000Z">
+<meta property="article:modified_time" content="2020-05-25T06:58:24.793Z">
+<meta property="article:author" content="Yiming">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="BFS">
+<meta name="twitter:card" content="summary">
+
+    
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+    
+<link rel="stylesheet" href="/css/common.min.css">
+
+
+
+    
+    
+    
+    
+        <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
+    
+    
+    
+<link rel="stylesheet" href="/css/iconfont.min.css">
+
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    <body>
+        <header class="header header-fixture">
+    <div class="profile-search-wrap flex sm:block">
+        
+        
+        <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
+            <a id="avatar" role="link" href="https://www.linkedin.com/in/yiming-chen-cym/" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_blank" rel="noopener" rel="noreferrer" >
+                <img src="/images/head.jpeg" class="rounded-full" alt="avatar">
+            </a>
+            <h2 id="name" class="hidden lg:block" style="font-size: 24px; font-weight: 600; padding-bottom: 10px">Yiming</h2>
+            <h3 id="title" class="hidden xl:block">Student in USC &amp; Coder</h3>
+            
+        </div>
+        
+        
+<div class="search flex-1 flex lg:inline-block sm:hidden lg:px-4 lg:mt-2 lg:mb-4 lg:w-full">
+    <form id="search-form" class="my-auto flex-1 lg:border lg:border-solid lg:border-gray-200">
+        <div class="input-group table bg-gray-100 lg:bg-white w-full">
+            <input id="search-input" type="text" style="padding-left: 5px" placeholder="Search" class="inline-block w-full bg-gray-100 lg:bg-white">
+            <span class="table-cell">
+                <button name="search tigger button" disabled>
+                    <i class="iconfont icon-search m-2"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+        
+<script id="search-teamplate" type="text/html" data-path="/content.json">
+    <div>
+        <div class="search-header bg-gray-400">
+            <input id="actual-search-input" model="keyword" ref="input" class="inline-block w-full h-10 px-2 py-1" placeholder="Search" type="text">
+        </div>
+        <div class="search-result bg-gray-200">
+            {{#each searchPosts}}
+            <a href="/{{ path }}" class="result-item block px-2 pb-3 mb-1 pt-1 hover:bg-indigo-100">
+                <i class="iconfont icon-file"></i>
+                <h1 class="result-title inline font-medium text-lg">{{ title }}</h1>
+                <p class="result-content text-gray-600 text-sm">{{{ text }}}</p>
+            </a>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+</div>
+
+
+        <button name="menu toogle button" id="menu-toggle-btn" class="block sm:hidden p-3" role="button" aria-expanded="false">
+            <i class="iconfont icon-hamburger"></i>
+        </button>
+    </div>
+    <nav id="menu-nav" class="hidden sm:flex flex-col">
+        
+        
+            <div class="menu-item menu-home" role="menuitem">
+                <a href="/.">
+                    <i class="iconfont icon-home" aria-hidden="true"></i>
+                    <span class="menu-title">Home</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-archives" role="menuitem">
+                <a href="/archives">
+                    <i class="iconfont icon-archive" aria-hidden="true"></i>
+                    <span class="menu-title">Archives</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-categories" role="menuitem">
+                <a href="/categories">
+                    <i class="iconfont icon-folder" aria-hidden="true"></i>
+                    <span class="menu-title">Categories</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-tags" role="menuitem">
+                <a href="/tags">
+                    <i class="iconfont icon-tag" aria-hidden="true"></i>
+                    <span class="menu-title">Tags</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-repository" role="menuitem">
+                <a href="/repository">
+                    <i class="iconfont icon-project" aria-hidden="true"></i>
+                    <span class="menu-title">Repository</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-links" role="menuitem">
+                <a href="/links">
+                    <i class="iconfont icon-friend" aria-hidden="true"></i>
+                    <span class="menu-title">Links</span>
+                </a>
+            </div>
+        
+        
+            <div class="menu-item menu-about" role="menuitem">
+                <a href="/about">
+                    <i class="iconfont icon-cup" aria-hidden="true"></i>
+                    <span class="menu-title">About</span>
+                </a>
+            </div>
+        
+        
+<div class="social-links flex sm:flex-col lg:hidden mt-5">
+    
+        <span class="social-item text-center">
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont social-icon icon-github"></i>
+                <span class="menu-title hidden lg:inline">menu.github</span>
+            </a>
+        </span>
+    
+        <span class="social-item text-center">
+            <a href="https://www.linkedin.com/in/yiming-chen-cym/" target="_blank" rel="noopener">
+                <i class="iconfont social-icon icon-linkedin"></i>
+                <span class="menu-title hidden lg:inline">menu.linkedin</span>
+            </a>
+        </span>
+    
+</div>
+
+
+    </nav>
+</header>
+
+        <section class="main-section">
+            
+    <main class="flex-1 px-4 py-12 md:px-5 lg:px-8 lg:py-4 relative min-h-screen">
+    
+
+    <article class="content article article-archives article-type-list" itemscope="">
+        <header class="article-header">
+            
+    
+        <h1 class="article-title text-lg" itemprop="name">
+            Breadth First Search(1)
+        </h1>
+    
+
+
+
+            <p class="article-meta mb-3 text-xs">
+                <span class="article-date">
+    <i class="iconfont icon-calendar-check"></i>
+	<a href="/Breadth-First-Search-1/" class="article-date">
+	  <time datetime="2020-05-25T03:28:19.000Z" itemprop="datePublished">May 24</time>
+	</a>
+</span>
+
+                
+
+                
+    <span class="article-tags">
+    <i class="iconfont icon-tag"></i>
+    <a class="article-tag-link" href="/tags/BFS/" rel="tag">BFS</a>, <a class="article-tag-link" href="/tags/LeetCode/" rel="tag">LeetCode</a>
+  </span>
+
+
+                <span class="_partial/post-comment"><i class="icon icon-comment"></i>
+                    <a href="/Breadth-First-Search-1/#comments" class="article-comment-link">
+                        Comments
+                    </a>
+                </span>
+                
+    
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 1.6k(words)</span>
+    
+    
+
+
+            </p>
+        </header>
+        <div class="marked-body article-body">
+            <h3 id="LC107-Binary-Tree-Level-Order-Traversal-II">LC107 Binary Tree Level Order Traversal II</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a binary tree, return the <em>bottom-up level order</em> traversal of its nodes’ values. (ie, from left to right, level by level from leaf to root).</p>
+<p>For example:<br>
+Given binary tree <code>[3,9,20,null,null,15,7]</code>,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  3</span><br><span class="line"> &#x2F; \</span><br><span class="line">9  20</span><br><span class="line">  &#x2F;  \</span><br><span class="line"> 15   7</span><br></pre></td></tr></table></figure>
+<p>return its bottom-up level order traversal as:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  [15,7],</span><br><span class="line">  [9,20],</span><br><span class="line">  [3]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>层序遍历，然后翻转数组</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">levelOrderBottom</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    <span class="built_in">queue</span>&lt;TreeNode*&gt; s;</span><br><span class="line">    s.push(root);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="keyword">while</span>(!s.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> len = s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cur;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">            TreeNode* node = s.front();</span><br><span class="line">            cur.push_back(node-&gt;val);</span><br><span class="line">            s.pop();</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left) s.push(node-&gt;left);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;right) s.push(node-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">        res.push_back(cur);</span><br><span class="line">    &#125;</span><br><span class="line">    reverse(res.<span class="built_in">begin</span>(), res.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC111-Minimum-Depth-of-Binary-Tree">LC111 Minimum Depth of Binary Tree</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a binary tree, find its minimum depth.</p>
+<p>The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.</p>
+<p><strong>Note:</strong> A leaf is a node with no children.</p>
+<p><strong>Example:</strong></p>
+<p>Given binary tree <code>[3,9,20,null,null,15,7]</code>,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  3</span><br><span class="line"> &#x2F; \</span><br><span class="line">9  20</span><br><span class="line">  &#x2F;  \</span><br><span class="line"> 15   7</span><br></pre></td></tr></table></figure>
+<p>return its minimum depth = 2.</p>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<p>递归，分别判断无左右子节点，只有左子节点，只有右子节点和有左右子节点</p>
+<ul>
+<li>Approach 2</li>
+</ul>
+<p>层序遍历BFS</p>
+</details>
+<details><summary>Code</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(!root-&gt;left &amp;&amp; !root-&gt;right) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(root-&gt;left &amp;&amp; !root-&gt;right) <span class="keyword">return</span> minDepth(root-&gt;left) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(!root-&gt;left &amp;&amp; root-&gt;right) <span class="keyword">return</span> minDepth(root-&gt;right) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">min</span>(minDepth(root-&gt;left), minDepth(root-&gt;right)) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Approach 2</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">minDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">queue</span>&lt;TreeNode*&gt; q;</span><br><span class="line">    q.push(root);</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> len = q.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">            TreeNode* node = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">if</span>(!node-&gt;left &amp;&amp; !node-&gt;right) <span class="keyword">return</span> res;</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;left) q.push(node-&gt;left);</span><br><span class="line">            <span class="keyword">if</span>(node-&gt;right) q.push(node-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">        res++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC126-Word-Ladder-II">LC126 Word Ladder II</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given two words (<em>beginWord</em> and <em>endWord</em>), and a dictionary’s word list, find all shortest transformation sequence(s) from <em>beginWord</em> to <em>endWord</em>, such that:</p>
+<ol>
+<li>Only one letter can be changed at a time</li>
+<li>Each transformed word must exist in the word list. Note that <em>beginWord</em> is <em>not</em> a transformed word.</li>
+</ol>
+<p><strong>Note:</strong></p>
+<ul>
+<li>Return an empty list if there is no such transformation sequence.</li>
+<li>All words have the same length.</li>
+<li>All words contain only lowercase alphabetic characters.</li>
+<li>You may assume no duplicates in the word list.</li>
+<li>You may assume <em>beginWord</em> and <em>endWord</em> are non-empty and are not the same.</li>
+</ul>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">beginWord &#x3D; &quot;hit&quot;,</span><br><span class="line">endWord &#x3D; &quot;cog&quot;,</span><br><span class="line">wordList &#x3D; [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;,&quot;cog&quot;]</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">[</span><br><span class="line">  [&quot;hit&quot;,&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;cog&quot;],</span><br><span class="line">  [&quot;hit&quot;,&quot;hot&quot;,&quot;lot&quot;,&quot;log&quot;,&quot;cog&quot;]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">beginWord &#x3D; &quot;hit&quot;</span><br><span class="line">endWord &#x3D; &quot;cog&quot;</span><br><span class="line">wordList &#x3D; [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;]</span><br><span class="line"></span><br><span class="line">Output: []</span><br><span class="line"></span><br><span class="line">Explanation: The endWord &quot;cog&quot; is not in wordList, therefore no possible transformation.</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>使用BFS遍历所有可能的路径path组成的paths队列。</p>
+<p>首先初始化paths队列，将初始word所构成的路径放入；</p>
+<p>当队列paths不为空时：</p>
+<p>取出最前的一个路径；</p>
+<p>如果该路径长度超过当前的level值，也就是当前应当遍历到第几层，则说明wordList中存在一些word已经出现在当前路径中，这些词不能再次出现在接下来的路径中，所以直接在wordList中删除这些词，并将level置为当前路径的长度；如果当前路径长度已经大于minLevel，则说明后面的所有路径都只会更长而不会更短，因此直接break；</p>
+<p>取出当前路径的最后一个word，并以这个word作为起始word向后遍历，修改其中的一个字符，如果修改后的word存在于当前的wordList中，则将它加入当前路径；判断是否已经到达endWord，如果到达的话就直接加入res并更新minLevel值，否则加入paths中进行下一次的循环。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; <span class="title">findLadders</span><span class="params">(<span class="built_in">string</span> beginWord, <span class="built_in">string</span> endWord, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordList)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; res;</span><br><span class="line">    <span class="function"><span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; <span class="title">wordDict</span><span class="params">(wordList.<span class="built_in">begin</span>(), wordList.<span class="built_in">end</span>())</span></span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; p = &#123;beginWord&#125;;</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; q;</span><br><span class="line">    q.push(p);</span><br><span class="line">    <span class="keyword">int</span> level = <span class="number">1</span>, minLevel = INT_MAX;</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; words;</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; t = q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        <span class="keyword">if</span>(t.<span class="built_in">size</span>() &gt; level)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">auto</span> <span class="keyword">word</span>: words) wordDict.erase(<span class="keyword">word</span>);</span><br><span class="line">            words.<span class="built_in">clear</span>();</span><br><span class="line">            level = t.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">if</span>(level &gt; minLevel) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">string</span> cur = t.back();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cur.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            <span class="built_in">string</span> next = cur;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">char</span> c = <span class="string">'a'</span>; c &lt;= <span class="string">'z'</span>; c++)&#123;</span><br><span class="line">                next[i] = c;</span><br><span class="line">                <span class="keyword">if</span>(!wordDict.count(next)) <span class="keyword">continue</span>;</span><br><span class="line">                words.insert(next);</span><br><span class="line">                <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; curPath = t;</span><br><span class="line">                curPath.push_back(next);</span><br><span class="line">                <span class="keyword">if</span>(next == endWord)&#123;</span><br><span class="line">                    res.push_back(curPath);</span><br><span class="line">                    minLevel = level;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    q.push(curPath);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC127-Word-Ladder">LC127 Word Ladder</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given two words (<em>beginWord</em> and <em>endWord</em>), and a dictionary’s word list, find the length of shortest transformation sequence from <em>beginWord</em> to <em>endWord</em>, such that:</p>
+<ol>
+<li>Only one letter can be changed at a time.</li>
+<li>Each transformed word must exist in the word list.</li>
+</ol>
+<p><strong>Note:</strong></p>
+<ul>
+<li>Return 0 if there is no such transformation sequence.</li>
+<li>All words have the same length.</li>
+<li>All words contain only lowercase alphabetic characters.</li>
+<li>You may assume no duplicates in the word list.</li>
+<li>You may assume <em>beginWord</em> and <em>endWord</em> are non-empty and are not the same.</li>
+</ul>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">beginWord &#x3D; &quot;hit&quot;,</span><br><span class="line">endWord &#x3D; &quot;cog&quot;,</span><br><span class="line">wordList &#x3D; [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;,&quot;cog&quot;]</span><br><span class="line"></span><br><span class="line">Output: 5</span><br><span class="line"></span><br><span class="line">Explanation: As one shortest transformation is &quot;hit&quot; -&gt; &quot;hot&quot; -&gt; &quot;dot&quot; -&gt; &quot;dog&quot; -&gt; &quot;cog&quot;,</span><br><span class="line">return its length 5.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">beginWord &#x3D; &quot;hit&quot;</span><br><span class="line">endWord &#x3D; &quot;cog&quot;</span><br><span class="line">wordList &#x3D; [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;]</span><br><span class="line"></span><br><span class="line">Output: 0</span><br><span class="line"></span><br><span class="line">Explanation: The endWord &quot;cog&quot; is not in wordList, therefore no possible transformation.</span><br></pre></td></tr></table></figure>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>基础的BFS，注意遇到这种题要严格按照BFS的运行方式来思考，比如求最短路径之类的，要注意不要往Back Tracing上靠！！！</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ladderLength</span><span class="params">(<span class="built_in">string</span> beginWord, <span class="built_in">string</span> endWord, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; wordList)</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; <span class="title">wordDict</span><span class="params">(wordList.<span class="built_in">begin</span>(), wordList.<span class="built_in">end</span>())</span></span>;</span><br><span class="line">    <span class="keyword">if</span>(!wordDict.count(endWord)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="built_in">string</span>&gt; q;</span><br><span class="line">    q.push(beginWord);</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; visited;</span><br><span class="line">    <span class="keyword">int</span> level = <span class="number">1</span>, res = INT_MAX;</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">        <span class="keyword">int</span> len = q.<span class="built_in">size</span>();</span><br><span class="line">        level++;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">            <span class="built_in">string</span> <span class="keyword">word</span> = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">word</span>.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">                <span class="built_in">string</span> newWord = <span class="keyword">word</span>;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">char</span> c = <span class="string">'a'</span>; c &lt;= <span class="string">'z'</span>; c++)&#123;</span><br><span class="line">                    newWord[i] = c;</span><br><span class="line">                    <span class="keyword">if</span>(newWord == <span class="keyword">word</span>) <span class="keyword">continue</span>;</span><br><span class="line">                    <span class="keyword">if</span>(!wordDict.count(newWord)) <span class="keyword">continue</span>;</span><br><span class="line">                    <span class="keyword">if</span>(visited.count(newWord)) <span class="keyword">continue</span>;</span><br><span class="line">                    <span class="keyword">if</span>(newWord == endWord)&#123;</span><br><span class="line">                        <span class="keyword">return</span> level;</span><br><span class="line">                    &#125;</span><br><span class="line">                    q.push(newWord);</span><br><span class="line">                    visited.insert(newWord);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC130-Surrounded-Regions">LC130 Surrounded Regions</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>Given a 2D board containing <code>'X'</code> and <code>'O'</code> (<strong>the letter O</strong>), capture all regions surrounded by <code>'X'</code>.</p>
+<p>A region is captured by flipping all <code>'O'</code>s into <code>'X'</code>s in that surrounded region.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">X X X X</span><br><span class="line">X O O X</span><br><span class="line">X X O X</span><br><span class="line">X O X X</span><br></pre></td></tr></table></figure>
+<p>After running your function, the board should be:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">X X X X</span><br><span class="line">X X X X</span><br><span class="line">X X X X</span><br><span class="line">X O X X</span><br></pre></td></tr></table></figure>
+<p><strong>Explanation:</strong></p>
+<p>Surrounded regions shouldn’t be on the border, which means that any <code>'O'</code> on the border of the board are not flipped to <code>'X'</code>. Any <code>'O'</code> that is not on the border and it is not connected to an <code>'O'</code> on the border will be flipped to <code>'X'</code>. Two cells are connected if they are adjacent cells connected horizontally or vertically.</p>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-2">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-3">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-4">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-5">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-6">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-7">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-8">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-9">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+<h3 id="LC-10">LC</h3>
+<details><summary>Problem</summary>
+</details>
+<details><summary>Think</summary>
+</details>
+<details><summary>Code</summary>
+</details>
+
+        </div>
+        
+
+    </article>
+    
+    <section id="comments">
+        
+    </section>
+
+
+    
+
+</main>
+
+
+<aside style="" id="sidebar" class="aside aside-fixture">
+    <div class="toc-sidebar">
+        <nav id="toc" class="article-toc">
+            <h3 class="toc-title">Catalogue</h3>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC107-Binary-Tree-Level-Order-Traversal-II"><span class="toc-number">1.</span> <span class="toc-text">LC107 Binary Tree Level Order Traversal II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC111-Minimum-Depth-of-Binary-Tree"><span class="toc-number">2.</span> <span class="toc-text">LC111 Minimum Depth of Binary Tree</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC126-Word-Ladder-II"><span class="toc-number">3.</span> <span class="toc-text">LC126 Word Ladder II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC127-Word-Ladder"><span class="toc-number">4.</span> <span class="toc-text">LC127 Word Ladder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC130-Surrounded-Regions"><span class="toc-number">5.</span> <span class="toc-text">LC130 Surrounded Regions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC"><span class="toc-number">6.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-2"><span class="toc-number">7.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-3"><span class="toc-number">8.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-4"><span class="toc-number">9.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-5"><span class="toc-number">10.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-6"><span class="toc-number">11.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-7"><span class="toc-number">12.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-8"><span class="toc-number">13.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-9"><span class="toc-number">14.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-10"><span class="toc-number">15.</span> <span class="toc-text">LC</span></a></li></ol>
+        </nav>
+    </div>
+</aside>
+
+
+
+
+
+        </section>
+        <footer class="hidden lg:block fixed bottom-0 left-0 sm:w-1/12 lg:w-1/6 bg-gray-100 z-40">
+    
+    <div class="footer-social-links">
+        
+            <a href="https://github.com/NULL-2333" target="_blank" rel="noopener">
+                <i class="iconfont icon-github"></i>
+            </a>
+        
+            <a href="https://www.linkedin.com/in/yiming-chen-cym/" target="_blank" rel="noopener">
+                <i class="iconfont icon-linkedin"></i>
+            </a>
+        
+    </div>
+    
+    
+</footer>
+
+        <div id="mask" class="hidden mask fixed inset-0 bg-gray-900 opacity-75 z-40"></div>
+        <div id="search-view-container" class="hidden shadow-xl"></div>
+        
+<script src="/js/dom-event.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/yox@1.0.0-alpha.121/dist/standard/prod/yox.min.js"></script>
+
+
+<script src="/js/search.min.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/js/lightgallery.min.js"></script>
+    
+<script src="/js/light-gallery.min.js"></script>
+
+
+
+
+
+    </body>
+</html>
