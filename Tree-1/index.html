@@ -28,6 +28,8 @@
     
     
     
+        <link href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css" rel="stylesheet">
+    
     
         <link href="//cdn.jsdelivr.net/npm/lightgallery.js@1.1.3/dist/css/lightgallery.min.css" rel="stylesheet">
     
@@ -380,6 +382,8 @@ Given binary tree <code>[3,9,20,null,null,15,7]</code>,</p>
     
     <section id="comments">
         
+
+        
     </section>
 
 
@@ -428,6 +432,22 @@ Given binary tree <code>[3,9,20,null,null,15,7]</code>,</p>
 
 
 <script src="/js/search.min.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '30e8df164228b341b029',
+        clientSecret: '3e495d5b5aa067550ef4ae406294670c86a62ba2',
+        repo: 'blog-comment',
+        owner: 'NULL-2333',
+        admin: ['NULL-2333'],
+        id: md5(location.pathname),
+        distractionFreeMode: true
+    })
+    gitalk.render('comments')
+</script>
 
 
 
