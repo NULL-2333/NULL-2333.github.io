@@ -3,19 +3,21 @@
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
-    <title>First Blog And Records | Yiming</title>
-    <meta name="description" content="Overview This is my first blog. In this blog website, I want to update some my Leetcode training process, my learning experience and some other problems I met in practical environment. By doing this,">
+    <title>LeetCode的一些总结 | Yiming</title>
+    <meta name="description" content="一些套路的总结  分解问题的角度：固定某一个维度，尝试另一维度上的所有可能  可能是array的(i, j) pointers 可能是矩形的长与宽 可能是tree的每一个subtree，比如固定左子树，来遍历每一个可能的右子树 可能是情景题的每一对pair   求所有解的，一 般暴力上backtracking 如果问最短&#x2F;最少的, 先想BFS和DP 如果环相关，或者涉及到重复访问，可以使用DFS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="First Blog And Records">
-<meta property="og:url" content="http://yoursite.com/First-Blog/">
+<meta property="og:title" content="LeetCode的一些总结">
+<meta property="og:url" content="http://yoursite.com/LeetCode%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/">
 <meta property="og:site_name" content="Yiming">
-<meta property="og:description" content="Overview This is my first blog. In this blog website, I want to update some my Leetcode training process, my learning experience and some other problems I met in practical environment. By doing this,">
+<meta property="og:description" content="一些套路的总结  分解问题的角度：固定某一个维度，尝试另一维度上的所有可能  可能是array的(i, j) pointers 可能是矩形的长与宽 可能是tree的每一个subtree，比如固定左子树，来遍历每一个可能的右子树 可能是情景题的每一对pair   求所有解的，一 般暴力上backtracking 如果问最短&#x2F;最少的, 先想BFS和DP 如果环相关，或者涉及到重复访问，可以使用DFS">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-05-05T00:52:27.000Z">
-<meta property="article:modified_time" content="2020-05-28T01:34:07.208Z">
+<meta property="og:image" content="http://yoursite.com/assets/14patterns/slidingWindow.png">
+<meta property="article:published_time" content="2020-05-27T23:21:38.000Z">
+<meta property="article:modified_time" content="2020-05-28T05:41:19.559Z">
 <meta property="article:author" content="Yiming">
-<meta property="article:tag" content="Try New Things">
+<meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/assets/14patterns/slidingWindow.png">
 
     
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
@@ -183,7 +185,7 @@
             
     
         <h1 class="article-title text-lg" itemprop="name">
-            First Blog And Records
+            LeetCode的一些总结
         </h1>
     
 
@@ -191,13 +193,10 @@
 
             <p class="article-meta mb-3 text-xs">
                 
-                    <i class="iconfont icon-star"></i>
-                    <span style="color: #7D26CD;">Top</span>
-                
                 <span class="article-date">
     <i class="iconfont icon-calendar-check"></i>
-	<a href="/First-Blog/" class="article-date">
-	  <time datetime="2020-05-05T00:52:27.000Z" itemprop="datePublished">May 4</time>
+	<a href="/LeetCode%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/" class="article-date">
+	  <time datetime="2020-05-27T23:21:38.000Z" itemprop="datePublished">May 27</time>
 	</a>
 </span>
 
@@ -206,18 +205,18 @@
                 
     <span class="article-tags">
     <i class="iconfont icon-tag"></i>
-    <a class="article-tag-link" href="/tags/Try-New-Things/" rel="tag">Try New Things</a>
+    <a class="article-tag-link" href="/tags/LeetCode/" rel="tag">LeetCode</a>
   </span>
 
 
                 <span class="_partial/post-comment"><i class="icon icon-comment"></i>
-                    <a href="/First-Blog/#comments" class="article-comment-link">
+                    <a href="/LeetCode%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/#comments" class="article-comment-link">
                         Comments
                     </a>
                 </span>
                 
     
-        <span class="post-wordcount" itemprop="wordCount">Word Count: 240(words)</span>
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 1.2k(words)</span>
     
     
 
@@ -225,48 +224,92 @@
             </p>
         </header>
         <div class="marked-body article-body">
-            <h2 id="Overview">Overview</h2>
-<p>This is my first blog. In this blog website, I want to update some my Leetcode training process, my learning experience and some other problems I met in practical environment. By doing this, I want to improve my skills of programming and find a great job with effort and fortune. Wish me luck!</p>
-<h2 id="Planning">Planning</h2>
-<p>During this summer, my plan is:</p>
+            <h3 id="一些套路的总结">一些套路的总结</h3>
+<ol>
+<li>分解问题的角度：固定某一个维度，尝试另一维度上的所有可能
 <ul>
-<li>Finish Leetcode problems with 12-score everyday.
-<ul>
-<li>Easy 3-score</li>
-<li>Medium 5-score</li>
-<li>Hard 7-score</li>
+<li>可能是array的(i, j) pointers</li>
+<li>可能是矩形的长与宽</li>
+<li>可能是tree的每一个subtree，比如固定左子树，来遍历每一个可能的右子树</li>
+<li>可能是情景题的每一对pair</li>
 </ul>
 </li>
-<li>Polish the Sokoban Game and push it to the App Store.</li>
-</ul>
-<h2 id="To-Do-List">To-Do List</h2>
-<p><a href="https://zhuanlan.zhihu.com/p/90664857" target="_blank" rel="noopener">LeetCode的14种模式-知乎</a></p>
-<p><a href="http://joshuablog.herokuapp.com/Leetcode-%E6%80%BB%E7%BB%93.html" target="_blank" rel="noopener">LeetCode总结</a></p>
-<p><a href="https://docs.google.com/document/d/1fD4Tqy0pXfJF60v2eYXjmx28pvMyeXxw21QrHWx06ag/edit#heading=h.1k6f201k2pl5" target="_blank" rel="noopener">LC题目总结</a></p>
-<h2 id="Recording">Recording</h2>
+<li>求所有解的，一 般暴力上backtracking</li>
+<li>如果问最短/最少的, 先想BFS和DP</li>
+<li>如果环相关，或者涉及到重复访问，可以使用DFS + visited state（或者记忆数组）</li>
+<li>如果问连通性, 静态靠DFS/BFS, 动态靠Union-Find</li>
+<li>如果不同的实例或者节点之间有依赖性, 想想Topologic order 和indegree</li>
+<li>DAG的万能套路：先进行DFS+memo, 再考虑如何转化成DP</li>
+<li>建图的时候想想vertex, edges/neighbors, cost分别是什么。如果出现cycle, 别忘了给vertex增加状态（visited）</li>
+<li>树相关, 记得考虑backtracking 和 pure recursion两条路</li>
+<li>遇到字符串/字典/char board相关的, Trie tree（前缀树）总是可以试试的</li>
+<li>Range里求最大/最小/sum等特征值, Segment tree（线段树）会是不错的选择</li>
+<li>Matrix和Array通常都是
 <ul>
-<li>5.4 LC5, LC10</li>
-<li>5.5 LC32, LC44, LC62, LC63, LC376</li>
-<li>5.6 LC55, LC45, LC134, LC135</li>
-<li>5.8 LC121, LC122, LC123, LC188</li>
-<li>5.9 LC309, LC714, LC3</li>
-<li>5.10 LC15, LC16, LC18</li>
-<li>5.11 LC19, LC26, LC27, LC94</li>
-<li>5.14 LC95, LC96, LC98, LC99</li>
-<li>5.15 LC100, LC102, LC103</li>
-<li>5.16 LC64, LC70, LC72, LC87, LC91, LC97, LC 115</li>
-<li>5.17 LC120, LC139, LC140, LC152, LC174, LC213, LC221, LC264</li>
-<li>5.18 LC125, LC214, LC409</li>
-<li>5.19 LC131, LC132, LC9, LC680, LC234</li>
-<li>5.20 LC336, LC479, LC516, LC647, LC730</li>
-<li>5.21 LC4</li>
-<li>5.22 LC29, LC33, LC34, LC35, LC50</li>
-<li>5.23 LC69, LC74,LC81, LC153, LC154, LC167</li>
-<li>5.24 LC107, LC111, LC126, LC127</li>
-<li>5.25 LC130, LC133, LC199, LC279, LC301, LC310, LC417</li>
-<li>5.26 LC513, LC515, LC529, LC542</li>
-<li>5.27 LC207, LC210, LC329</li>
+<li>Two Pointers</li>
+<li>Sliding Window(fixed &amp; not fixed)</li>
+<li>DP</li>
 </ul>
+</li>
+<li>DP题型往往是
+<ul>
+<li>问你可不可以啊, 数量有多少啊 -&gt; 使用bool类型的数组</li>
+<li>两个string上match来match去的 -&gt; 二维数组，两个维度分别为两个string的长度</li>
+<li>1D/2D array 相关</li>
+<li>博弈游戏 -&gt; 考虑可以往前多少步可以找到相关状态</li>
+</ul>
+</li>
+<li>破解DAG cycle想想哪个维度是具有单调性的: 常见的steps, directions, paths</li>
+<li>Reversed idea非常重要, 可能会帮助你破题: 最长可能是某种最短的反面, 最多可能是某种最少的反面, obstacle的反面是reachable, subarray的反面是array中的剩下元素, left的反面是right</li>
+<li>Look up别忘了HashMap/HashSet（<s>HashMap + DLL是常见hybrid数据结构</s>）</li>
+<li>找规律试试那些旁门左道: 单调Stack/双端Deque</li>
+<li>数组相关，而且涉及到元素之间大小比较的，可以先考虑是否可以先进行排序</li>
+<li>时空复杂度
+<ul>
+<li>backtracking相关, 想想branching factor和height</li>
+<li>DFS+memo/DP相关, 想想state数量, 以及每个state的cost</li>
+<li>tree相关, 总是要考虑balanced 和 single linked list的</li>
+<li>array/矩阵相关, 先数数你有多少个for loops</li>
+<li>binary search application相关, 别忘了check function开销</li>
+<li>stack/queue/deque相关, 常说的吃进去一次又吐出来一次</li>
+<li>Java的string是朵奇葩, string concatenation不是免费的 -&gt; O(n)</li>
+<li>没人知道n是什么, 先告诉别人m，n，k，V，E是什么</li>
+</ul>
+</li>
+<li>比较不同sol的trade offs
+<ul>
+<li>Time/Space complexity异同</li>
+<li>online/offline算法(online算法表示可以一直有数据传输进来的方法)</li>
+<li>pre-computation cost，预处理</li>
+<li>不同APIs的call frequency差异会导致不同的时间要求</li>
+<li>extension: 是否适用于generic parameters/stream input</li>
+<li>线程安全/large scale</li>
+</ul>
+</li>
+</ol>
+<h3 id="DP问题的一些总结">DP问题的一些总结</h3>
+<p>DP有六步，建议面试时写在白板上，一步都不能少，基本上你写出这些 implement起来也非常简单了</p>
+<ol>
+<li>definition: dp(i)或者dp(i, j) 表示什么含义，比如largest subarray sum ending at arr(i), and must include arr(i)，注意语言描述，包括还是不包括arr(i)/matrix(i, j)；</li>
+<li>induction rule: dp(i) 的 dependency 是怎么样的，依赖于dp(i-1) 还是 dp(i+1) 还是 dp(k) for all k &lt; i or all k &gt; i 等等，试着过几个小例子推导一下；</li>
+<li>base case: 往往是dp(0)，二维往往是第一行， 第一列，也就是dp(i, 0)和dp(0, j)；</li>
+<li>result: 往往是dp(n), max(dp(i)) 等等, 从definition 出发；</li>
+<li>filling order: 也就是你填dp表格的顺序，从induction rule 的 dependency出发，判断是从左到右还是从左上到右下；</li>
+<li>optimized: 分为时间和空间两方面：
+<ul>
+<li>时间的比较难，因为往往需要你重新define dp state 和 induction rule；</li>
+<li>空间比较简单，可以根据induction rule看出来，比如斐波那契数列: dp = dp(i-1) + dp(i-2), 那么dp(i) 只依赖于前两个元素，就不需要create 整个 dp array，两个variable即可，空间可以从O(n)优化到O(1)。</li>
+</ul>
+</li>
+</ol>
+<h3 id="14种常见模式">14种常见模式</h3>
+<h4 id="滑动窗口">滑动窗口</h4>
+<p>滑动窗口主要就是维护一个可以不断变化左右边界的子数组，如下图所示：</p>
+<p><img src="/assets/14patterns/slidingWindow.png" alt="Sliding Window"></p>
+<p>每一次该窗口左边界右移一格，右边界根据需要进行相应的变化，可能向左移动，可能向右移动，也可能不变。</p>
+<h3 id="参考">参考</h3>
+<p><a href="https://www.1point3acres.com/bbs/thread-436925-1-1.html" target="_blank" rel="noopener">关于算法的一点总结 | 一亩三分地</a></p>
+<p><a href="https://medium.com/hackernoon/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed" target="_blank" rel="noopener">14 Patterns to Ace Any Coding Interview Question</a></p>
 
         </div>
         
@@ -289,7 +332,7 @@
     <div class="toc-sidebar">
         <nav id="toc" class="article-toc">
             <h3 class="toc-title">Catalogue</h3>
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Overview"><span class="toc-number">1.</span> <span class="toc-text">Overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Planning"><span class="toc-number">2.</span> <span class="toc-text">Planning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#To-Do-List"><span class="toc-number">3.</span> <span class="toc-text">To-Do List</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Recording"><span class="toc-number">4.</span> <span class="toc-text">Recording</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一些套路的总结"><span class="toc-number">1.</span> <span class="toc-text">一些套路的总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DP问题的一些总结"><span class="toc-number">2.</span> <span class="toc-text">DP问题的一些总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14种常见模式"><span class="toc-number">3.</span> <span class="toc-text">14种常见模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#滑动窗口"><span class="toc-number">3.1.</span> <span class="toc-text">滑动窗口</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
         </nav>
     </div>
 </aside>
