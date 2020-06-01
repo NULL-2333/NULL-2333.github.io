@@ -12,8 +12,18 @@
 <meta property="og:description" content="一些套路的总结  分解问题的角度：固定某一个维度，尝试另一维度上的所有可能  可能是array的(i, j) pointers 可能是矩形的长与宽 可能是tree的每一个subtree，比如固定左子树，来遍历每一个可能的右子树 可能是情景题的每一对pair   求所有解的，一 般暴力上backtracking 如果问最短&#x2F;最少的, 先想BFS和DP 如果环相关，或者涉及到重复访问，可以使用DFS">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/assets/14patterns/slidingWindow.png">
+<meta property="og:image" content="http://yoursite.com/assets/14patterns/TwoPointer.png">
+<meta property="og:image" content="http://yoursite.com/assets/14patterns/Fast&amp;SlowPointer.png">
+<meta property="og:image" content="http://yoursite.com/assets/14patterns/MergeIntervals.png">
+<meta property="og:image" content="http://yoursite.com/assets/14patterns/CyclicSort.png">
+<meta property="og:image" content="http://yoursite.com/assets/14patterns/ReverseLinkedList.png">
+<meta property="og:image" content="http://yoursite.com/assets/14patterns/Subset.png">
+<meta property="og:image" content="http://yoursite.com/assets/14patterns/Binary.png">
+<meta property="og:image" content="http://yoursite.com/assets/14patterns/TopK.png">
+<meta property="og:image" content="http://yoursite.com/assets/14patterns/KMerge.png">
+<meta property="og:image" content="http://yoursite.com/assets/14patterns/Topological.png">
 <meta property="article:published_time" content="2020-05-27T08:21:38.000Z">
-<meta property="article:modified_time" content="2020-05-28T05:41:19.559Z">
+<meta property="article:modified_time" content="2020-06-01T14:37:31.583Z">
 <meta property="article:author" content="Yiming">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
@@ -216,7 +226,7 @@
                 </span>
                 
     
-        <span class="post-wordcount" itemprop="wordCount">Word Count: 1.2k(words)</span>
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 2.5k(words)</span>
     
     
 
@@ -307,6 +317,196 @@
 <p>滑动窗口主要就是维护一个可以不断变化左右边界的子数组，如下图所示：</p>
 <p><img src="/assets/14patterns/slidingWindow.png" alt="Sliding Window"></p>
 <p>每一次该窗口左边界右移一格，右边界根据需要进行相应的变化，可能向左移动，可能向右移动，也可能不变。</p>
+<h5 id="滑动窗口的问题的标志">滑动窗口的问题的标志</h5>
+<ol>
+<li>输入是线性的结构，比如链表、数组和字符串</li>
+<li>被要求求解最长或者最短的子字符串，子数组或者特定值</li>
+</ol>
+<h5 id="常见问题">常见问题</h5>
+<ol>
+<li>Maximum sum subarray of size ‘K’ (easy)</li>
+<li>Longest substring with ‘K’ distinct characters (medium)</li>
+<li>String anagrams (hard)</li>
+</ol>
+<h4 id="双指针">双指针</h4>
+<p>双指针主要是同时使用两个指针迭代遍历数据结构，直到其中一个或者两个指针达到特定状态。一般用于有序的数组或者链表，可以将原本的O(n^2)​的复杂度降低成​O(n)​。</p>
+<p><img src="/assets/14patterns/TwoPointer.png" alt="Two Pointer"></p>
+<h5 id="双指针问题的标志">双指针问题的标志</h5>
+<ol>
+<li>在有序数组或者链表中找到一系列满足特定条件的元素</li>
+<li>这一系列元素一般成对(pair)、成三对(triplet)或者子数组(subarray)</li>
+</ol>
+<h5 id="常见问题-2">常见问题</h5>
+<ol>
+<li>Squaring a sorted array (easy)</li>
+<li>Triplets that sum to zero (medium)</li>
+<li>Comparing strings that contain backspaces (medium)</li>
+</ol>
+<h4 id="快慢指针">快慢指针</h4>
+<p>又称Hare &amp; Tortoise algorithm，是一种使用不同行进速度的双指针的算法，经常用在处理环形链表的问题上。如果两个指针都在同一个环上，则快指针一定能和慢指针相遇。</p>
+<p><img src="/assets/14patterns/Fast&amp;SlowPointer.png" alt="Fast Slow Pointer"></p>
+<h5 id="快慢指针问题的标志">快慢指针问题的标志</h5>
+<ol>
+<li>一般是带环的链表或者数组</li>
+<li>需要知道特定元素的位置，或者整个链表的长度</li>
+<li>一般不用在单项链表等无法回头的结构中</li>
+</ol>
+<h5 id="主要问题">主要问题</h5>
+<ol>
+<li>Linked List Cycle (easy)</li>
+<li>Palindrome Linked List (medium)</li>
+<li>Cycle in a Circular Array (hard)</li>
+</ol>
+<h4 id="区间的合并">区间的合并</h4>
+<p>区间合并主要是用来处理相互重叠的区间问题的，主要有以下六种情况：</p>
+<p><img src="/assets/14patterns/MergeIntervals.png" alt="Merge Intervals"></p>
+<h5 id="区间合并问题的标志">区间合并问题的标志</h5>
+<ol>
+<li>需要产生只包含互斥区间的数组</li>
+<li>看到“overlapping intervals”的时候</li>
+</ol>
+<h5 id="主要问题-2">主要问题</h5>
+<ol>
+<li>Intervals Intersection (medium)</li>
+<li>Maximum CPU Load (hard)</li>
+</ol>
+<h4 id="循环排序">循环排序</h4>
+<p>主要处理数组中的数值限定在一定的区间的问题。</p>
+<p><img src="/assets/14patterns/CyclicSort.png" alt="Cyclic Sort"></p>
+<h5 id="循环排序问题的标志">循环排序问题的标志</h5>
+<ol>
+<li>涉及到排序好的数组，而且数值满足于一定的区间</li>
+<li>需要在排好序/翻转过的数组中，寻找丢失的/重复的/最小的元素</li>
+</ol>
+<h5 id="主要问题-3">主要问题</h5>
+<ol>
+<li>Find the Missing Number (easy)</li>
+<li>Find the Smallest Missing Positive Number (medium)</li>
+</ol>
+<h4 id="原地链表翻转">原地链表翻转</h4>
+<p>原地链表翻转就是要利用提供的链表的空间来对链表进行翻转操作，一般需要多个变量：</p>
+<ul>
+<li>current指向当前遍历到的节点</li>
+<li>previous指向上一个处理好的节点</li>
+</ul>
+<p><img src="/assets/14patterns/ReverseLinkedList.png" alt="Reverse Linked List"></p>
+<h5 id="原地链表翻转的标志">原地链表翻转的标志</h5>
+<ul>
+<li>被要求不使用格外空间进行链表的翻转</li>
+</ul>
+<h5 id="主要问题-4">主要问题</h5>
+<ol>
+<li>Reverse a Sub-list (medium)</li>
+<li>Reverse every K-element Sub-list (medium)</li>
+</ol>
+<h4 id="树BFS">树BFS</h4>
+<p>在树上使用BFS</p>
+<h5 id="树BFS的标志">树BFS的标志</h5>
+<ul>
+<li>需要一层一层的遍历树的时候</li>
+</ul>
+<h5 id="主要问题-5">主要问题</h5>
+<ol>
+<li>Binary Tree Level Order Traversal (easy)</li>
+<li>Zigzag Traversal (medium)</li>
+</ol>
+<h4 id="树DFS">树DFS</h4>
+<p>在树上使用DFS</p>
+<h5 id="树DFS的标志">树DFS的标志</h5>
+<ol>
+<li>需要按前中后序遍历树的时候</li>
+<li>需要搜索的节点离叶节点更近的时候</li>
+</ol>
+<h5 id="主要问题-6">主要问题</h5>
+<ol>
+<li>Sum of Path Numbers (medium)</li>
+<li>All Paths for a Sum (medium)</li>
+</ol>
+<h4 id="双堆">双堆</h4>
+<p>双堆，即一个最大堆一个最小堆，各存放数组的一般的内容</p>
+<h5 id="双堆问题的标志">双堆问题的标志</h5>
+<ol>
+<li>优先队列或者scheduling相关的问题</li>
+<li>找一组数中的最大/最小/中间的数</li>
+<li>具有二叉树结构的时候</li>
+</ol>
+<h5 id="主要问题-7">主要问题</h5>
+<ul>
+<li>Find the Median of a Number Stream (medium)</li>
+</ul>
+<h4 id="子集问题模式">子集问题模式</h4>
+<p><img src="/assets/14patterns/Subset.png" alt="Subset"></p>
+<h5 id="子集问题模式的标志">子集问题模式的标志</h5>
+<ul>
+<li>需要找数字的排列或者组合</li>
+</ul>
+<h5 id="主要问题-8">主要问题</h5>
+<ol>
+<li>Subsets With Duplicates (easy)</li>
+<li>String Permutations by changing case (medium)</li>
+</ol>
+<h4 id="二分">二分</h4>
+<p><img src="/assets/14patterns/Binary.png" alt="Binary"></p>
+<h5 id="主要问题-9">主要问题</h5>
+<ol>
+<li>Order-agnostic Binary Search (easy)</li>
+<li>Search in a Sorted Infinite Array (medium)</li>
+</ol>
+<h4 id="前k大的元素">前k大的元素</h4>
+<p>主要用于求解前k大/小的元素，一般采用最大堆或者最小堆的方式</p>
+<p><img src="/assets/14patterns/TopK.png" alt="TopK"></p>
+<h5 id="topK的标志">topK的标志</h5>
+<ol>
+<li>需要求解最大/最小/最频繁的元素</li>
+<li>通过排序定位特定元素</li>
+</ol>
+<h5 id="主要问题-10">主要问题</h5>
+<ol>
+<li>Top ‘K’ Numbers (easy)</li>
+<li>Top ‘K’ Frequent Numbers (medium)</li>
+</ol>
+<h4 id="K路归并">K路归并</h4>
+<p>主要涉及到k个有序数组的合并</p>
+<p><img src="/assets/14patterns/KMerge.png" alt="KMerge"></p>
+<h5 id="K路归并的标志">K路归并的标志</h5>
+<ol>
+<li>输入是排好序的数字，链表或者矩阵</li>
+<li>需要合并多个排好序的数组，或者是找到这些数组中的最小数</li>
+</ol>
+<h5 id="主要问题-11">主要问题</h5>
+<ol>
+<li>Merge K Sorted Lists (medium)</li>
+<li>K Pairs with Largest Sums (Hard)</li>
+</ol>
+<h4 id="拓扑排序">拓扑排序</h4>
+<ol>
+<li>初始化<br>
+a) 借助于HashMap将图保存成邻接表形式。<br>
+b) 找到所有的起点，用HashMap来帮助记录每个节点的入度</li>
+<li>创建图，找到每个节点的入度<br>
+a) 利用输入，把图建好，然后遍历一下图，将入度信息记录在HashMap中</li>
+<li>找所有的起点<br>
+a) 所有入度为0的节点，都是有效的起点，而且我们讲他们都加入到一个队列中</li>
+<li>排序<br>
+a) 对每个起点，执行以下步骤<br>
+—i) 把它加到结果的顺序中<br>
+— ii)将其在图中的孩子节点取到<br>
+— iii)将其孩子的入度减少1<br>
+— iv)如果孩子的入度变为0，则改孩子节点成为起点，将其加入队列中<br>
+b) 重复（a）过程，直到起点队列为空。</li>
+</ol>
+<p><img src="/assets/14patterns/Topological.png" alt="Topological"></p>
+<h5 id="拓扑排序的主要标志">拓扑排序的主要标志</h5>
+<ol>
+<li>需要处理的图是无环图</li>
+<li>需要以一定的顺序更新节点</li>
+<li>需要处理的数据输入遵循某种规律</li>
+</ol>
+<h5 id="主要问题-12">主要问题</h5>
+<ol>
+<li>Task scheduling (medium)</li>
+<li>Minimum height of a tree (hard)</li>
+</ol>
 <h3 id="参考">参考</h3>
 <p><a href="https://www.1point3acres.com/bbs/thread-436925-1-1.html" target="_blank" rel="noopener">关于算法的一点总结 | 一亩三分地</a></p>
 <p><a href="https://medium.com/hackernoon/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed" target="_blank" rel="noopener">14 Patterns to Ace Any Coding Interview Question</a></p>
@@ -332,7 +532,7 @@
     <div class="toc-sidebar">
         <nav id="toc" class="article-toc">
             <h3 class="toc-title">Catalogue</h3>
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一些套路的总结"><span class="toc-number">1.</span> <span class="toc-text">一些套路的总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DP问题的一些总结"><span class="toc-number">2.</span> <span class="toc-text">DP问题的一些总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14种常见模式"><span class="toc-number">3.</span> <span class="toc-text">14种常见模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#滑动窗口"><span class="toc-number">3.1.</span> <span class="toc-text">滑动窗口</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一些套路的总结"><span class="toc-number">1.</span> <span class="toc-text">一些套路的总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DP问题的一些总结"><span class="toc-number">2.</span> <span class="toc-text">DP问题的一些总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14种常见模式"><span class="toc-number">3.</span> <span class="toc-text">14种常见模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#滑动窗口"><span class="toc-number">3.1.</span> <span class="toc-text">滑动窗口</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#滑动窗口的问题的标志"><span class="toc-number">3.1.1.</span> <span class="toc-text">滑动窗口的问题的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#常见问题"><span class="toc-number">3.1.2.</span> <span class="toc-text">常见问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#双指针"><span class="toc-number">3.2.</span> <span class="toc-text">双指针</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#双指针问题的标志"><span class="toc-number">3.2.1.</span> <span class="toc-text">双指针问题的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#常见问题-2"><span class="toc-number">3.2.2.</span> <span class="toc-text">常见问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#快慢指针"><span class="toc-number">3.3.</span> <span class="toc-text">快慢指针</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#快慢指针问题的标志"><span class="toc-number">3.3.1.</span> <span class="toc-text">快慢指针问题的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题"><span class="toc-number">3.3.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#区间的合并"><span class="toc-number">3.4.</span> <span class="toc-text">区间的合并</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#区间合并问题的标志"><span class="toc-number">3.4.1.</span> <span class="toc-text">区间合并问题的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-2"><span class="toc-number">3.4.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#循环排序"><span class="toc-number">3.5.</span> <span class="toc-text">循环排序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#循环排序问题的标志"><span class="toc-number">3.5.1.</span> <span class="toc-text">循环排序问题的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-3"><span class="toc-number">3.5.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#原地链表翻转"><span class="toc-number">3.6.</span> <span class="toc-text">原地链表翻转</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#原地链表翻转的标志"><span class="toc-number">3.6.1.</span> <span class="toc-text">原地链表翻转的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-4"><span class="toc-number">3.6.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#树BFS"><span class="toc-number">3.7.</span> <span class="toc-text">树BFS</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#树BFS的标志"><span class="toc-number">3.7.1.</span> <span class="toc-text">树BFS的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-5"><span class="toc-number">3.7.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#树DFS"><span class="toc-number">3.8.</span> <span class="toc-text">树DFS</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#树DFS的标志"><span class="toc-number">3.8.1.</span> <span class="toc-text">树DFS的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-6"><span class="toc-number">3.8.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#双堆"><span class="toc-number">3.9.</span> <span class="toc-text">双堆</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#双堆问题的标志"><span class="toc-number">3.9.1.</span> <span class="toc-text">双堆问题的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-7"><span class="toc-number">3.9.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#子集问题模式"><span class="toc-number">3.10.</span> <span class="toc-text">子集问题模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#子集问题模式的标志"><span class="toc-number">3.10.1.</span> <span class="toc-text">子集问题模式的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-8"><span class="toc-number">3.10.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二分"><span class="toc-number">3.11.</span> <span class="toc-text">二分</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-9"><span class="toc-number">3.11.1.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#前k大的元素"><span class="toc-number">3.12.</span> <span class="toc-text">前k大的元素</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#topK的标志"><span class="toc-number">3.12.1.</span> <span class="toc-text">topK的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-10"><span class="toc-number">3.12.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#K路归并"><span class="toc-number">3.13.</span> <span class="toc-text">K路归并</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#K路归并的标志"><span class="toc-number">3.13.1.</span> <span class="toc-text">K路归并的标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-11"><span class="toc-number">3.13.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拓扑排序"><span class="toc-number">3.14.</span> <span class="toc-text">拓扑排序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#拓扑排序的主要标志"><span class="toc-number">3.14.1.</span> <span class="toc-text">拓扑排序的主要标志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#主要问题-12"><span class="toc-number">3.14.2.</span> <span class="toc-text">主要问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
         </nav>
     </div>
 </aside>
