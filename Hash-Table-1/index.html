@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2019/12/18/e2.png">
 <meta property="og:image" content="https://assets.leetcode.com/uploads/2019/12/18/e3.png">
 <meta property="article:published_time" content="2020-06-04T14:17:00.000Z">
-<meta property="article:modified_time" content="2020-06-06T13:47:50.046Z">
+<meta property="article:modified_time" content="2020-06-07T13:11:17.873Z">
 <meta property="article:author" content="Yiming">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="Hash Table">
@@ -222,7 +222,7 @@
                 </span>
                 
     
-        <span class="post-wordcount" itemprop="wordCount">Word Count: 3.3k(words)</span>
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 4.8k(words)</span>
     
     
 
@@ -428,57 +428,136 @@ A sudoku puzzle…</p>
 </blockquote>
 </details>
 <details><summary>Think</summary>
+<p>首先判断结果的正负，然后将除数和被除数都转变为long型的正数，求出整数部分和余数remainder。</p>
+<p>如果remainder = 0，说明为整数，直接返回即可；</p>
+<p>如果remainder不为0，则建立一个hash table，存放每一个remainder对应在res的什么位置；当remainder不等于0时循环：如果此时hash table中存在当前remainder，说明之前遇到过这个remainder，也就是产生了循环，因此直接去hash table中找上一次遇到这个remainder的开始的位置，在那个地方插入左括号，res最右端插入右括号，返回即可；否则，记录当前remainder的位置，remainder乘10，然后将这一位的结果存入res，remainder变成这一位除完的余数。</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">fractionToDecimal</span><span class="params">(<span class="keyword">int</span> numerator, <span class="keyword">int</span> denominator)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(numerator == <span class="number">0</span>) <span class="keyword">return</span> <span class="string">"0"</span>;</span><br><span class="line">    <span class="built_in">string</span> res = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">if</span>(numerator &lt; <span class="number">0</span> ^ denominator &lt; <span class="number">0</span>) res += <span class="string">"-"</span>;</span><br><span class="line">    <span class="keyword">long</span> dividend = <span class="built_in">abs</span>(numerator);</span><br><span class="line">    <span class="keyword">long</span> divisor = <span class="built_in">abs</span>(denominator);</span><br><span class="line">    res += to_string(dividend / divisor);</span><br><span class="line">    <span class="keyword">long</span> reminder = dividend % divisor;</span><br><span class="line">    <span class="keyword">if</span>(reminder == <span class="number">0</span>) <span class="keyword">return</span> res;</span><br><span class="line">    res += <span class="string">"."</span>;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">long</span>, <span class="keyword">int</span>&gt; m;</span><br><span class="line">    <span class="keyword">while</span>(reminder != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(m.count(reminder))&#123;</span><br><span class="line">            res.insert(res.<span class="built_in">begin</span>() + m[reminder], <span class="string">'('</span>);</span><br><span class="line">            res += <span class="string">")"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        m[reminder] = res.<span class="built_in">size</span>();</span><br><span class="line">        reminder *= <span class="number">10</span>;</span><br><span class="line">        res += to_string(reminder / divisor);</span><br><span class="line">        reminder = reminder % divisor;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-<h3 id="LC">LC</h3>
+<h3 id="LC187-Repeated-DNA-Sequences">LC187 Repeated DNA Sequences</h3>
 <details><summary>Problem</summary>
+<blockquote>
+<p>All DNA is composed of a series of nucleotides abbreviated as A, C, G, and T, for example: “ACGAATTCCG”. When studying DNA, it is sometimes useful to identify repeated sequences within the DNA.</p>
+<p>Write a function to find all the 10-letter-long sequences (substrings) that occur more than once in a DNA molecule.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT&quot;</span><br><span class="line"></span><br><span class="line">Output: [&quot;AAAAACCCCC&quot;, &quot;CCCCCAAAAA&quot;]</span><br></pre></td></tr></table></figure>
+</blockquote>
 </details>
 <details><summary>Think</summary>
+<p>滑动窗口+hash table，注意substr的复杂度为O(L)，其中L为截取的长度。</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">findRepeatedDnaSequences</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = s.<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; strSet;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt; res;</span><br><span class="line">    <span class="built_in">string</span> str = s.substr(<span class="number">0</span>, <span class="number">10</span>);</span><br><span class="line">    strSet.insert(str);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n - <span class="number">10</span>; i++)&#123;</span><br><span class="line">        str.erase(str.<span class="built_in">begin</span>());</span><br><span class="line">        str += s[i + <span class="number">9</span>];</span><br><span class="line">        <span class="keyword">if</span>(strSet.count(str)) res.insert(str);</span><br><span class="line">        <span class="keyword">else</span> strSet.insert(str);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">ans</span><span class="params">(res.<span class="built_in">begin</span>(), res.<span class="built_in">end</span>())</span></span>;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-<h3 id="LC-2">LC</h3>
+<h3 id="LC204-Count-Primes">LC204 Count Primes</h3>
 <details><summary>Problem</summary>
+<blockquote>
+<p>Count the number of prime numbers less than a non-negative number, *<strong>n*</strong>.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: 10</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7.</span><br></pre></td></tr></table></figure>
+</blockquote>
 </details>
 <details><summary>Think</summary>
+<p>设定一个长度为n的数组，每一位表示当前下标对应的数字处是否为质数。遍历数组，如果当前数字为质数，则将所有它的倍数都置为true。统计这个数组中false的数目即可。</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">countPrimes</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n &lt;= <span class="number">2</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; <span class="title">passed</span><span class="params">(n, <span class="literal">false</span>)</span></span>;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> upper = <span class="built_in">sqrt</span>(n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">3</span>; i &lt; n; i += <span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!passed[i])&#123;</span><br><span class="line">            sum++;</span><br><span class="line">            <span class="keyword">if</span>(i &gt; upper) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i * i; j &lt; n; j += i)&#123;</span><br><span class="line">                passed[j] = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-<h3 id="LC-3">LC</h3>
+<h3 id="LC205-Isomorphic-Strings">LC205 Isomorphic Strings</h3>
 <details><summary>Problem</summary>
+<blockquote>
+<p>Given two strings *<strong>s*</strong> and *<strong>t*</strong>, determine if they are isomorphic.</p>
+<p>Two strings are isomorphic if the characters in *<strong>s*</strong> can be replaced to get *<strong>t*</strong>.</p>
+<p>All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character but a character may map to itself.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;egg&quot;, t &#x3D; &quot;add&quot;</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;foo&quot;, t &#x3D; &quot;bar&quot;</span><br><span class="line">Output: false</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;paper&quot;, t &#x3D; &quot;title&quot;</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong><br>
+You may assume both *<strong>s*</strong> and *<strong>t*</strong> have the same length.</p>
+</blockquote>
 </details>
 <details><summary>Think</summary>
+<p>首先建立数组m1和m2，其包含了s和t里面的每个字符串和下标的对应关系。如果当前字符串s在m1中对应的下标和字符串t在m2中对应的下标不一致，则说明这当中某一个字符出现在了别的地方，也就是不满足要求的一一对应的关系，返回false，否则记录当前的字符和下标。</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isIsomorphic</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> t)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = s.<span class="built_in">size</span>();</span><br><span class="line">    vector&lt;int&gt; m1(256, -1), m2(256, -1);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(m1[s[i]] != m2[t[i]]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        m1[s[i]] = i;</span><br><span class="line">        m2[t[i]] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-<h3 id="LC-4">LC</h3>
+<h3 id="LC217-Contains-Duplicate">LC217 Contains Duplicate</h3>
 <details><summary>Problem</summary>
+<blockquote>
+<p>Given an array of integers, find if the array contains any duplicates.</p>
+<p>Your function should return true if any value appears at least twice in the array, and it should return false if every element is distinct.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,2,3,1]</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,2,3,4]</span><br><span class="line">Output: false</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [1,1,1,3,3,4,3,2,4,2]</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure>
+</blockquote>
 </details>
 <details><summary>Think</summary>
+<p>hash table</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">containsDuplicate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> n: nums)&#123;</span><br><span class="line">        <span class="keyword">if</span>(s.count(n)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        s.insert(n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-<h3 id="LC-5">LC</h3>
+<h3 id="LC219-Contains-Duplicate-II">LC219 Contains Duplicate II</h3>
 <details><summary>Problem</summary>
+<blockquote>
+<p>Given an array of integers and an integer <em>k</em>, find out whether there are two distinct indices <em>i</em> and <em>j</em> in the array such that <strong>nums[i] = nums[j]</strong> and the <strong>absolute</strong> difference between <em>i</em> and <em>j</em> is at most <em>k</em>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums &#x3D; [1,2,3,1], k &#x3D; 3</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums &#x3D; [1,0,1,1], k &#x3D; 1</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums &#x3D; [1,2,3,1,2,3], k &#x3D; 2</span><br><span class="line">Output: false</span><br></pre></td></tr></table></figure>
+</blockquote>
 </details>
 <details><summary>Think</summary>
+<p>Hash table存放当前数字和下标</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">containsNearbyDuplicate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; s;</span><br><span class="line">        <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s.count(nums[i]))&#123;</span><br><span class="line">                <span class="keyword">if</span>(i - s[nums[i]] &lt;= k) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            s[nums[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 </details>
-<h3 id="LC-6">LC</h3>
+<h3 id="LC242-Valid-Anagram">LC242 Valid Anagram</h3>
 <details><summary>Problem</summary>
+<blockquote>
+<p>Given two strings <em>s</em> and <em>t</em> , write a function to determine if <em>t</em> is an anagram of <em>s</em>.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;anagram&quot;, t &#x3D; &quot;nagaram&quot;</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: s &#x3D; &quot;rat&quot;, t &#x3D; &quot;car&quot;</span><br><span class="line">Output: false</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong><br>
+You may assume the string contains only lowercase alphabets.</p>
+<p><strong>Follow up:</strong><br>
+What if the inputs contain unicode characters? How would you adapt your solution to such case?</p>
+</blockquote>
 </details>
 <details><summary>Think</summary>
+<p>Hash table，分别遍历s和t，判断是否还有余量</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isAnagram</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> t)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(s.<span class="built_in">size</span>() != t.<span class="built_in">size</span>()) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">char</span>, <span class="keyword">int</span>&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> c: s)&#123;</span><br><span class="line">        m[c]++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> c: t)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!m.count(c)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            m[c]--;</span><br><span class="line">            <span class="keyword">if</span>(m[c] &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-<h3 id="LC-7">LC</h3>
+<h3 id="LC274-H-Index">LC274 H-Index</h3>
 <details><summary>Problem</summary>
+<blockquote>
+<p>Given an array of citations (each citation is a non-negative integer) of a researcher, write a function to compute the researcher’s h-index.</p>
+<p>According to the <a href="https://en.wikipedia.org/wiki/H-index" target="_blank" rel="noopener">definition of h-index on Wikipedia</a>: “A scientist has index <em>h</em> if <em>h</em> of his/her <em>N</em>papers have <strong>at least</strong> <em>h</em> citations each, and the other <em>N − h</em> papers have <strong>no more than</strong> <em>h</em>citations each.”</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input: citations &#x3D; [3,0,6,1,5]</span><br><span class="line">Output: 3 </span><br><span class="line">Explanation: [3,0,6,1,5] means the researcher has 5 papers in total and each of them had </span><br><span class="line">             received 3, 0, 6, 1, 5 citations respectively. </span><br><span class="line">             Since the researcher has 3 papers with at least 3 citations each and the remaining </span><br><span class="line">             two with no more than 3 citations each, her h-index is 3.</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong> If there are several possible values for <em>h</em>, the maximum one is taken as the h-index.</p>
+</blockquote>
 </details>
 <details><summary>Think</summary>
+<p>首先对论文进行升序排序，设当前遍历到的论文为i，则每次判断第n - 1 - i篇论文（即第i大的论文）的引用数是否大于i，如果大于，则说明要找的临界点还在后面，i++，否则返回i即可。</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hIndex</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; citations)</span> </span>&#123;</span><br><span class="line">    sort(citations.<span class="built_in">begin</span>(), citations.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">int</span> n = citations.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; n &amp;&amp; citations[n - <span class="number">1</span> - i] &gt; i) i++;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
 
         </div>
@@ -502,7 +581,7 @@ A sudoku puzzle…</p>
     <div class="toc-sidebar">
         <nav id="toc" class="article-toc">
             <h3 class="toc-title">Catalogue</h3>
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC1-Two-Sum"><span class="toc-number">1.</span> <span class="toc-text">LC1 Two Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC30-Substring-with-Concatenation-of-All-Words"><span class="toc-number">2.</span> <span class="toc-text">LC30 Substring with Concatenation of All Words</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC36-Valid-Sudoku"><span class="toc-number">3.</span> <span class="toc-text">LC36 Valid Sudoku</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC37-Sudoku-Solver"><span class="toc-number">4.</span> <span class="toc-text">LC37 Sudoku Solver</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC76-Minimum-Window-Substring"><span class="toc-number">5.</span> <span class="toc-text">LC76 Minimum Window Substring</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC138-Copy-List-with-Random-Pointer"><span class="toc-number">6.</span> <span class="toc-text">LC138 Copy List with Random Pointer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC149-Max-Points-on-a-Line"><span class="toc-number">7.</span> <span class="toc-text">LC149 Max Points on a Line</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC166-Fraction-to-Recurring-Decimal"><span class="toc-number">8.</span> <span class="toc-text">LC166 Fraction to Recurring Decimal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC"><span class="toc-number">9.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-2"><span class="toc-number">10.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-3"><span class="toc-number">11.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-4"><span class="toc-number">12.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-5"><span class="toc-number">13.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-6"><span class="toc-number">14.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-7"><span class="toc-number">15.</span> <span class="toc-text">LC</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC1-Two-Sum"><span class="toc-number">1.</span> <span class="toc-text">LC1 Two Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC30-Substring-with-Concatenation-of-All-Words"><span class="toc-number">2.</span> <span class="toc-text">LC30 Substring with Concatenation of All Words</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC36-Valid-Sudoku"><span class="toc-number">3.</span> <span class="toc-text">LC36 Valid Sudoku</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC37-Sudoku-Solver"><span class="toc-number">4.</span> <span class="toc-text">LC37 Sudoku Solver</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC76-Minimum-Window-Substring"><span class="toc-number">5.</span> <span class="toc-text">LC76 Minimum Window Substring</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC138-Copy-List-with-Random-Pointer"><span class="toc-number">6.</span> <span class="toc-text">LC138 Copy List with Random Pointer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC149-Max-Points-on-a-Line"><span class="toc-number">7.</span> <span class="toc-text">LC149 Max Points on a Line</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC166-Fraction-to-Recurring-Decimal"><span class="toc-number">8.</span> <span class="toc-text">LC166 Fraction to Recurring Decimal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC187-Repeated-DNA-Sequences"><span class="toc-number">9.</span> <span class="toc-text">LC187 Repeated DNA Sequences</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC204-Count-Primes"><span class="toc-number">10.</span> <span class="toc-text">LC204 Count Primes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC205-Isomorphic-Strings"><span class="toc-number">11.</span> <span class="toc-text">LC205 Isomorphic Strings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC217-Contains-Duplicate"><span class="toc-number">12.</span> <span class="toc-text">LC217 Contains Duplicate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC219-Contains-Duplicate-II"><span class="toc-number">13.</span> <span class="toc-text">LC219 Contains Duplicate II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC242-Valid-Anagram"><span class="toc-number">14.</span> <span class="toc-text">LC242 Valid Anagram</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC274-H-Index"><span class="toc-number">15.</span> <span class="toc-text">LC274 H-Index</span></a></li></ol>
         </nav>
     </div>
 </aside>
