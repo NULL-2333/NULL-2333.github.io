@@ -12,7 +12,7 @@
 <meta property="og:description" content="LC209 Minimum Size Subarray Sum Problem  Given an array of n positive integers and a positive integer s, find the minimal length of a contiguous subarray of which the sum ≥ s. If there isn’t one, retu">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-06-16T08:48:41.000Z">
-<meta property="article:modified_time" content="2020-06-17T09:02:35.417Z">
+<meta property="article:modified_time" content="2020-06-20T00:00:54.478Z">
 <meta property="article:author" content="Yiming">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="Binary Search">
@@ -48,7 +48,7 @@
         
         <div class="profile sm:text-center md:px-1 lg:px-3 sm:pb-4 sm:pt-6">
             <a id="avatar" role="link" href="https://null-2333.github.io" class="inline-block lg:w-16 lg:h-16 w-8 h-8 m-2" target="_self" rel="noopener" rel="noreferrer" >
-                <img src="/images/head2.jpeg" class="rounded-full" alt="avatar">
+                <img src="/images/head1.jpeg" class="rounded-full" alt="avatar">
             </a>
             <h2 id="name" class="hidden lg:block" style="font-size: 24px; font-weight: 600; padding-bottom: 10px">Yiming</h2>
             <h3 id="title" class="hidden xl:block">Student in USC &amp; Coder</h3>
@@ -215,7 +215,7 @@
                 </span>
                 
     
-        <span class="post-wordcount" itemprop="wordCount">Word Count: 1.1k(words)</span>
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 2.8k(words)</span>
     
     
 
@@ -329,44 +329,127 @@ What if the BST is modified (insert/delete operations) often and you need to fin
 </blockquote>
 </details>
 <details><summary>Think</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<p>DP，dp[i] = max(dp[j] + 1) 对所有满足nums[j] &lt; nums[i]且j &lt; i的元素</p>
+<ul>
+<li>Approach 2</li>
+</ul>
+<p>二分，首先建立一个数组存放最长递增子序列的结果，对于每一个数字，查找这个数组中第一个大于等于当前数字的数组的下标，并用当前数字去替换（这样替换只会使得可能的最长子序列变长而不可能变短），如果没有这样的下标，则说明需要在数组的最后添加一位，最后返回该数组的总长度即可。</p>
 </details>
 <details><summary>Code</summary>
+<ul>
+<li>Approach 1</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">dp</span><span class="params">(n, <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[j] &lt; nums[i])&#123;</span><br><span class="line">                dp[i] = <span class="built_in">max</span>(dp[i], dp[j] + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> cnt: dp) res = <span class="built_in">max</span>(res, cnt);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Approach 2</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = nums.<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dp;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num: nums)&#123;</span><br><span class="line">        <span class="keyword">auto</span> i = lower_bound(dp.<span class="built_in">begin</span>(), dp.<span class="built_in">end</span>(), num);</span><br><span class="line">        <span class="keyword">if</span>(i == dp.<span class="built_in">end</span>()) dp.push_back(num);</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> idx = i - dp.<span class="built_in">begin</span>();</span><br><span class="line">            dp[idx] = num;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp.<span class="built_in">size</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-<h3 id="LC">LC</h3>
+<h3 id="LC349-Intersection-of-Two-Arrays">LC349 Intersection of Two Arrays</h3>
 <details><summary>Problem</summary>
+<blockquote>
+<p>Given two arrays, write a function to compute their intersection.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums1 &#x3D; [1,2,2,1], nums2 &#x3D; [2,2]</span><br><span class="line">Output: [2]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums1 &#x3D; [4,9,5], nums2 &#x3D; [9,4,9,8,4]</span><br><span class="line">Output: [9,4]</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ul>
+<li>Each element in the result must be unique.</li>
+<li>The result can be in any order.</li>
+</ul>
+</blockquote>
 </details>
 <details><summary>Think</summary>
+<p>hash set</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">intersection</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">map</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num: nums1) <span class="built_in">map</span>.insert(num);</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num: nums2)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">map</span>.count(num)) res.insert(num);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">ans</span><span class="params">(res.<span class="built_in">begin</span>(), res.<span class="built_in">end</span>())</span></span>;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-<h3 id="LC-2">LC</h3>
+<h3 id="LC350-Intersection-of-Two-Arrays-II">LC350 Intersection of Two Arrays II</h3>
 <details><summary>Problem</summary>
+<blockquote>
+<p>Given two arrays, write a function to compute their intersection.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums1 &#x3D; [1,2,2,1], nums2 &#x3D; [2,2]</span><br><span class="line">Output: [2,2]</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: nums1 &#x3D; [4,9,5], nums2 &#x3D; [9,4,9,8,4]</span><br><span class="line">Output: [4,9]</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ul>
+<li>Each element in the result should appear as many times as it shows in both arrays.</li>
+<li>The result can be in any order.</li>
+</ul>
+<p><strong>Follow up:</strong></p>
+<ul>
+<li>What if the given array is already sorted? How would you optimize your algorithm?</li>
+<li>What if <em>nums1</em>’s size is small compared to <em>nums2</em>’s size? Which algorithm is better?</li>
+<li>What if elements of <em>nums2</em> are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?</li>
+</ul>
+</blockquote>
 </details>
 <details><summary>Think</summary>
+<p>类似上一题目，用hash map</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">intersect</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; <span class="built_in">map</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num: nums1) <span class="built_in">map</span>[num]++;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num: nums2)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">map</span>.count(num) &amp;&amp; <span class="built_in">map</span>[num] &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            res.push_back(num);</span><br><span class="line">            <span class="built_in">map</span>[num]--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-<h3 id="LC-3">LC</h3>
+<h3 id="LC352-Data-Stream-as-Disjoint-Intervals">LC352 Data Stream as Disjoint Intervals</h3>
 <details><summary>Problem</summary>
+<blockquote>
+<p>Given a data stream input of non-negative integers a1, a2, …, an, …, summarize the numbers seen so far as a list of disjoint intervals.</p>
+<p>For example, suppose the integers from the data stream are 1, 3, 7, 2, 6, …, then the summary will be:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[1, 1]</span><br><span class="line">[1, 1], [3, 3]</span><br><span class="line">[1, 1], [3, 3], [7, 7]</span><br><span class="line">[1, 3], [7, 7]</span><br><span class="line">[1, 3], [6, 7]</span><br></pre></td></tr></table></figure>
+<p><strong>Follow up:</strong></p>
+<p>What if there are lots of merges and the number of disjoint intervals are small compared to the data stream’s size?</p>
+</blockquote>
 </details>
 <details><summary>Think</summary>
+<p>添加数字的时候首先求出当前数字在intervals数组中的位置，然后判断其是否和查找到的位置的前一个区间有重叠部分，如果有，则取得前一个区间，从这一个区间开始进行合并。每当遇到当前区间和val可合并，则更新start和end（表示合并后的区间），然后将当前区间移除。最后插入这个一个区间即可。</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SummaryRanges</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; intervals;</span><br><span class="line">    <span class="comment">/** Initialize your data structure here. */</span></span><br><span class="line">    SummaryRanges() &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">addNum</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> cmp = [](<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; a, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; b) &#123; <span class="keyword">return</span> a[<span class="number">0</span>] &lt; b[<span class="number">0</span>]; &#125;;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cur = &#123;val, val&#125;;</span><br><span class="line">        <span class="keyword">auto</span> it = lower_bound(intervals.<span class="built_in">begin</span>(), intervals.<span class="built_in">end</span>(), cur, cmp);</span><br><span class="line">        <span class="keyword">if</span>(it != intervals.<span class="built_in">begin</span>() &amp;&amp; (*(it - <span class="number">1</span>))[<span class="number">1</span>] + <span class="number">1</span> &gt;= val) it--;</span><br><span class="line">        <span class="keyword">int</span> start = val, <span class="built_in">end</span> = val;</span><br><span class="line">        <span class="keyword">while</span>(it != intervals.<span class="built_in">end</span>() &amp;&amp; val + <span class="number">1</span> &gt;= (*it)[<span class="number">0</span>] &amp;&amp; val - <span class="number">1</span> &lt;= (*it)[<span class="number">1</span>])&#123;</span><br><span class="line">            start = <span class="built_in">min</span>(start, (*it)[<span class="number">0</span>]);</span><br><span class="line">            <span class="built_in">end</span> = <span class="built_in">max</span>(<span class="built_in">end</span>, (*it)[<span class="number">1</span>]);</span><br><span class="line">            it = intervals.erase(it);</span><br><span class="line">        &#125;</span><br><span class="line">        intervals.insert(it, &#123;start, <span class="built_in">end</span>&#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">getIntervals</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> intervals;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 </details>
-<h3 id="LC-4">LC</h3>
+<h3 id="LC354-Russian-Doll-Envelopes">LC354 Russian Doll Envelopes</h3>
 <details><summary>Problem</summary>
+<blockquote>
+<p>You have a number of envelopes with widths and heights given as a pair of integers <code>(w, h)</code>. One envelope can fit into another if and only if both the width and height of one envelope is greater than the width and height of the other envelope.</p>
+<p>What is the maximum number of envelopes can you Russian doll? (put one inside other)</p>
+<p><strong>Note:</strong><br>
+Rotation is not allowed.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [[5,4],[6,4],[6,7],[2,3]]</span><br><span class="line">Output: 3 </span><br><span class="line">Explanation: The maximum number of envelopes you can Russian doll is 3 ([2,3] &#x3D;&gt; [5,4] &#x3D;&gt; [6,7]).</span><br></pre></td></tr></table></figure>
+</blockquote>
 </details>
 <details><summary>Think</summary>
+<p>将envelops数组按照第一位递增第二位递减的顺序排好，然后在所有的第二位组成的序列中查找最长递增子序列即可。因为此时只要在第二位上递增，第一位一定比上一个要小。</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; a, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; b)</span> <span class="keyword">const</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(a[<span class="number">0</span>] &lt; b[<span class="number">0</span>]) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(a[<span class="number">0</span>] &gt; b[<span class="number">0</span>]) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> a[<span class="number">1</span>] &gt; b[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125; cmp;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxEnvelopes</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; envelopes)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(envelopes.empty()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    sort(envelopes.<span class="built_in">begin</span>(), envelopes.<span class="built_in">end</span>(), cmp);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; lis;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> e: envelopes)&#123;</span><br><span class="line">        <span class="keyword">auto</span> it = lower_bound(lis.<span class="built_in">begin</span>(), lis.<span class="built_in">end</span>(), e[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">if</span>(it == lis.<span class="built_in">end</span>()) lis.push_back(e[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> idx = it - lis.<span class="built_in">begin</span>();</span><br><span class="line">            lis[idx] = e[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> lis.<span class="built_in">size</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
-<h3 id="LC-5">LC</h3>
+<h3 id="LC363-Max-Sum-of-Rectangle-No-Larger-Than-K">LC363 Max Sum of Rectangle No Larger Than K</h3>
 <details><summary>Problem</summary>
+<blockquote>
+<p>Given a non-empty 2D matrix <em>matrix</em> and an integer <em>k</em>, find the max sum of a rectangle in the <em>matrix</em> such that its sum is no larger than <em>k</em>.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: matrix &#x3D; [[1,0,1],[0,-2,3]], k &#x3D; 2</span><br><span class="line">Output: 2 </span><br><span class="line">Explanation: Because the sum of rectangle [[0, 1], [-2, 3]] is 2,</span><br><span class="line">             and 2 is the max number no larger than k (k &#x3D; 2).</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ol>
+<li>The rectangle inside the matrix must have an area &gt; 0.</li>
+<li>What if the number of rows is much larger than the number of columns?</li>
+</ol>
+</blockquote>
 </details>
 <details><summary>Think</summary>
+<p>首先对每一列，求这一列到最后某一列处的每一行的和，即sum数组，然后从上往下进行累加。首先设定一个set s存放累加和，对于每一个累加和curSum，查找第一个大于等于curSum - k的值，即这两个curSum对应的下标之间即为要求的最大的矩阵和的范围，如果存在则更新res，最后将当前累加和插入s中。</p>
 </details>
 <details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxSumSubmatrix</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(matrix.empty() || matrix[<span class="number">0</span>].empty()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> m = matrix.<span class="built_in">size</span>(), n = matrix[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> res = INT_MIN;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">sum</span><span class="params">(m)</span></span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt; n; j++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> t = <span class="number">0</span>; t &lt; m; t++)&#123;</span><br><span class="line">                sum[t] += matrix[t][j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> curSum = <span class="number">0</span>;</span><br><span class="line">            <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; s;</span><br><span class="line">            s.insert(<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> a: sum)&#123;</span><br><span class="line">                curSum += a;</span><br><span class="line">                <span class="keyword">auto</span> it = s.lower_bound(curSum - k);</span><br><span class="line">                <span class="keyword">if</span>(it != s.<span class="built_in">end</span>()) res = <span class="built_in">max</span>(res, curSum - *it);</span><br><span class="line">                s.insert(curSum);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </details>
+<h3 id="Review">Review</h3>
+<p>二分查找的很多题目其实只是用二分查找进行了优化，很多时候是用lower_bound和upper_bound来代替二分查找，因此不需要刻意的往二分上去想，应当先想一个正常的方法，然后思考如何用二分去优化。</p>
 
         </div>
         
@@ -389,7 +472,7 @@ What if the BST is modified (insert/delete operations) often and you need to fin
     <div class="toc-sidebar">
         <nav id="toc" class="article-toc">
             <h3 class="toc-title">Catalogue</h3>
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC209-Minimum-Size-Subarray-Sum"><span class="toc-number">1.</span> <span class="toc-text">LC209 Minimum Size Subarray Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC230-Kth-Smallest-Element-in-a-BST"><span class="toc-number">2.</span> <span class="toc-text">LC230 Kth Smallest Element in a BST</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC275-H-Index-II"><span class="toc-number">3.</span> <span class="toc-text">LC275 H-Index II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC278-First-Bad-Version"><span class="toc-number">4.</span> <span class="toc-text">LC278 First Bad Version</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC300-Longest-Increasing-Subsequence"><span class="toc-number">5.</span> <span class="toc-text">LC300 Longest Increasing Subsequence</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC"><span class="toc-number">6.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-2"><span class="toc-number">7.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-3"><span class="toc-number">8.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-4"><span class="toc-number">9.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-5"><span class="toc-number">10.</span> <span class="toc-text">LC</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC209-Minimum-Size-Subarray-Sum"><span class="toc-number">1.</span> <span class="toc-text">LC209 Minimum Size Subarray Sum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC230-Kth-Smallest-Element-in-a-BST"><span class="toc-number">2.</span> <span class="toc-text">LC230 Kth Smallest Element in a BST</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC275-H-Index-II"><span class="toc-number">3.</span> <span class="toc-text">LC275 H-Index II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC278-First-Bad-Version"><span class="toc-number">4.</span> <span class="toc-text">LC278 First Bad Version</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC300-Longest-Increasing-Subsequence"><span class="toc-number">5.</span> <span class="toc-text">LC300 Longest Increasing Subsequence</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC349-Intersection-of-Two-Arrays"><span class="toc-number">6.</span> <span class="toc-text">LC349 Intersection of Two Arrays</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC350-Intersection-of-Two-Arrays-II"><span class="toc-number">7.</span> <span class="toc-text">LC350 Intersection of Two Arrays II</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC352-Data-Stream-as-Disjoint-Intervals"><span class="toc-number">8.</span> <span class="toc-text">LC352 Data Stream as Disjoint Intervals</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC354-Russian-Doll-Envelopes"><span class="toc-number">9.</span> <span class="toc-text">LC354 Russian Doll Envelopes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC363-Max-Sum-of-Rectangle-No-Larger-Than-K"><span class="toc-number">10.</span> <span class="toc-text">LC363 Max Sum of Rectangle No Larger Than K</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Review"><span class="toc-number">11.</span> <span class="toc-text">Review</span></a></li></ol>
         </nav>
     </div>
 </aside>
