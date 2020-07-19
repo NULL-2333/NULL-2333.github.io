@@ -12,7 +12,7 @@
 <meta property="og:description" content="LC675 Cut Off Trees for Golf Event Problem  You are asked to cut off trees in a forest for a golf event. The forest is represented as a non-negative 2D map, in this map:  0 represents the obstacle can">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-07-04T07:02:17.000Z">
-<meta property="article:modified_time" content="2020-07-04T14:55:23.826Z">
+<meta property="article:modified_time" content="2020-07-14T00:50:21.037Z">
 <meta property="article:author" content="Yiming">
 <meta property="article:tag" content="LeetCode">
 <meta property="article:tag" content="BFS">
@@ -215,7 +215,7 @@
                 </span>
                 
     
-        <span class="post-wordcount" itemprop="wordCount">Word Count: 1.4k(words)</span>
+        <span class="post-wordcount" itemprop="wordCount">Word Count: 2.2k(words)</span>
     
     
 
@@ -319,6 +319,57 @@
 </blockquote>
 </details>
 <details><summary>Think</summary>
+<p>贪心算法，每次修改最后一位数字，注意内层要反向遍历</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">crackSafe</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> res = <span class="built_in">string</span>(n, <span class="string">'0'</span>);</span><br><span class="line">    <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; visited;</span><br><span class="line">    visited.insert(res);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">pow</span>(k, n); i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> pre = res.substr(res.<span class="built_in">size</span>() - n + <span class="number">1</span>, n - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = k - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--)&#123;</span><br><span class="line">            <span class="built_in">string</span> cur = pre + to_string(j);</span><br><span class="line">            <span class="keyword">if</span>(!visited.count(cur))&#123;</span><br><span class="line">                visited.insert(cur);</span><br><span class="line">                res += to_string(j);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC764-Largest-Plus-Sign">LC764 Largest Plus Sign</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>In a 2D <code>grid</code> from (0, 0) to (N-1, N-1), every cell contains a <code>1</code>, except those cells in the given list <code>mines</code> which are <code>0</code>. What is the largest axis-aligned plus sign of <code>1</code>s contained in the grid? Return the order of the plus sign. If there is none, return 0.</p>
+<p>An “<em>axis-aligned plus sign of <code>1</code>s</em> of order <strong>k</strong>” has some center <code>grid[x][y] = 1</code> along with 4 arms of length <code>k-1</code> going up, down, left, and right, and made of <code>1</code>s. This is demonstrated in the diagrams below. Note that there could be <code>0</code>s or <code>1</code>s beyond the arms of the plus sign, only the relevant area of the plus sign is checked for 1s.</p>
+<p><strong>Examples of Axis-Aligned Plus Signs of Order k:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Order 1:</span><br><span class="line">000</span><br><span class="line">010</span><br><span class="line">000</span><br><span class="line"></span><br><span class="line">Order 2:</span><br><span class="line">00000</span><br><span class="line">00100</span><br><span class="line">01110</span><br><span class="line">00100</span><br><span class="line">00000</span><br><span class="line"></span><br><span class="line">Order 3:</span><br><span class="line">0000000</span><br><span class="line">0001000</span><br><span class="line">0001000</span><br><span class="line">0111110</span><br><span class="line">0001000</span><br><span class="line">0001000</span><br><span class="line">0000000</span><br></pre></td></tr></table></figure>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input: N &#x3D; 5, mines &#x3D; [[4, 2]]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation:</span><br><span class="line">11111</span><br><span class="line">11111</span><br><span class="line">11111</span><br><span class="line">11111</span><br><span class="line">11011</span><br><span class="line">In the above grid, the largest plus sign can only be order 2.  One of them is marked in bold.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: N &#x3D; 2, mines &#x3D; []</span><br><span class="line">Output: 1</span><br><span class="line">Explanation:</span><br><span class="line">There is no plus sign of order 2, but there is of order 1.</span><br></pre></td></tr></table></figure>
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: N &#x3D; 1, mines &#x3D; [[0, 0]]</span><br><span class="line">Output: 0</span><br><span class="line">Explanation:</span><br><span class="line">There is no plus sign, so return 0.</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong></p>
+<ol>
+<li><code>N</code> will be an integer in the range <code>[1, 500]</code>.</li>
+<li><code>mines</code> will have length at most <code>5000</code>.</li>
+<li><code>mines[i]</code> will be length 2 and consist of integers in the range <code>[0, N-1]</code>.</li>
+<li><em>(Additionally, programs submitted in C, C++, or C# will be judged with a slightly smaller time limit.)</em></li>
+</ol>
+</blockquote>
+</details>
+<details><summary>Think</summary>
+<p>分别建立上下左右四个方向上的dp数组，然后取四个当中的最小值即可。</p>
+</details>
+<details><summary>Code</summary>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">orderOfLargestPlusSign</span><span class="params">(<span class="keyword">int</span> N, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; mines)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="title">dp</span><span class="params">(N, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(N, N))</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> mine: mines) dp[mine[<span class="number">0</span>]][mine[<span class="number">1</span>]] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>, u = <span class="number">0</span>, d = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>, k = N - <span class="number">1</span>; j &lt; N; j++, k--)&#123;</span><br><span class="line">            l = dp[i][j] ? l + <span class="number">1</span>: <span class="number">0</span>;</span><br><span class="line">            r = dp[j][i] ? r + <span class="number">1</span>: <span class="number">0</span>;</span><br><span class="line">            u = dp[i][k] ? u + <span class="number">1</span>: <span class="number">0</span>;</span><br><span class="line">            d = dp[k][i] ? d + <span class="number">1</span>: <span class="number">0</span>;</span><br><span class="line">            dp[i][j] = <span class="built_in">min</span>(dp[i][j], l);</span><br><span class="line">            dp[j][i] = <span class="built_in">min</span>(dp[j][i], r);</span><br><span class="line">            dp[i][k] = <span class="built_in">min</span>(dp[i][k], u);</span><br><span class="line">            dp[k][i] = <span class="built_in">min</span>(dp[k][i], d);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; N * N; ++k) res = <span class="built_in">max</span>(res, dp[k / N][k % N]);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<h3 id="LC787-Cheapest-Flights-Within-K-Stops">LC787 Cheapest Flights Within K Stops</h3>
+<details><summary>Problem</summary>
+<blockquote>
+<p>There are <code>n</code> cities connected by <code>m</code> flights. Each flight starts from city <code>u</code> and arrives at <code>v</code> with a price <code>w</code>.</p>
+<p>Now given all the cities and flights, together with starting city <code>src</code> and the destination <code>dst</code>, your task is to find the cheapest price from <code>src</code> to <code>dst</code> with up to <code>k</code> stops. If there is no such route, output <code>-1</code>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Example 1:</span><br><span class="line">Input: </span><br><span class="line">n &#x3D; 3, edges &#x3D; [[0,1,100],[1,2,100],[0,2,500]]</span><br><span class="line">src &#x3D; 0, dst &#x3D; 2, k &#x3D; 1</span><br><span class="line">Output: 200</span><br><span class="line">Explanation: </span><br><span class="line">The graph looks like this:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">The cheapest price from city 0 to city 2 with at most 1 stop costs 200, as marked red in the picture.</span><br><span class="line">Example 2:</span><br><span class="line">Input: </span><br><span class="line">n &#x3D; 3, edges &#x3D; [[0,1,100],[1,2,100],[0,2,500]]</span><br><span class="line">src &#x3D; 0, dst &#x3D; 2, k &#x3D; 0</span><br><span class="line">Output: 500</span><br><span class="line">Explanation: </span><br><span class="line">The graph looks like this:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">The cheapest price from city 0 to city 2 with at most 0 stop costs 500, as marked blue in the picture.</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>The number of nodes <code>n</code> will be in range <code>[1, 100]</code>, with nodes labeled from <code>0</code> to <code>n`` - 1</code>.</li>
+<li>The size of <code>flights</code> will be in range <code>[0, n * (n - 1) / 2]</code>.</li>
+<li>The format of each flight will be <code>(src, ``dst``, price)</code>.</li>
+<li>The price of each flight will be in the range <code>[1, 10000]</code>.</li>
+<li><code>k</code> is in the range of <code>[0, n - 1]</code>.</li>
+<li>There will not be any duplicated flights or self cycles.</li>
+</ul>
+</blockquote>
+</details>
+<details><summary>Think</summary>
 </details>
 <details><summary>Code</summary>
 </details>
@@ -385,20 +436,6 @@
 </details>
 <details><summary>Code</summary>
 </details>
-<h3 id="LC-10">LC</h3>
-<details><summary>Problem</summary>
-</details>
-<details><summary>Think</summary>
-</details>
-<details><summary>Code</summary>
-</details>
-<h3 id="LC-11">LC</h3>
-<details><summary>Problem</summary>
-</details>
-<details><summary>Think</summary>
-</details>
-<details><summary>Code</summary>
-</details>
 
         </div>
         
@@ -421,7 +458,7 @@
     <div class="toc-sidebar">
         <nav id="toc" class="article-toc">
             <h3 class="toc-title">Catalogue</h3>
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC675-Cut-Off-Trees-for-Golf-Event"><span class="toc-number">1.</span> <span class="toc-text">LC675 Cut Off Trees for Golf Event</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC690-Employee-Importance"><span class="toc-number">2.</span> <span class="toc-text">LC690 Employee Importance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC744-Find-Smallest-Letter-Greater-Than-Target"><span class="toc-number">3.</span> <span class="toc-text">LC744 Find Smallest Letter Greater Than Target</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC753-Cracking-the-Safe"><span class="toc-number">4.</span> <span class="toc-text">LC753 Cracking the Safe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC"><span class="toc-number">5.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-2"><span class="toc-number">6.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-3"><span class="toc-number">7.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-4"><span class="toc-number">8.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-5"><span class="toc-number">9.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-6"><span class="toc-number">10.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-7"><span class="toc-number">11.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-8"><span class="toc-number">12.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-9"><span class="toc-number">13.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-10"><span class="toc-number">14.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-11"><span class="toc-number">15.</span> <span class="toc-text">LC</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC675-Cut-Off-Trees-for-Golf-Event"><span class="toc-number">1.</span> <span class="toc-text">LC675 Cut Off Trees for Golf Event</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC690-Employee-Importance"><span class="toc-number">2.</span> <span class="toc-text">LC690 Employee Importance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC744-Find-Smallest-Letter-Greater-Than-Target"><span class="toc-number">3.</span> <span class="toc-text">LC744 Find Smallest Letter Greater Than Target</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC753-Cracking-the-Safe"><span class="toc-number">4.</span> <span class="toc-text">LC753 Cracking the Safe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC764-Largest-Plus-Sign"><span class="toc-number">5.</span> <span class="toc-text">LC764 Largest Plus Sign</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC787-Cheapest-Flights-Within-K-Stops"><span class="toc-number">6.</span> <span class="toc-text">LC787 Cheapest Flights Within K Stops</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC"><span class="toc-number">7.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-2"><span class="toc-number">8.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-3"><span class="toc-number">9.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-4"><span class="toc-number">10.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-5"><span class="toc-number">11.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-6"><span class="toc-number">12.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-7"><span class="toc-number">13.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-8"><span class="toc-number">14.</span> <span class="toc-text">LC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-9"><span class="toc-number">15.</span> <span class="toc-text">LC</span></a></li></ol>
         </nav>
     </div>
 </aside>
