@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/Define%E4%B8%AD%E7%9A%84%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7/</loc>
+    
+    <lastmod>2020-08-25T17:25:45.023Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/RunLoop/</loc>
+    
+    <lastmod>2020-08-25T17:24:21.557Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/KVO-KVC%E4%B8%8EKVV/</loc>
+    
+    <lastmod>2020-08-25T17:07:32.530Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/selector%E4%BC%A0%E5%8F%82/</loc>
+    
+    <lastmod>2020-08-25T16:52:11.249Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/Objective-C%E5%92%8CHook/</loc>
     
     <lastmod>2020-08-25T16:51:16.201Z</lastmod>
@@ -75,13 +103,6 @@
     <loc>http://yoursite.com/iOS%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
     
     <lastmod>2020-08-25T16:10:47.445Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/selector%E4%BC%A0%E5%8F%82/</loc>
-    
-    <lastmod>2020-08-15T11:12:21.692Z</lastmod>
     
   </url>
   
