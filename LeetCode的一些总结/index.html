@@ -11,23 +11,23 @@
 <meta property="og:site_name" content="Yiming">
 <meta property="og:description" content="一些套路的总结  分解问题的角度：固定某一个维度，尝试另一维度上的所有可能  可能是array的(i, j) pointers 可能是矩形的长与宽 可能是tree的每一个subtree，比如固定左子树，来遍历每一个可能的右子树 可能是情景题的每一对pair   求所有解的，一 般暴力上backtracking 如果问最短&#x2F;最少的, 先想BFS和DP 如果环相关，或者涉及到重复访问，可以使用DFS">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/assets/14patterns/slidingWindow.png">
-<meta property="og:image" content="http://yoursite.com/assets/14patterns/TwoPointer.png">
-<meta property="og:image" content="http://yoursite.com/assets/14patterns/Fast&amp;SlowPointer.png">
-<meta property="og:image" content="http://yoursite.com/assets/14patterns/MergeIntervals.png">
-<meta property="og:image" content="http://yoursite.com/assets/14patterns/CyclicSort.png">
-<meta property="og:image" content="http://yoursite.com/assets/14patterns/ReverseLinkedList.png">
-<meta property="og:image" content="http://yoursite.com/assets/14patterns/Subset.png">
-<meta property="og:image" content="http://yoursite.com/assets/14patterns/Binary.png">
-<meta property="og:image" content="http://yoursite.com/assets/14patterns/TopK.png">
-<meta property="og:image" content="http://yoursite.com/assets/14patterns/KMerge.png">
-<meta property="og:image" content="http://yoursite.com/assets/14patterns/Topological.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/slidingWindow.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/TwoPointer.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/Fast&amp;SlowPointer.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/MergeIntervals.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/CyclicSort.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/ReverseLinkedList.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/Subset.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/Binary.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/TopK.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/KMerge.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/Topological.png">
 <meta property="article:published_time" content="2020-05-27T08:21:38.000Z">
-<meta property="article:modified_time" content="2020-06-01T14:37:31.583Z">
+<meta property="article:modified_time" content="2020-09-09T16:22:11.510Z">
 <meta property="article:author" content="Yiming">
 <meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/assets/14patterns/slidingWindow.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/slidingWindow.png">
 
     
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
@@ -307,7 +307,7 @@
 <h3 id="14种常见模式">14种常见模式</h3>
 <h4 id="滑动窗口">滑动窗口</h4>
 <p>滑动窗口主要就是维护一个可以不断变化左右边界的子数组，如下图所示：</p>
-<p><img src="/assets/14patterns/slidingWindow.png" alt="Sliding Window"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/slidingWindow.png" alt="slidingWindow"></p>
 <p>每一次该窗口左边界右移一格，右边界根据需要进行相应的变化，可能向左移动，可能向右移动，也可能不变。</p>
 <h5 id="滑动窗口的问题的标志">滑动窗口的问题的标志</h5>
 <ol>
@@ -322,7 +322,7 @@
 </ol>
 <h4 id="双指针">双指针</h4>
 <p>双指针主要是同时使用两个指针迭代遍历数据结构，直到其中一个或者两个指针达到特定状态。一般用于有序的数组或者链表，可以将原本的O(n^2)​的复杂度降低成​O(n)​。</p>
-<p><img src="/assets/14patterns/TwoPointer.png" alt="Two Pointer"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/TwoPointer.png" alt="TwoPointer"></p>
 <h5 id="双指针问题的标志">双指针问题的标志</h5>
 <ol>
 <li>在有序数组或者链表中找到一系列满足特定条件的元素</li>
@@ -336,7 +336,7 @@
 </ol>
 <h4 id="快慢指针">快慢指针</h4>
 <p>又称Hare &amp; Tortoise algorithm，是一种使用不同行进速度的双指针的算法，经常用在处理环形链表的问题上。如果两个指针都在同一个环上，则快指针一定能和慢指针相遇。</p>
-<p><img src="/assets/14patterns/Fast&amp;SlowPointer.png" alt="Fast Slow Pointer"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/Fast&amp;SlowPointer.png" alt="Fast&amp;SlowPointer"></p>
 <h5 id="快慢指针问题的标志">快慢指针问题的标志</h5>
 <ol>
 <li>一般是带环的链表或者数组</li>
@@ -351,7 +351,7 @@
 </ol>
 <h4 id="区间的合并">区间的合并</h4>
 <p>区间合并主要是用来处理相互重叠的区间问题的，主要有以下六种情况：</p>
-<p><img src="/assets/14patterns/MergeIntervals.png" alt="Merge Intervals"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/MergeIntervals.png" alt="MergeIntervals"></p>
 <h5 id="区间合并问题的标志">区间合并问题的标志</h5>
 <ol>
 <li>需要产生只包含互斥区间的数组</li>
@@ -364,7 +364,7 @@
 </ol>
 <h4 id="循环排序">循环排序</h4>
 <p>主要处理数组中的数值限定在一定的区间的问题。</p>
-<p><img src="/assets/14patterns/CyclicSort.png" alt="Cyclic Sort"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/CyclicSort.png" alt="CyclicSort"></p>
 <h5 id="循环排序问题的标志">循环排序问题的标志</h5>
 <ol>
 <li>涉及到排序好的数组，而且数值满足于一定的区间</li>
@@ -381,7 +381,7 @@
 <li>current指向当前遍历到的节点</li>
 <li>previous指向上一个处理好的节点</li>
 </ul>
-<p><img src="/assets/14patterns/ReverseLinkedList.png" alt="Reverse Linked List"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/ReverseLinkedList.png" alt="ReverseLinkedList"></p>
 <h5 id="原地链表翻转的标志">原地链表翻转的标志</h5>
 <ul>
 <li>被要求不使用格外空间进行链表的翻转</li>
@@ -427,7 +427,7 @@
 <li>Find the Median of a Number Stream (medium)</li>
 </ul>
 <h4 id="子集问题模式">子集问题模式</h4>
-<p><img src="/assets/14patterns/Subset.png" alt="Subset"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/Subset.png" alt="Subset"></p>
 <h5 id="子集问题模式的标志">子集问题模式的标志</h5>
 <ul>
 <li>需要找数字的排列或者组合</li>
@@ -438,7 +438,7 @@
 <li>String Permutations by changing case (medium)</li>
 </ol>
 <h4 id="二分">二分</h4>
-<p><img src="/assets/14patterns/Binary.png" alt="Binary"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/Binary.png" alt="Binary"></p>
 <h5 id="主要问题-9">主要问题</h5>
 <ol>
 <li>Order-agnostic Binary Search (easy)</li>
@@ -446,7 +446,7 @@
 </ol>
 <h4 id="前k大的元素">前k大的元素</h4>
 <p>主要用于求解前k大/小的元素，一般采用最大堆或者最小堆的方式</p>
-<p><img src="/assets/14patterns/TopK.png" alt="TopK"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/TopK.png" alt="TopK"></p>
 <h5 id="topK的标志">topK的标志</h5>
 <ol>
 <li>需要求解最大/最小/最频繁的元素</li>
@@ -459,7 +459,7 @@
 </ol>
 <h4 id="K路归并">K路归并</h4>
 <p>主要涉及到k个有序数组的合并</p>
-<p><img src="/assets/14patterns/KMerge.png" alt="KMerge"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/KMerge.png" alt="KMerge"></p>
 <h5 id="K路归并的标志">K路归并的标志</h5>
 <ol>
 <li>输入是排好序的数字，链表或者矩阵</li>
@@ -487,7 +487,7 @@ a) 对每个起点，执行以下步骤<br>
 — iv)如果孩子的入度变为0，则改孩子节点成为起点，将其加入队列中<br>
 b) 重复（a）过程，直到起点队列为空。</li>
 </ol>
-<p><img src="/assets/14patterns/Topological.png" alt="Topological"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/Topological.png" alt="Topological"></p>
 <h5 id="拓扑排序的主要标志">拓扑排序的主要标志</h5>
 <ol>
 <li>需要处理的图是无环图</li>

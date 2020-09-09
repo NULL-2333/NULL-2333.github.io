@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/LeetCode%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</loc>
+    
+    <lastmod>2020-09-09T16:22:11.510Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/Objective-C%E4%B8%8ERuntime/</loc>
     
     <lastmod>2020-09-09T16:11:52.929Z</lastmod>
@@ -194,13 +201,6 @@
     <loc>http://yoursite.com/Greedy-2/</loc>
     
     <lastmod>2020-06-02T11:46:45.763Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/LeetCode%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/</loc>
-    
-    <lastmod>2020-06-01T14:37:31.583Z</lastmod>
     
   </url>
   
