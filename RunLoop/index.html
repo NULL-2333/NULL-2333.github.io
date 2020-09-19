@@ -11,7 +11,7 @@
 <meta property="og:site_name" content="Yiming">
 <meta property="og:description" content="什么是RunLoop RunLoop就是一个永不停止的循环，在这个循环中，系统将一直进行“等待-接收消息-处理-等待”的循环。iOS中的RunLoop保证了系统可以一直运行，而不是执行完成当前任务后就退出。在iOS的主线程中自动运行着一个RunLoop，即main.m文件中的main函数返回的UIApplicationMain对象自动包含的。 其主要起如下作用：  等待用户的输入和发出的事件； 决">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/Users/chenyiming/Documents/Blog/source/assets/ios/runloop.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/runloop-20200919103503373.PNG">
 <meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/runlooplogic.PNG">
 <meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/AutoReleasePool.PNG">
 <meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/slowdown1.PNG">
@@ -24,12 +24,12 @@
 <meta property="og:image" content="http://yoursite.com/Users/chenyiming/Documents/Blog/source/assets/ios/uiupdate.PNG">
 <meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/stack3.PNG">
 <meta property="article:published_time" content="2020-08-23T17:08:34.000Z">
-<meta property="article:modified_time" content="2020-09-19T02:11:21.878Z">
+<meta property="article:modified_time" content="2020-09-19T02:35:15.580Z">
 <meta property="article:author" content="Yiming">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="RunLoop">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/Users/chenyiming/Documents/Blog/source/assets/ios/runloop.PNG">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/runloop-20200919103503373.PNG">
 
     
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
@@ -241,7 +241,7 @@
 <p>OC中的Core Foundation库中有一层对RunLoop的实现：CFRunLoopRef，主要包含RunLoop的结构和一系列底层的C语言API，而后在Foundation库中对CFRunLoopRef有进一步的封装：NSRunLoop。</p>
 <h3 id="RunLoop结构">RunLoop结构</h3>
 <h4 id="CFRunLoopRef">CFRunLoopRef</h4>
-<p><img src="/Users/chenyiming/Documents/Blog/source/assets/ios/runloop.PNG" alt="runloop"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/runloop-20200919103503373.PNG" alt="img"></p>
 <h4 id="CFRunLoopModeRef">CFRunLoopModeRef</h4>
 <p>对于任意一个CFRunLoopModeRef对象，其中包含三部分，分别是CFRunLoopSourceRef的Set，CFRunLoopObserverRef的Array和CFRunLoopTimerRef的Array。如果一个mode中这三个对象均为空，则不会进入这个RunLoop，而同一对象反复加入mode也只会起效一次。因此，如果要切换mode，就必须先退出当前mode，然后再进入新的mode，从而做到mode与mode之间的分离。</p>
 <p>要往mode上添加或移除对象，可以使用以下函数：</p>

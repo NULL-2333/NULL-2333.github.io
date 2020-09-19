@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/RunLoop/</loc>
+    
+    <lastmod>2020-09-19T02:35:15.580Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/Palindrome%E6%80%BB%E7%BB%93/</loc>
     
     <lastmod>2020-09-19T02:20:04.289Z</lastmod>
@@ -40,13 +47,6 @@
     <loc>http://yoursite.com/Objective-C%E4%B8%8ERuntime/</loc>
     
     <lastmod>2020-09-19T02:12:44.772Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/RunLoop/</loc>
-    
-    <lastmod>2020-09-19T02:11:21.878Z</lastmod>
     
   </url>
   

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://yoursite.com/RunLoop/</loc>
+    <lastmod>2020-09-19</lastmod>
+  </url>
+  <url>
     <loc>http://yoursite.com/Palindrome%E6%80%BB%E7%BB%93/</loc>
     <lastmod>2020-09-19</lastmod>
   </url>
@@ -18,10 +22,6 @@
   </url>
   <url>
     <loc>http://yoursite.com/Objective-C%E4%B8%8ERuntime/</loc>
-    <lastmod>2020-09-19</lastmod>
-  </url>
-  <url>
-    <loc>http://yoursite.com/RunLoop/</loc>
     <lastmod>2020-09-19</lastmod>
   </url>
   <url>
