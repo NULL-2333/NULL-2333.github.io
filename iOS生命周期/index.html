@@ -11,15 +11,15 @@
 <meta property="og:site_name" content="Yiming">
 <meta property="og:description" content="iOS生命周期 APP的启动流程   执行main函数   调用UIApplicationMain函数   初始化UIApplication对象并设置UIApplication类的代理   UIApplication对象无限循环直至退出程序   UIApplication的生命周期 App有五种状态：   Not running（未运行）：程序未启动   Inactive（未激活）：其他两个状态切">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/assets/ios/lifecycle.PNG">
-<meta property="og:image" content="http://yoursite.com/assets/ios/saveui.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/lifecycle.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/saveui.PNG">
 <meta property="article:published_time" content="2020-07-29T02:33:18.000Z">
-<meta property="article:modified_time" content="2020-08-25T16:10:47.445Z">
+<meta property="article:modified_time" content="2020-09-19T02:16:33.338Z">
 <meta property="article:author" content="Yiming">
 <meta property="article:tag" content="Objective-C">
 <meta property="article:tag" content="iOS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/assets/ios/lifecycle.PNG">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/lifecycle.PNG">
 
     
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
@@ -325,8 +325,8 @@
 <p>举例如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-(void)encodeRestorableStateWithCoder:(NSCoder *)coder</span><br><span class="line">&#123;</span><br><span class="line">  [coder encodeObject:UIImagePNGRepresentation(_imageView.image)</span><br><span class="line">         forKey:@&quot;YourImageKey&quot;];</span><br><span class="line">  [super decodeRestorableStateWithCoder:coder];</span><br><span class="line">&#125;</span><br><span class="line">-(void)decodeRestorableStateWithCoder:(NSCoder *)coder</span><br><span class="line">&#123;</span><br><span class="line">  _imageView.image &#x3D; [UIImage imageWithData:[coder decodeObjectForKey:@&quot;YourImageKey&quot;]];</span><br><span class="line">  [super encodeRestorableStateWithCoder:coder];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>p.s. 调用顺序，第一张图为整个App运行过程中的顺序，第二张图为保存View和VC的具体过程</p>
-<p><img src="/assets/ios/lifecycle.PNG" alt="LifeCycle"></p>
-<p><img src="/assets/ios/saveui.PNG" alt="Save UI"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/lifecycle.PNG" alt="LifeCycle"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/saveui.PNG" alt="saveui"></p>
 
         </div>
         

@@ -11,16 +11,16 @@
 <meta property="og:site_name" content="Yiming">
 <meta property="og:description" content="KVO - Key Value Observer 在MVC架构中保持Model和View的统一性 定义依赖属性 依赖属性可以用来表明属性之间的依赖关系，从而使得在set被依赖属性的时候，依赖属性也会收到通知。定义依赖属性有以下两种方式：  为单个属性定义依赖属性  1234+ (NSSet&lt;NSString *&gt; *)keyPathsForValuesAffecting&lt;#Dep">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/assets/ios/keypath.PNG">
-<meta property="og:image" content="http://yoursite.com/assets/ios/array.PNG">
-<meta property="og:image" content="http://yoursite.com/assets/ios/mutablearray.PNG">
-<meta property="og:image" content="http://yoursite.com/assets/ios/getter.PNG">
-<meta property="og:image" content="http://yoursite.com/assets/ios/setter.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/keypath.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/array.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/mutablearray.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/getter.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/setter.PNG">
 <meta property="article:published_time" content="2020-08-25T16:53:03.000Z">
-<meta property="article:modified_time" content="2020-08-25T17:07:32.530Z">
+<meta property="article:modified_time" content="2020-09-19T02:07:30.544Z">
 <meta property="article:author" content="Yiming">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/assets/ios/keypath.PNG">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/keypath.PNG">
 
     
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
@@ -269,7 +269,7 @@
 <h3 id="集合操作">集合操作</h3>
 <p>参考https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueCoding/CollectionOperators.html</p>
 <p>对于集合类，可以通过在valueForKeyPath方法中设置不同的key实现，key的一般格式如下：</p>
-<p><img src="/assets/ios/keypath.PNG" alt="Key Path"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/keypath.PNG" alt="keypath"></p>
 <p>如果对象本来就是集合类，则left key path可以省略。</p>
 <p>举例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 返回self.labColor.testArr这个数组内的对象的amount属性的平均值</span><br><span class="line">[self valueForKeyPath:@&quot;labColor.testArr.@avg.amount&quot;])</span><br></pre></td></tr></table></figure>
@@ -288,9 +288,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(</span><br><span class="line">&quot;first half&quot;,</span><br><span class="line">&quot;first half&quot;,</span><br><span class="line">&quot;first half&quot;,</span><br><span class="line">&quot;first half&quot;,</span><br><span class="line">&quot;first half&quot;,</span><br><span class="line">&quot;last half&quot;,</span><br><span class="line">&quot;last half&quot;,</span><br><span class="line">&quot;last half&quot;,</span><br><span class="line">&quot;last half&quot;,</span><br><span class="line">&quot;last half&quot;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <p>相当于动态的在该类中添加了一个集合对象（实际上这个对象的类型是NSKeyValueArray，其内部包含一个NSArray对象）。</p>
 <p>类似的，我们也可以通过这种方式实现NSSet和NSOrderedSet：</p>
-<p><img src="/assets/ios/array.PNG" alt="Array"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/array.PNG" alt="array"></p>
 <p>同时也可以在上面这些方法的基础上再实现额外的添加和删除方法实现对应的mutable版本的集合类：</p>
-<p><img src="/assets/ios/mutablearray.PNG" alt="Mutable Array"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/mutablearray.PNG" alt="mutablearray"></p>
 <h2 id="KVV-Key-Value-Validation">KVV - Key Value Validation</h2>
 <p>可以在调用KVC函数之前判断即将要赋的值是否合法，主要是下面两个函数：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)validateValue:(inout id _Nullable * _Nonnull)ioValue forKey:(NSString *)inKey error:(out NSError **)outError;</span><br><span class="line">- (BOOL)validateValue:(inout id _Nullable * _Nonnull)ioValue forKeyPath:(NSString *)inKeyPath error:(out NSError **)outError;</span><br></pre></td></tr></table></figure>
@@ -301,7 +301,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; LabColor.m</span><br><span class="line">&#x2F;&#x2F; 对于firstName这个属性，@“Japan”是不合法的值</span><br><span class="line">- (BOOL)validateFirstName:(id *)value error:(out NSError * _Nullable __autoreleasing *)outError</span><br><span class="line">&#123;</span><br><span class="line">  NSString *firstName &#x3D; *value;</span><br><span class="line">  if ([firstName isEqualToString:@&quot;japan&quot;]) &#123;</span><br><span class="line">    return NO;</span><br><span class="line">  &#125;</span><br><span class="line">  return YES;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 使用</span><br><span class="line">_labColor &#x3D; [[LabColor alloc] init];</span><br><span class="line">NSString *value1 &#x3D; @&quot;japan&quot;;</span><br><span class="line">NSString *value2 &#x3D; @&quot;japann&quot;;</span><br><span class="line">NSError *err;</span><br><span class="line">NSLog(@&quot;%d&quot;, [_labColor validateValue:&amp;value1 forKey:@&quot;firstName&quot; error:&amp;err]);</span><br><span class="line">&#x2F;&#x2F; 返回NO</span><br><span class="line">NSLog(@&quot;%d&quot;, [_labColor validateValue:&amp;value2 forKey:@&quot;firstName&quot; error:&amp;err]);</span><br><span class="line">&#x2F;&#x2F; 返回YES</span><br></pre></td></tr></table></figure>
 <p>KVC中的函数调用顺序</p>
 <h3 id="取值-valueForKey-和-valueForKeyPath">取值 valueForKey: 和 valueForKeyPath:</h3>
-<p><img src="/assets/ios/getter.PNG" alt="Getter"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/getter.PNG" alt="getter"></p>
 <ol>
 <li>直接get的四个函数方法；</li>
 <li>是否实现了NSArray的方法；</li>
@@ -311,7 +311,7 @@
 <li>否则调用valueForUndefinedKey方法抛出异常（可以重写该方法不抛出异常）。</li>
 </ol>
 <h3 id="设置值-setValue-forKey-和-setValue-forKeyPath">设置值 setValue:forKey: 和 setValue:forKeyPath:</h3>
-<p><img src="/assets/ios/setter.PNG" alt="Setter"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/setter.PNG" alt="setter"></p>
 <ol>
 <li>首先查找是否有对应的set方法，如果有则直接调用；</li>
 <li>accessInstanceVariablesDirectly返回YES并且存在对应的实例变量，则直接设置实例变量即可；</li>
