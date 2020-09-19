@@ -164,8 +164,4 @@
     <loc>http://yoursite.com/Greedy-1/</loc>
     <lastmod>2020-05-06</lastmod>
   </url>
-  <url>
-    <loc>http://yoursite.com/hello-world/</loc>
-    <lastmod>2020-05-05</lastmod>
-  </url>
 </urlset> 
