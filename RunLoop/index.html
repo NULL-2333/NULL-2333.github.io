@@ -21,10 +21,10 @@
 <meta property="og:image" content="http://yoursite.com/Users/chenyiming/Documents/Blog/source/assets/ios/eventhandler.PNG">
 <meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/stack2.PNG">
 <meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/gesture.PNG">
-<meta property="og:image" content="http://yoursite.com/Users/chenyiming/Documents/Blog/source/assets/ios/uiupdate.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/uiupdate-20200921005043085.PNG">
 <meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/stack3.PNG">
 <meta property="article:published_time" content="2020-08-23T17:08:34.000Z">
-<meta property="article:modified_time" content="2020-09-19T02:35:15.580Z">
+<meta property="article:modified_time" content="2020-09-20T16:50:53.867Z">
 <meta property="article:author" content="Yiming">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="RunLoop">
@@ -318,7 +318,7 @@
 </blockquote>
 <h3 id="UI更新">UI更新</h3>
 <p>系统会注册一个回调函数为_ZN2CA11Transaction17observer_callbackEP19__CFRunLoopObservermPv的observer用于处理UI上的更新，监听BeforeWaiting和Exit事件。</p>
-<p><img src="/Users/chenyiming/Documents/Blog/source/assets/ios/uiupdate.PNG" alt="uiupdate"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/uiupdate-20200921005043085.PNG" alt="uiupdate.PNG"></p>
 <p>每次操作UI时，系统都会将这个UIView或者CALayer提交到一个全局的容器里面，在下一个runloop的时候统一调用上面那个回调函数执行ui的更新。（高亮处即为上面的那个回调函数）</p>
 <p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/stack3.PNG" alt="stack3"></p>
 <h2 id="参考">参考</h2>
