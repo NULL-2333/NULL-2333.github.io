@@ -18,13 +18,13 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/slowdown2.PNG">
 <meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/slowdown3.PNG">
 <meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/stack1.PNG">
-<meta property="og:image" content="http://yoursite.com/Users/chenyiming/Documents/Blog/source/assets/ios/eventhandler.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/eventhandler-20200921005842321.PNG">
 <meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/stack2.PNG">
 <meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/gesture.PNG">
 <meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/uiupdate-20200921005043085.PNG">
 <meta property="og:image" content="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/stack3.PNG">
 <meta property="article:published_time" content="2020-08-23T17:08:34.000Z">
-<meta property="article:modified_time" content="2020-09-20T16:50:53.867Z">
+<meta property="article:modified_time" content="2020-09-20T16:58:57.283Z">
 <meta property="article:author" content="Yiming">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="RunLoop">
@@ -307,7 +307,7 @@
 </blockquote>
 <p>通过添加__IOHIDEventSystemClientQueueCallback和__handleEventQueue这两个方法的Symbolic Breakpoint，观察调用栈可以知道，在点击UIButton触发点击事件的时候，首先会调用基于source1的__IOHIDEventSystemClientQueueCallback方法，然后才会调用基于source0的__handleEventQueue方法，完成一次完整的响应。</p>
 <p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/stack1.PNG" alt="stack1"></p>
-<p><img src="/Users/chenyiming/Documents/Blog/source/assets/ios/eventhandler.PNG" alt="eventhandler"></p>
+<p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/eventhandler-20200921005842321.PNG" alt="eventhandler.PNG"></p>
 <p><img src="https://raw.githubusercontent.com/NULL-2333/blog-comment/master/2020/09/stack2.PNG" alt="stack2"></p>
 <h3 id="手势操作">手势操作</h3>
 <p>手势操作则是在上面事件响应的基础上进行的，系统默认会注册一个回调函数为_UIGestureRecognizerUpdateObserver的observer</p>
